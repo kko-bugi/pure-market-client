@@ -15,7 +15,7 @@ for (const path of Object.keys(pages)) {
     : fileName.replace(/\/index/, "");
 
   routes.push({
-    path: fileName === "index" ? "/" : `/${normalizedPathName.toLowerCase}`,
+    path: fileName === "index" ? "/" : `/${normalizedPathName.toLowerCase()}`,
     Element: pages[path].default,
     loader: pages[path]?.loader,
     action: pages[path]?.action,
