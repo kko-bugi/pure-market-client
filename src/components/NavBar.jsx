@@ -4,11 +4,11 @@ import Logo from "../assets/Logo.svg";
 function NavBar() {
   return (
     <Wrapper>
-      <a href="">
+      <a href="/">
         <img src={Logo} alt="" />
       </a>
 
-      <MainFeature href="">농산물 쇼핑</MainFeature>
+      <MainFeature href="/market">농산물 쇼핑</MainFeature>
       <MainFeature href="">나눔 장터</MainFeature>
       <MainFeature href="">레시피 Book</MainFeature>
 
