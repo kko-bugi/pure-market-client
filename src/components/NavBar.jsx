@@ -15,7 +15,7 @@ function NavBar() {
       <div>
         <SubFeature href="">회원가입</SubFeature>
         <VerticalBar>|</VerticalBar>
-        <SubFeature href="">로그인</SubFeature>
+        <SubFeature href="/login">로그인</SubFeature>
       </div>
     </Wrapper>
   );
