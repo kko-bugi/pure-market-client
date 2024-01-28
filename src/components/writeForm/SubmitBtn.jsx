@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 function SubmitBtn({ onClick, bgColor, color = "white" }) {
   return (
-    <StyledBtn onClick={onClick} bgColor={bgColor} color={color}>
+    <StyledBtn type="submit" onClick={onClick} bgColor={bgColor} color={color}>
       작성 완료하기
     </StyledBtn>
   );
