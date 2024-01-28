@@ -28,7 +28,7 @@ function Write() {
                 placeholder={
                   "내용을 입력해주세요\n*무게, 개수, 상태 등 자세한 설명을 남길 수록 좋아요!"
                 }
-                height="231px"
+                height="193px"
                 style={{ marginTop: "11px", marginBottom: "19px" }}
               />
               <PriceWrapper>
@@ -85,6 +85,7 @@ const InputsWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 66px;
+  width: 100%;
 `;
 const PriceWrapper = styled.div`
   display: flex;
