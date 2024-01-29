@@ -3,13 +3,16 @@ import styled from "styled-components";
 import CloseIcon from "../../assets/CloseBtnImg.png";
 import CameraIcon from "../../assets/CameraIcon.svg";
 
+import { useNavigate } from "react-router-dom";
+
 export default function SingUp() {
+  const navigate = useNavigate();
   return (
     <Wrapper>
       <Container>
         <Header>
           <Title>회원가입</Title>
-          <CloseBtn>
+          <CloseBtn onClick={() => navigate(-1)}>
             <img src={CloseIcon} />
           </CloseBtn>
         </Header>
@@ -103,7 +106,11 @@ const Title = styled.h1`
   flex: 1;
 `;
 
-const CloseBtn = styled.span``;
+const CloseBtn = styled.button`
+  border: none;
+  background-color: white;
+  cursor: pointer;
+`;
 
 const ProfileWrapper = styled.div`
   //이거 안하면 프로필 원이 눌림
@@ -126,6 +133,7 @@ const Profile = styled.div`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  gap: 30px;
 `;
 
 const InputWrapper = styled.div`
@@ -138,7 +146,7 @@ const InputTitle = styled.h3`
   span {
     color: #ff0000;
   }
-  margin-bottom: 5px;
+  margin: 0;
 `;
 
 const InputBtnWrapper = styled.div`
@@ -157,11 +165,12 @@ const Input = styled.input`
   &:focus {
     outline: none;
   }
+  margin-top: 10px;
 `;
 
 const Button = styled.button`
   width: 78px;
-  height: 34px;
+  height: 30px;
   border-radius: 5px;
   border: 1px solid #0a5226;
   background-color: white;
@@ -169,8 +178,8 @@ const Button = styled.button`
   font-family: inherit;
   color: #4da36f;
   cursor: pointer;
-  padding: 0;
   margin-left: 15px;
+  margin-bottom: 6px;
 
   &:hover {
     background-color: #d9d9d9;
@@ -181,7 +190,7 @@ const BtnWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 50px 0 40px 0;
+  margin: 40px 0 40px 0;
 `;
 
 const SignUpBtn = styled.button`
