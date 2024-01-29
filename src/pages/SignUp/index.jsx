@@ -7,7 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function SingUp() {
+  // 핸드폰 번호
+  const [phoneNumber, setPhoneNumber] = useState(""); // 실제 넘길 값
   const [phoneNumberErrorMsg, setPhoneNumberErrorMsg] = useState("");
+  // 비밀번호
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState(""); //실제 넘길 값
   const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
@@ -15,11 +18,11 @@ export default function SingUp() {
   const navigate = useNavigate();
 
   const handlePhoneNumberChange = (e) => {
-    const value = e.target.value;
-    if (/[^0-9]/.test(value)) {
+    if (/[^0-9]/.test(e.target.value)) {
       setPhoneNumberErrorMsg("숫자만 입력해주세요.");
     } else {
       setPhoneNumberErrorMsg("");
+      setPhoneNumber(e.target.value); // 실제 넘길 값
     }
   };
 
@@ -32,7 +35,7 @@ export default function SingUp() {
       setPasswordErrorMsg("비밀번호가 일치하지 않습니다.");
     } else {
       setPasswordErrorMsg("");
-      setPasswordConfirm(e.target.value);
+      setPasswordConfirm(e.target.value); // 실제 넘길 값
     }
   };
 
