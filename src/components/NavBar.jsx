@@ -13,7 +13,7 @@ function NavBar() {
       <MainFeature href="">레시피 Book</MainFeature>
 
       <div>
-        <SubFeature href="signup">회원가입</SubFeature>
+        <SubFeature href="signUp">회원가입</SubFeature>
         <VerticalBar>|</VerticalBar>
         <SubFeature href="/login">로그인</SubFeature>
       </div>
