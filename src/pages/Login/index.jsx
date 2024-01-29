@@ -4,7 +4,7 @@ import Template from "../../components/Template";
 function Login() {
   return (
     <Template>
-      <Title>로그인</Title>
+      <Title>로그인 커밋 실험 중입니당</Title>
       <Form action="">
         <Input required type="text" placeholder="아이디를 입력해주세요" />
         <Input required type="password" placeholder="비밀번호를 입력해주세요" />
