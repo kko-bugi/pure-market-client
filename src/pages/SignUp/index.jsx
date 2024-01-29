@@ -8,15 +8,31 @@ import { useState } from "react";
 
 export default function SingUp() {
   const [phoneNumberErrorMsg, setPhoneNumberErrorMsg] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState(""); //실제 넘길 값
+  const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
+
   const navigate = useNavigate();
 
   const handlePhoneNumberChange = (e) => {
     const value = e.target.value;
-
     if (/[^0-9]/.test(value)) {
       setPhoneNumberErrorMsg("숫자만 입력해주세요.");
     } else {
       setPhoneNumberErrorMsg("");
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handlePasswordConfirmChange = (e) => {
+    if (e.target.value !== password) {
+      setPasswordErrorMsg("비밀번호가 일치하지 않습니다.");
+    } else {
+      setPasswordErrorMsg("");
+      setPasswordConfirm(e.target.value);
     }
   };
 
@@ -61,6 +77,7 @@ export default function SingUp() {
               required
               type="password"
               placeholder="비밀번호를 입력해주세요"
+              onChange={handlePasswordChange}
             />
           </InputWrapper>
           <InputWrapper>
@@ -71,7 +88,9 @@ export default function SingUp() {
               required
               type="password"
               placeholder="비밀번호를 한번 더 입력해주세요"
+              onChange={handlePasswordConfirmChange}
             />
+            {passwordErrorMsg && <ErrorMsg>{passwordErrorMsg}</ErrorMsg>}
           </InputWrapper>
           <InputWrapper>
             <InputTitle>
