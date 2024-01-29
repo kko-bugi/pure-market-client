@@ -4,9 +4,22 @@ import CloseIcon from "../../assets/CloseBtnImg.png";
 import CameraIcon from "../../assets/CameraIcon.svg";
 
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function SingUp() {
+  const [phoneNumberErrorMsg, setPhoneNumberErrorMsg] = useState("");
   const navigate = useNavigate();
+
+  const handlePhoneNumberChange = (e) => {
+    const value = e.target.value;
+
+    if (/[^0-9]/.test(value)) {
+      setPhoneNumberErrorMsg("숫자만 입력해주세요.");
+    } else {
+      setPhoneNumberErrorMsg("");
+    }
+  };
+
   return (
     <Wrapper>
       <Container>
@@ -64,7 +77,13 @@ export default function SingUp() {
             <InputTitle>
               핸드폰 번호<span>*</span>
             </InputTitle>
-            <Input required type="text" placeholder="‘-’ 없이 숫자만" />
+            <Input
+              required
+              type="text"
+              placeholder="‘-’ 없이 숫자만"
+              onChange={handlePhoneNumberChange}
+            />
+            {phoneNumberErrorMsg && <ErrorMsg>{phoneNumberErrorMsg}</ErrorMsg>}
           </InputWrapper>
           <BtnWrapper>
             <SignUpBtn>가입 완료하기</SignUpBtn>
@@ -184,6 +203,11 @@ const DuplicateCheckButton = styled.button`
   &:hover {
     background-color: #d9d9d9;
   }
+`;
+
+const ErrorMsg = styled.span`
+  color: red;
+  font-size: 13px;
 `;
 
 const BtnWrapper = styled.div`
