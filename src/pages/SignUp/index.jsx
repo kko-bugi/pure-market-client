@@ -28,7 +28,7 @@ export default function SingUp() {
             </InputTitle>
             <InputBtnWrapper>
               <Input required type="text" placeholder="닉네임을 입력해주세요" />
-              <Button>중복 확인</Button>
+              <DuplicateCheckButton>중복 확인</DuplicateCheckButton>
             </InputBtnWrapper>
           </InputWrapper>
           <InputWrapper>
@@ -37,7 +37,7 @@ export default function SingUp() {
             </InputTitle>
             <InputBtnWrapper>
               <Input required type="text" placeholder="아이디를 입력해주세요" />
-              <Button>중복 확인</Button>
+              <DuplicateCheckButton>중복 확인</DuplicateCheckButton>
             </InputBtnWrapper>
           </InputWrapper>
           <InputWrapper>
@@ -168,7 +168,7 @@ const Input = styled.input`
   margin-top: 10px;
 `;
 
-const Button = styled.button`
+const DuplicateCheckButton = styled.button`
   width: 78px;
   height: 30px;
   border-radius: 5px;
