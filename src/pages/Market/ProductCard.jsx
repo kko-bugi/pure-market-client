@@ -1,8 +1,14 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 function ProductCard({ product }) {
+  const navigate = useNavigate();
   return (
-    <CardWrapper href="">
+    <CardWrapper
+      onClick={() => {
+        navigate(`/market/${product.name}`, { state: product });
+      }}
+    >
       <ItemImg src={product.img} alt="" />
       <ItemName>{product.name}</ItemName>
       <ItemPrice>
@@ -15,8 +21,9 @@ function ProductCard({ product }) {
 
 export default ProductCard;
 
-const CardWrapper = styled.a`
+const CardWrapper = styled.div`
   max-width: 183px;
+  cursor: pointer;
 `;
 
 const ItemImg = styled.img`
@@ -29,6 +36,7 @@ const ItemName = styled.div`
   color: #000;
   font-size: 12px;
   min-height: 39px;
+  font-weight: 500;
 `;
 const ItemPrice = styled.div`
   color: #000;
@@ -37,7 +45,6 @@ const ItemPrice = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  // margin-top: 9px;
 `;
 
 const PriceUnit = styled.div`
