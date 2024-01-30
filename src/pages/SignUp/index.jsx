@@ -16,6 +16,11 @@ export default function SingUp() {
   const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
   // 프로필 사진
   const [profileImage, setProfileImage] = useState(null); // 실제 넘길 값
+  // 닉네임
+  const [nickname, setNickname] = useState("");
+  const [isNicknameChecked, setNicknameChecked] = useState(false);
+  const [nicknameErrorMessage, setNicknameErrorMessage] = useState("");
+  const [nicknameButtonDisabled, setNicknameButtonDisabled] = useState(false);
 
   const navigate = useNavigate();
 
@@ -62,6 +67,41 @@ export default function SingUp() {
     }
   };
 
+  const handleNicknameChange = (e) => {
+    const userInput = e.target.value;
+    // 닉네임 공백 체크
+    if (userInput.includes(" ")) {
+      setNicknameErrorMessage("닉네임에 공백을 포함할 수 없습니다.");
+      setNicknameChecked(false);
+      setNicknameButtonDisabled(true); // 공백이 있으면 버튼 비활성화
+    } else {
+      setNickname(userInput);
+      setNicknameErrorMessage("");
+      setNicknameChecked(false); // 새로 내용 입력하면 다시 중복체크 하도록
+      setNicknameButtonDisabled(false); // 공백이 없으면 버튼 활성화
+    }
+  };
+
+  const handleNicknameCheck = (e) => {
+    e.preventDefault();
+
+    if (!nickname) {
+      setNicknameErrorMessage("닉네임을 입력해주세요.");
+      setNicknameChecked(false);
+      return;
+    }
+
+    const isNicknameAvailable = true; // 백엔드에서 받아온 데이터. 중복 여부 결과
+    if (isNicknameAvailable) {
+      setNicknameErrorMessage(""); // 에러 메시지 초기화
+      setNicknameChecked(true); // PassMsg를 표시하기 위해 상태 업데이트
+    } else {
+      setNicknameErrorMessage("이미 사용 중인 닉네임입니다.");
+      setNicknameChecked(false);
+    }
+    setNicknameChecked(isNicknameAvailable);
+  };
+
   return (
     <Wrapper>
       <Container>
@@ -91,16 +131,29 @@ export default function SingUp() {
               닉네임<span>*</span>
             </InputTitle>
             <InputBtnWrapper>
-              <Input required type="text" placeholder="닉네임을 입력해주세요" />
-              <DuplicateCheckButton>중복 확인</DuplicateCheckButton>
+              <Input
+                type="text"
+                placeholder="닉네임을 입력해주세요"
+                onChange={handleNicknameChange}
+              />
+              <DuplicateCheckButton
+                onClick={handleNicknameCheck}
+                disabled={nicknameButtonDisabled}
+              >
+                중복 확인
+              </DuplicateCheckButton>
             </InputBtnWrapper>
+            {nicknameErrorMessage && (
+              <ErrorMsg>{nicknameErrorMessage}</ErrorMsg>
+            )}
+            {isNicknameChecked && <PassMsg>사용 가능한 닉네임입니다.</PassMsg>}
           </InputWrapper>
           <InputWrapper>
             <InputTitle>
               아이디<span>*</span>
             </InputTitle>
             <InputBtnWrapper>
-              <Input required type="text" placeholder="아이디를 입력해주세요" />
+              <Input type="text" placeholder="아이디를 입력해주세요" />
               <DuplicateCheckButton>중복 확인</DuplicateCheckButton>
             </InputBtnWrapper>
           </InputWrapper>
@@ -109,7 +162,6 @@ export default function SingUp() {
               비밀번호<span>*</span>
             </InputTitle>
             <Input
-              required
               type="password"
               placeholder="비밀번호를 입력해주세요"
               onChange={handlePasswordChange}
@@ -120,7 +172,6 @@ export default function SingUp() {
               비밀번호 확인<span>*</span>
             </InputTitle>
             <Input
-              required
               type="password"
               placeholder="비밀번호를 한번 더 입력해주세요"
               onChange={handlePasswordConfirmChange}
@@ -132,7 +183,6 @@ export default function SingUp() {
               핸드폰 번호<span>*</span>
             </InputTitle>
             <Input
-              required
               type="text"
               placeholder="‘-’ 없이 숫자만"
               onChange={handlePhoneNumberChange}
@@ -279,10 +329,22 @@ const DuplicateCheckButton = styled.button`
   &:hover {
     background-color: #d9d9d9;
   }
+
+  &:disabled {
+    background-color: #bababa;
+    color: #666666;
+    cursor: not-allowed;
+    border: 1px solid #999999;
+  }
 `;
 
 const ErrorMsg = styled.span`
   color: red;
+  font-size: 13px;
+`;
+
+const PassMsg = styled.span`
+  color: green;
   font-size: 13px;
 `;
 
