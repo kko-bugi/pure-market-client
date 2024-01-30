@@ -14,7 +14,7 @@ function Market() {
           <ProductCard key={el.product} product={el} />
         ))}
       </ItemWrapper>
-      <AddIcon src={Icon} href="" />
+      <AddIcon src={Icon} href="/market/write" />
     </Template>
   );
 }
