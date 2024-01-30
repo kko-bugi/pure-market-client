@@ -1,0 +1,44 @@
+import styled from "styled-components";
+
+function BannerTemplate({ txt, strongTxt, img, color }) {
+  return (
+    <BannerWrapper bgColor={color}>
+      <BannerContentWrapper>
+        <BannerTextWrapper>
+          <BannerText>{txt}</BannerText>
+          <BannerTextStrong>{strongTxt}</BannerTextStrong>
+        </BannerTextWrapper>
+        <BannerImg src={img} alt="" />
+      </BannerContentWrapper>
+    </BannerWrapper>
+  );
+}
+
+export default BannerTemplate;
+
+const BannerWrapper = styled.div`
+  background-color: ${(props) => props.bgColor};
+  height: 252px;
+  width: 100%;
+  margin-bottom: 54px;
+`;
+const BannerContentWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`;
+const BannerImg = styled.img`
+  height: 100%;
+`;
+const BannerTextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const BannerText = styled.span`
+  color: #000;
+  font-size: 34px;
+`;
+const BannerTextStrong = styled(BannerText)`
+  font-weight: 700;
+`;
