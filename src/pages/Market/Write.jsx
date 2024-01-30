@@ -61,6 +61,8 @@ const Title = styled.div`
 const ContentWrapper = styled.div`
   width: 100%;
   max-width: 898px;
+  height: 100%;
+  padding-top: 46px;
 `;
 
 const LeftWrapper = styled.div`

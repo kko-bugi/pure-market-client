@@ -12,9 +12,13 @@ export default SubmitBtn;
 
 const StyledBtn = styled.button`
   width: 781px;
+  height: 58px;
+  border-radius: 5px;
   margin-top: 77px;
   background-color: ${(props) => props.bgColor};
   color: ${(props) => props.color};
   font-size: 18px;
+  font-weight: 500;
   outline: none;
+  border: 0;
 `;
