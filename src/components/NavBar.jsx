@@ -34,6 +34,10 @@ const MainFeature = styled.a`
   color: #333;
   font-weight: 700;
   font-size: 18px;
+  text-decoration: none;
+  &::hover {
+    color: #828282;
+  }
 `;
 
 const SubFeature = styled.a`
@@ -41,6 +45,7 @@ const SubFeature = styled.a`
   font-weight: 400;
   font-size: 12px;
   line-height: 283.3%;
+  text-decoration: none;
 `;
 
 const VerticalBar = styled.span`
