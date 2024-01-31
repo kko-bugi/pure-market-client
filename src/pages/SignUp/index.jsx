@@ -26,6 +26,8 @@ export default function SignUp() {
   const [isIdChecked, setIsIdChecked] = useState(false);
   const [idErrorMessage, setIdErrorMessage] = useState("");
   const [idButtonDisabled, setIdButtonDisabled] = useState(false);
+  // 가입 완료하기
+  const [signUpButtonDisabled, setSignUpButtonDisabled] = useState(true);
 
   // X버튼을 위한 navigate
   const navigate = useNavigate();
@@ -255,7 +257,7 @@ export default function SignUp() {
             {phoneNumberErrorMsg && <ErrorMsg>{phoneNumberErrorMsg}</ErrorMsg>}
           </InputWrapper>
           <BtnWrapper>
-            <SignUpBtn>가입 완료하기</SignUpBtn>
+            <SignUpBtn disabled={signUpButtonDisabled}>가입 완료하기</SignUpBtn>
           </BtnWrapper>
         </Form>
       </Container>
@@ -423,9 +425,15 @@ const BtnWrapper = styled.div`
 const SignUpBtn = styled.button`
   width: 360px;
   height: 60px;
-  background-color: #d6e9dd;
+  background-color: #8de6b4;
   border-radius: 37.5px;
   font-size: 20px;
   color: #ffffff;
   border: transparent;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: #d6e9dd;
+    cursor: default;
+  }
 `;
