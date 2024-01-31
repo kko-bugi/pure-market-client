@@ -6,7 +6,7 @@ import CameraIcon from "../../assets/CameraIcon.svg";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-export default function SingUp() {
+export default function SignUp() {
   // 핸드폰 번호
   const [phoneNumber, setPhoneNumber] = useState(""); // 실제 넘길 값
   const [phoneNumberErrorMsg, setPhoneNumberErrorMsg] = useState("");
