@@ -79,6 +79,9 @@ export default function SignUp() {
 
   // 닉네임
   const handleNicknameChange = (e) => {
+    setNicknameErrorMessage(""); // 새로 내용 입력하면 초기화
+    setNicknameChecked(false); // 새로 내용 입력하면 다시 중복체크 하도록
+
     const userInput = e.target.value;
     // 닉네임 공백 체크
     if (userInput.includes(" ")) {
@@ -88,7 +91,6 @@ export default function SignUp() {
     } else {
       setNickname(userInput);
       setNicknameErrorMessage("");
-      setNicknameChecked(false); // 새로 내용 입력하면 다시 중복체크 하도록
       setNicknameButtonDisabled(false); // 공백이 없으면 버튼 활성화
     }
   };
@@ -116,6 +118,9 @@ export default function SignUp() {
 
   // 아이디
   const handleIdChange = (e) => {
+    setIdErrorMessage(""); // 새로 내용 입력하면 초기화
+    setIsIdChecked(false); // 새로 내용 입력하면 다시 중복체크 하도록
+
     const userInput = e.target.value;
 
     if (/[^a-zA-Z0-9]/.test(userInput) || userInput.includes(" ")) {
@@ -128,7 +133,6 @@ export default function SignUp() {
       setId(userInput);
       setIdErrorMessage("");
       setIdButtonDisabled(false);
-      setNicknameChecked(false); // 새로 내용 입력하면 다시 중복체크 하도록
     }
   };
 
