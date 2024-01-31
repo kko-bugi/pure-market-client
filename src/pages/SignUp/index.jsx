@@ -21,9 +21,16 @@ export default function SignUp() {
   const [isNicknameChecked, setNicknameChecked] = useState(false);
   const [nicknameErrorMessage, setNicknameErrorMessage] = useState("");
   const [nicknameButtonDisabled, setNicknameButtonDisabled] = useState(false);
+  // 아이디
+  const [id, setId] = useState("");
+  const [isIdChecked, setIsIdChecked] = useState(false);
+  const [idErrorMessage, setIdErrorMessage] = useState("");
+  const [idButtonDisabled, setIdButtonDisabled] = useState(false);
 
+  // X버튼을 위한 navigate
   const navigate = useNavigate();
 
+  // 핸드폰 번호
   const handlePhoneNumberChange = (e) => {
     if (/[^0-9]/.test(e.target.value)) {
       setPhoneNumberErrorMsg("숫자만 입력해주세요.");
@@ -33,10 +40,12 @@ export default function SignUp() {
     }
   };
 
+  // 비밀번호
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
 
+  // 비밀번호 확인
   const handlePasswordConfirmChange = (e) => {
     if (e.target.value !== password) {
       setPasswordErrorMsg("비밀번호가 일치하지 않습니다.");
@@ -46,6 +55,7 @@ export default function SignUp() {
     }
   };
 
+  // 프로필
   const handleImageChange = (e) => {
     const file = e.target.files[0];
 
@@ -67,6 +77,7 @@ export default function SignUp() {
     }
   };
 
+  // 닉네임
   const handleNicknameChange = (e) => {
     const userInput = e.target.value;
     // 닉네임 공백 체크
@@ -85,6 +96,7 @@ export default function SignUp() {
   const handleNicknameCheck = (e) => {
     e.preventDefault();
 
+    // 공백 입력 처리
     if (!nickname) {
       setNicknameErrorMessage("닉네임을 입력해주세요.");
       setNicknameChecked(false);
@@ -100,6 +112,44 @@ export default function SignUp() {
       setNicknameChecked(false);
     }
     setNicknameChecked(isNicknameAvailable);
+  };
+
+  // 아이디
+  const handleIdChange = (e) => {
+    const userInput = e.target.value;
+
+    if (/[^a-zA-Z0-9]/.test(userInput) || userInput.includes(" ")) {
+      setIdErrorMessage(
+        "영어와 숫자만 입력 가능하며, 공백을 포함할 수 없습니다."
+      );
+      setIdButtonDisabled(true);
+      setNicknameChecked(false);
+    } else {
+      setId(userInput);
+      setIdErrorMessage("");
+      setIdButtonDisabled(false);
+      setNicknameChecked(false); // 새로 내용 입력하면 다시 중복체크 하도록
+    }
+  };
+
+  const handleIdCheck = (e) => {
+    e.preventDefault();
+
+    // 공백 입력 처리
+    if (!id) {
+      setIdErrorMessage("아이디를 입력해주세요.");
+      setIsIdChecked(false);
+      return;
+    }
+
+    const isIdAvailable = true; // 백엔드에서 받아온 데이터. 중복 여부 결과
+    if (isIdAvailable) {
+      setIdErrorMessage("");
+      setIsIdChecked(true);
+    } else {
+      setIdErrorMessage("이미 사용 중인 아이디입니다.");
+      setIsIdChecked(false);
+    }
   };
 
   return (
@@ -153,9 +203,20 @@ export default function SignUp() {
               아이디<span>*</span>
             </InputTitle>
             <InputBtnWrapper>
-              <Input type="text" placeholder="아이디를 입력해주세요" />
-              <DuplicateCheckButton>중복 확인</DuplicateCheckButton>
+              <Input
+                type="text"
+                placeholder="아이디를 입력해주세요"
+                onChange={handleIdChange}
+              />
+              <DuplicateCheckButton
+                onClick={handleIdCheck}
+                disabled={idButtonDisabled}
+              >
+                중복 확인
+              </DuplicateCheckButton>
             </InputBtnWrapper>
+            {idErrorMessage && <ErrorMsg>{idErrorMessage}</ErrorMsg>}
+            {isIdChecked && <PassMsg>사용 가능한 아이디입니다.</PassMsg>}
           </InputWrapper>
           <InputWrapper>
             <InputTitle>
@@ -333,7 +394,7 @@ const DuplicateCheckButton = styled.button`
   &:disabled {
     background-color: #bababa;
     color: #666666;
-    cursor: not-allowed;
+    cursor: default;
     border: 1px solid #999999;
   }
 `;
