@@ -1,38 +1,45 @@
+import * as React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ErrorPage from "./ErrorPage";
 
-const pages = import.meta.glob("./pages/**/*.jsx", { eager: true });
+// Pages
+import Main from "./pages/index";
+import Login from "./pages/Login/index";
+import Market from "./pages/Market/index";
+import MarketWrite from "./pages/Market/Write";
+import ProductDetailed from "./pages/Market/$id";
 
-const routes = [];
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Main />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/market",
+    element: <Market />,
+  },
+  {
+    path: "/market/write",
+    element: <MarketWrite />,
+  },
+  {
+    path: "/market/:id",
+    element: <ProductDetailed />,
+    errorElement: <ErrorPage />,
+  },
+]);
 
-for (const path of Object.keys(pages)) {
-  const fileName = path.match(/\.\/pages\/(.*)\.jsx$/)?.[1];
-  if (!fileName) {
-    continue;
-  }
-
-  const normalizedPathName = fileName.includes("$")
-    ? fileName.replace("$", ":")
-    : fileName.replace(/\/index/, "");
-
-  routes.push({
-    path: fileName === "index" ? "/" : `/${normalizedPathName.toLowerCase()}`,
-    Element: pages[path].default,
-    loader: pages[path]?.loader,
-    action: pages[path]?.action,
-    ErrorBoundary: pages[path]?.ErrorBoundary,
-  });
+function App() {
+  return (
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+  );
 }
-
-const router = createBrowserRouter(
-  routes.map(({ Element, ErrorBoundary, ...rest }) => ({
-    ...rest,
-    element: <Element />,
-    ...(ErrorBoundary && { errorElement: <ErrorBoundary /> }),
-  }))
-);
-
-const App = () => {
-  return <RouterProvider router={router} />;
-};
 
 export default App;
