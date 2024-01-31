@@ -18,7 +18,7 @@ export default function SignUp() {
   const [profileImage, setProfileImage] = useState(null); // 실제 넘길 값
   // 닉네임
   const [nickname, setNickname] = useState("");
-  const [isNicknameChecked, setNicknameChecked] = useState(false);
+  const [isNicknameChecked, setIsNicknameChecked] = useState(false);
   const [nicknameErrorMessage, setNicknameErrorMessage] = useState("");
   const [nicknameButtonDisabled, setNicknameButtonDisabled] = useState(false);
   // 아이디
@@ -80,13 +80,13 @@ export default function SignUp() {
   // 닉네임
   const handleNicknameChange = (e) => {
     setNicknameErrorMessage(""); // 새로 내용 입력하면 초기화
-    setNicknameChecked(false); // 새로 내용 입력하면 다시 중복체크 하도록
+    setIsNicknameChecked(false); // 새로 내용 입력하면 다시 중복체크 하도록
 
     const userInput = e.target.value;
     // 닉네임 공백 체크
     if (userInput.includes(" ")) {
       setNicknameErrorMessage("닉네임에 공백을 포함할 수 없습니다.");
-      setNicknameChecked(false);
+      setIsNicknameChecked(false);
       setNicknameButtonDisabled(true); // 공백이 있으면 버튼 비활성화
     } else {
       setNickname(userInput);
@@ -101,19 +101,19 @@ export default function SignUp() {
     // 공백 입력 처리
     if (!nickname) {
       setNicknameErrorMessage("닉네임을 입력해주세요.");
-      setNicknameChecked(false);
+      setIsNicknameChecked(false);
       return;
     }
 
     const isNicknameAvailable = true; // 백엔드에서 받아온 데이터. 중복 여부 결과
     if (isNicknameAvailable) {
       setNicknameErrorMessage(""); // 에러 메시지 초기화
-      setNicknameChecked(true); // PassMsg를 표시하기 위해 상태 업데이트
+      setIsNicknameChecked(true); // PassMsg를 표시하기 위해 상태 업데이트
     } else {
       setNicknameErrorMessage("이미 사용 중인 닉네임입니다.");
-      setNicknameChecked(false);
+      setIsNicknameChecked(false);
     }
-    setNicknameChecked(isNicknameAvailable);
+    setIsNicknameChecked(isNicknameAvailable);
   };
 
   // 아이디
@@ -128,7 +128,7 @@ export default function SignUp() {
         "영어와 숫자만 입력 가능하며, 공백을 포함할 수 없습니다."
       );
       setIdButtonDisabled(true);
-      setNicknameChecked(false);
+      setIsNicknameChecked(false);
     } else {
       setId(userInput);
       setIdErrorMessage("");
