@@ -167,21 +167,21 @@ export default function SignUp() {
             <img src={CloseIcon} />
           </CloseBtn>
         </Header>
-        <ProfileWrapper>
-          <Profile
-            htmlFor="profileImageInput"
-            imageUrl={profileImage && URL.createObjectURL(profileImage)}
-          >
-            <img src={CameraIcon} alt="Camera Icon" />
-            <input
-              type="file"
-              id="profileImageInput"
-              accept=".jpg, .jpeg, .png"
-              onChange={handleImageChange}
-            />
-          </Profile>
-        </ProfileWrapper>
         <Form>
+          <ProfileWrapper>
+            <Profile
+              htmlFor="profileImageInput"
+              imageUrl={profileImage && URL.createObjectURL(profileImage)}
+            >
+              <img src={CameraIcon} alt="Camera Icon" />
+              <input
+                type="file"
+                id="profileImageInput"
+                accept=".jpg, .jpeg, .png"
+                onChange={handleImageChange}
+              />
+            </Profile>
+          </ProfileWrapper>
           <InputWrapper>
             <InputTitle>
               닉네임<span>*</span>
@@ -303,7 +303,8 @@ const CloseBtn = styled.button`
 `;
 
 const ProfileWrapper = styled.div`
-  //이거 안하면 프로필 원이 눌림
+  display: flex;
+  justify-content: center;
 `;
 
 const Profile = styled.label`
