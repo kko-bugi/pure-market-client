@@ -5,6 +5,7 @@ import Header from "./Header";
 import { useState } from "react";
 import Profile from "./Profile";
 import DuplicateCheckButton from "./DuplicateCheckButton";
+import Input from "./Input";
 
 export default function SignUp() {
   // 핸드폰 번호
@@ -139,76 +140,61 @@ export default function SignUp() {
         <Header />
         <Form>
           <Profile />
-          <InputWrapper>
-            <InputTitle>
-              닉네임<span>*</span>
-            </InputTitle>
-            <InputBtnWrapper>
-              <Input
-                type="text"
-                placeholder="닉네임을 입력해주세요"
-                onChange={handleNicknameChange}
-              />
+          <Input
+            title="닉네임"
+            text={{
+              type: "text",
+              placeholder: "닉네임을 입력해주세요",
+              onChange: handleNicknameChange,
+            }}
+            duplicate={
               <DuplicateCheckButton
                 onClick={handleNicknameCheck}
                 disabled={nicknameButtonDisabled}
               ></DuplicateCheckButton>
-            </InputBtnWrapper>
+            }
+          >
             {nicknameErrorMessage && (
               <ErrorMsg>{nicknameErrorMessage}</ErrorMsg>
             )}
             {isNicknameChecked && <PassMsg>사용 가능한 닉네임입니다.</PassMsg>}
-          </InputWrapper>
-          <InputWrapper>
-            <InputTitle>
-              아이디<span>*</span>
-            </InputTitle>
-            <InputBtnWrapper>
-              <Input
-                type="text"
-                placeholder="아이디를 입력해주세요"
-                onChange={handleIdChange}
-              />
-              <DuplicateCheckButton
-                onClick={handleIdCheck}
-                disabled={idButtonDisabled}
-              ></DuplicateCheckButton>
-            </InputBtnWrapper>
+          </Input>
+          <Input title="아이디">
+            <Text
+              type="text"
+              placeholder="아이디를 입력해주세요"
+              onChange={handleIdChange}
+            />
+            <DuplicateCheckButton
+              onClick={handleIdCheck}
+              disabled={idButtonDisabled}
+            ></DuplicateCheckButton>
             {idErrorMessage && <ErrorMsg>{idErrorMessage}</ErrorMsg>}
             {isIdChecked && <PassMsg>사용 가능한 아이디입니다.</PassMsg>}
-          </InputWrapper>
-          <InputWrapper>
-            <InputTitle>
-              비밀번호<span>*</span>
-            </InputTitle>
-            <Input
+          </Input>
+          <Input title="비밀번호">
+            <Text
               type="password"
               placeholder="비밀번호를 입력해주세요"
               onChange={handlePasswordChange}
             />
-          </InputWrapper>
-          <InputWrapper>
-            <InputTitle>
-              비밀번호 확인<span>*</span>
-            </InputTitle>
-            <Input
+          </Input>
+          <Input title="비밀번호 확인">
+            <Text
               type="password"
               placeholder="비밀번호를 한번 더 입력해주세요"
               onChange={handlePasswordConfirmChange}
             />
             {passwordErrorMsg && <ErrorMsg>{passwordErrorMsg}</ErrorMsg>}
-          </InputWrapper>
-          <InputWrapper>
-            <InputTitle>
-              핸드폰 번호<span>*</span>
-            </InputTitle>
-            <Input
+          </Input>
+          <Input title="핸드폰 번호">
+            <Text
               type="text"
               placeholder="‘-’ 없이 숫자만"
               onChange={handlePhoneNumberChange}
             />
             {phoneNumberErrorMsg && <ErrorMsg>{phoneNumberErrorMsg}</ErrorMsg>}
-          </InputWrapper>
+          </Input>
           <BtnWrapper>
             <SignUpBtn disabled={signUpButtonDisabled}>가입 완료하기</SignUpBtn>
           </BtnWrapper>
@@ -240,38 +226,6 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 30px;
-`;
-
-const InputWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const InputTitle = styled.h3`
-  font-size: 18px;
-  span {
-    color: #ff0000;
-  }
-  margin: 0;
-`;
-
-const InputBtnWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const Input = styled.input`
-  border: none;
-  border-bottom: 1px solid #bababa;
-  padding: 3px 0px;
-  flex: 1;
-  &::placeholder {
-    color: #bababa;
-  }
-  &:focus {
-    outline: none;
-  }
-  margin-top: 10px;
 `;
 
 const ErrorMsg = styled.span`
