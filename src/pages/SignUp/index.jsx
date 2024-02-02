@@ -24,7 +24,7 @@ export default function SignUp() {
     nickname: false,
     id: false,
     password: false,
-    passwordConfirm: false,
+    //passwordConfirm: false,
     phoneNumber: false,
   });
   // 닉네임
@@ -46,7 +46,12 @@ export default function SignUp() {
       [e.target.name]: e.target.value,
     };
     setForm(newForm);
-    console.log(form);
+
+    const name =
+      e.target.name === "passwordConfirm" ? "password" : e.target.name;
+    //에러메세지 초기화
+    //validation 초기화
+    handleValidation(name, false); // 새로 내용 입력하면 다시 중복체크 하도록
   };
 
   const handleValidation = (key, isValid) => {
@@ -57,7 +62,6 @@ export default function SignUp() {
   // 닉네임
   const handleNicknameChange = (e) => {
     setNicknameErrorMessage(""); // 새로 내용 입력하면 초기화
-    handleValidation("nickname", false); // 새로 내용 입력하면 다시 중복체크 하도록
 
     const userInput = e.target.value;
     if (userInput.includes(" ")) {
@@ -93,7 +97,6 @@ export default function SignUp() {
   // 아이디
   const handleIdChange = (e) => {
     setIdErrorMessage(""); // 새로 내용 입력하면 초기화
-    handleValidation("id", false); // 새로 내용 입력하면 다시 중복체크 하도록
 
     const userInput = e.target.value;
     if (/[^a-zA-Z0-9]/.test(userInput) || userInput.includes(" ")) {
