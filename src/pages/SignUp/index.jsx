@@ -130,7 +130,7 @@ export default function SignUp() {
         "영어와 숫자만 입력 가능하며, 공백을 포함할 수 없습니다."
       );
       setIdButtonDisabled(true);
-      setIsNicknameChecked(false);
+      setIsIdChecked(false);
     } else {
       setId(userInput);
       setIdErrorMessage("");
