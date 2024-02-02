@@ -151,6 +151,7 @@ export default function SignUp() {
       setPhoneNumberErrorMsg("숫자만 입력해주세요.");
     } else {
       setPhoneNumberErrorMsg("");
+      handleValidation("phoneNumber", true);
     }
   };
 
