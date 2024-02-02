@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
-import CloseIcon from "../../assets/CloseBtnImg.png";
 import CameraIcon from "../../assets/CameraIcon.svg";
+import Header from "./Header";
 
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function SignUp() {
@@ -28,9 +27,6 @@ export default function SignUp() {
   const [idButtonDisabled, setIdButtonDisabled] = useState(false);
   // 가입 완료하기
   const [signUpButtonDisabled, setSignUpButtonDisabled] = useState(true);
-
-  // X버튼을 위한 navigate
-  const navigate = useNavigate();
 
   // 핸드폰 번호
   const handlePhoneNumberChange = (e) => {
@@ -160,13 +156,8 @@ export default function SignUp() {
 
   return (
     <Wrapper>
-      <Container>
-        <Header>
-          <Title>회원가입</Title>
-          <CloseBtn onClick={() => navigate(-1)}>
-            <img src={CloseIcon} />
-          </CloseBtn>
-        </Header>
+      <SignUpContainer>
+        <Header />
         <Form>
           <ProfileWrapper>
             <Profile
@@ -260,7 +251,7 @@ export default function SignUp() {
             <SignUpBtn disabled={signUpButtonDisabled}>가입 완료하기</SignUpBtn>
           </BtnWrapper>
         </Form>
-      </Container>
+      </SignUpContainer>
     </Wrapper>
   );
 }
@@ -275,31 +266,12 @@ const Wrapper = styled.div`
   overflow-y: auto;
 `;
 
-const Container = styled.div`
+const SignUpContainer = styled.div`
   width: 400px;
   padding: 24px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const Header = styled.header`
-  display: flex;
-  align-items: center;
-  padding-bottom: 20px;
-  width: 100%;
-  text-align: center;
-`;
-
-const Title = styled.h1`
-  font-size: 24px;
-  flex: 1;
-`;
-
-const CloseBtn = styled.button`
-  border: none;
-  background-color: white;
-  cursor: pointer;
 `;
 
 const ProfileWrapper = styled.div`
