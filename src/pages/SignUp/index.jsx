@@ -204,6 +204,7 @@ export default function SignUp() {
             text={{
               type: "password",
               placeholder: "비밀번호를 입력해주세요",
+              value: form.password,
               name: "password",
               onChange: (e) => {
                 handleChange(e);
@@ -216,6 +217,7 @@ export default function SignUp() {
             text={{
               type: "password",
               placeholder: "비밀번호를 한번 더 입력해주세요",
+              value: form.passwordConfirm,
               name: "passwordConfirm",
               onChange: (e) => {
                 handleChange(e);
