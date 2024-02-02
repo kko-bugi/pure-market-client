@@ -35,11 +35,11 @@ export default function SignUp() {
     phoneNumber: "",
   });
   // 닉네임
-  const [nicknameButtonDisabled, setNicknameButtonDisabled] = useState(false);
+  const [isNicknameBtnDisabled, setIsNicknameBtnDisabled] = useState(false);
   // 아이디
-  const [idButtonDisabled, setIdButtonDisabled] = useState(false);
+  const [isIdBtnDisabled, setIsIdBtnDisabled] = useState(false);
   // 가입 완료하기
-  const [signUpButtonDisabled, setSignUpButtonDisabled] = useState(true);
+  const [isSignUpBtnDisabled, setIsSignUpBtnDisabled] = useState(true);
 
   const handleChange = (e) => {
     const newForm = {
@@ -71,10 +71,10 @@ export default function SignUp() {
     if (userInput.includes(" ")) {
       handleErrorMsg("nickname", "닉네임에 공백을 포함할 수 없습니다.");
       handleValidation("nickname", false);
-      setNicknameButtonDisabled(true); // 공백이 있으면 버튼 비활성화
+      setIsNicknameBtnDisabled(true); // 공백이 있으면 버튼 비활성화
     } else {
       handleErrorMsg("nickname", "");
-      setNicknameButtonDisabled(false); // 공백이 없으면 버튼 활성화
+      setIsNicknameBtnDisabled(false); // 공백이 없으면 버튼 활성화
     }
   };
 
@@ -106,11 +106,11 @@ export default function SignUp() {
         "id",
         "영어와 숫자만 입력 가능하며, 공백을 포함할 수 없습니다."
       );
-      setIdButtonDisabled(true);
+      setIsIdBtnDisabled(true);
       handleValidation("id", false);
     } else {
       handleErrorMsg("id", "");
-      setIdButtonDisabled(false);
+      setIsIdBtnDisabled(false);
     }
   };
 
@@ -175,7 +175,7 @@ export default function SignUp() {
             duplicate={
               <DuplicateCheckButton
                 onClick={handleNicknameCheck}
-                disabled={nicknameButtonDisabled}
+                disabled={isNicknameBtnDisabled}
               ></DuplicateCheckButton>
             }
             errorMsg={errorMsg.nickname}
@@ -196,7 +196,7 @@ export default function SignUp() {
             duplicate={
               <DuplicateCheckButton
                 onClick={handleIdCheck}
-                disabled={idButtonDisabled}
+                disabled={isIdBtnDisabled}
               ></DuplicateCheckButton>
             }
             errorMsg={errorMsg.id}
@@ -244,7 +244,7 @@ export default function SignUp() {
             errorMsg={errorMsg.phoneNumber}
           ></Input>
 
-          <SignUpButton disabled={signUpButtonDisabled} />
+          <SignUpButton disabled={isSignUpBtnDisabled} />
         </Form>
       </SignUpContainer>
     </Wrapper>
