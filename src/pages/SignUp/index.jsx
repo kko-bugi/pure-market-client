@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import Header from "./Header";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Profile from "./Profile";
 import DuplicateCheckButton from "./DuplicateCheckButton";
 import Input from "./Input";
@@ -124,7 +124,7 @@ export default function SignUp() {
       return;
     }
 
-    const isIdAvailable = true; // 백엔드에서 받아온 데이터. 중복 여부 결과
+    const isIdAvailable = false; // 백엔드에서 받아온 데이터. 중복 여부 결과
     if (isIdAvailable) {
       handleErrorMsg("id", "");
       handleValidation("id", true);
@@ -135,18 +135,15 @@ export default function SignUp() {
   };
 
   // 비밀번호
-  // const handlePasswordChange = (e) => {
-  //   setPassword(e.target.value);
-  // };
-
-  // 비밀번호 확인
-  const handlePasswordConfirmChange = (e) => {
-    if (e.target.value !== form.password) {
-      handleErrorMsg("password", "비밀번호가 일치하지 않습니다.");
-    } else {
-      handleErrorMsg("password", "");
+  useEffect(() => {
+    if (form.passwordConfirm) {
+      if (form.password === form.passwordConfirm) {
+        handleValidation("password", true);
+      } else {
+        handleErrorMsg("password", "비밀번호가 일치하지 않습니다.");
+      }
     }
-  };
+  }, [form.password, form.passwordConfirm]);
 
   // 핸드폰 번호
   const handlePhoneNumberChange = (e) => {
@@ -228,7 +225,6 @@ export default function SignUp() {
               name: "passwordConfirm",
               onChange: (e) => {
                 handleChange(e);
-                handlePasswordConfirmChange(e);
               },
             }}
             errorMsg={errorMsg.password}
