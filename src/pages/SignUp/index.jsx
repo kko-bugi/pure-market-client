@@ -1,17 +1,17 @@
 import styled from "styled-components";
 
-import Header from "./Header";
-
 import { useState, useEffect } from "react";
+import Header from "./Header";
 import Profile from "./Profile";
 import DuplicateCheckButton from "./DuplicateCheckButton";
 import Input from "./Input";
 import SignUpButton from "./SignUpButton";
+import DefaultProfileImg from "../../assets/DefaultProfileImg.png";
 
 export default function SignUp() {
   // 넘길 값
   const [form, setForm] = useState({
-    //profile: "", //유효성 검사 체크 필요없이 바로 이 값 넘기기
+    profile: null,
     nickname: "",
     id: "",
     password: "",
@@ -156,9 +156,11 @@ export default function SignUp() {
   // 가입 완료하기 버튼 활성화 : form 확인
   useEffect(() => {
     console.log(form);
-    // form 객체의 각 key에 대해 값이 존재하는지 확인
-    const isFormValid = Object.keys(form).every((key) => form[key]);
-
+    // profile은 버튼 활성화 조건에서 제외
+    const { profile, ...formWithoutProfile } = form;
+    const isFormValid = Object.keys(formWithoutProfile).every(
+      (key) => formWithoutProfile[key]
+    );
     // 모든 key에 값이 존재할 경우 isSignUpBtnDisabled를 false로 설정
     setIsSignUpBtnDisabled(!isFormValid);
   }, [form]);
@@ -166,12 +168,19 @@ export default function SignUp() {
   // 가입 완료하기 버튼 클릭 : valid 확인
   const handleSignUpBtnClick = (e) => {
     e.preventDefault();
+
+    // 기본 프로필 설정
+    const formWithProfile = {
+      ...form,
+      profile: form.profile || DefaultProfileImg,
+    };
+
     console.log(valid);
     // valid에 있는 데이터가 모두 true인지 확인
     const isAllValid = Object.values(valid).every((value) => value);
     if (isAllValid) {
       // 모두 true이면: form에 있는 데이터 백엔드로 전송
-      console.log("전송!");
+      console.log("전송!", formWithProfile);
     } else {
       // false인 게 존재하면 차례대로 확인
       for (const key in valid) {
@@ -211,7 +220,7 @@ export default function SignUp() {
       <SignUpContainer>
         <Header />
         <Form>
-          <Profile />
+          <Profile form={form} setForm={setForm} />
           <Input
             title="닉네임"
             text={{

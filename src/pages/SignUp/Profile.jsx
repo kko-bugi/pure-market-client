@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import CameraIcon from "../../assets/CameraIcon.svg";
 
-export default function Profile() {
+export default function Profile({ form, setForm }) {
   const [profileImage, setProfileImage] = useState(null); // 실제 넘길 값
 
   const handleImageChange = (e) => {
@@ -19,6 +19,10 @@ export default function Profile() {
 
         if (allowedExtensions.includes(fileExtension)) {
           setProfileImage(file);
+          setForm((prevForm) => ({
+            ...prevForm,
+            profile: file, // profile key에 이미지 파일 저장
+          }));
         } else {
           alert(
             "지원되지 않는 형식입니다. jpg, jpeg, png 이미지 형식을 사용해주세요."
