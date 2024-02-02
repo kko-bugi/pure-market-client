@@ -153,48 +153,56 @@ export default function SignUp() {
                 disabled={nicknameButtonDisabled}
               ></DuplicateCheckButton>
             }
-          >
-            {nicknameErrorMessage && (
-              <ErrorMsg>{nicknameErrorMessage}</ErrorMsg>
-            )}
-            {isNicknameChecked && <PassMsg>사용 가능한 닉네임입니다.</PassMsg>}
-          </Input>
-          <Input title="아이디">
-            <Text
-              type="text"
-              placeholder="아이디를 입력해주세요"
-              onChange={handleIdChange}
-            />
-            <DuplicateCheckButton
-              onClick={handleIdCheck}
-              disabled={idButtonDisabled}
-            ></DuplicateCheckButton>
-            {idErrorMessage && <ErrorMsg>{idErrorMessage}</ErrorMsg>}
-            {isIdChecked && <PassMsg>사용 가능한 아이디입니다.</PassMsg>}
-          </Input>
-          <Input title="비밀번호">
-            <Text
-              type="password"
-              placeholder="비밀번호를 입력해주세요"
-              onChange={handlePasswordChange}
-            />
-          </Input>
-          <Input title="비밀번호 확인">
-            <Text
-              type="password"
-              placeholder="비밀번호를 한번 더 입력해주세요"
-              onChange={handlePasswordConfirmChange}
-            />
-            {passwordErrorMsg && <ErrorMsg>{passwordErrorMsg}</ErrorMsg>}
-          </Input>
-          <Input title="핸드폰 번호">
-            <Text
-              type="text"
-              placeholder="‘-’ 없이 숫자만"
-              onChange={handlePhoneNumberChange}
-            />
-            {phoneNumberErrorMsg && <ErrorMsg>{phoneNumberErrorMsg}</ErrorMsg>}
-          </Input>
+            errorMsg={nicknameErrorMessage}
+            passMsg={isNicknameChecked && "사용 가능한 닉네임입니다."}
+          ></Input>
+
+          <Input
+            title="아이디"
+            text={{
+              type: "text",
+              placeholder: "아이디를 입력해주세요",
+              onChange: handleIdChange,
+            }}
+            duplicate={
+              <DuplicateCheckButton
+                onClick={handleIdCheck}
+                disabled={idButtonDisabled}
+              ></DuplicateCheckButton>
+            }
+            errorMsg={idErrorMessage}
+            passMsg={isIdChecked && "사용 가능한 아이디입니다."}
+          ></Input>
+
+          <Input
+            title="비밀번호"
+            text={{
+              type: "password",
+              placeholder: "비밀번호를 입력해주세요",
+              onChange: handlePasswordChange,
+            }}
+          ></Input>
+
+          <Input
+            title="비밀번호 확인"
+            text={{
+              type: "password",
+              placeholder: "비밀번호를 한번 더 입력해주세요",
+              onChange: handlePasswordConfirmChange,
+            }}
+            errorMsg={passwordErrorMsg}
+          ></Input>
+
+          <Input
+            title="비밀번호 확인"
+            text={{
+              type: "text",
+              placeholder: "‘-’ 없이 숫자만",
+              onChange: handlePhoneNumberChange,
+            }}
+            errorMsg={phoneNumberErrorMsg}
+          ></Input>
+
           <BtnWrapper>
             <SignUpBtn disabled={signUpButtonDisabled}>가입 완료하기</SignUpBtn>
           </BtnWrapper>
@@ -226,16 +234,6 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 30px;
-`;
-
-const ErrorMsg = styled.span`
-  color: red;
-  font-size: 13px;
-`;
-
-const PassMsg = styled.span`
-  color: green;
-  font-size: 13px;
 `;
 
 const BtnWrapper = styled.div`

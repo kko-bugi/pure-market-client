@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import DuplicateCheckButton from "./DuplicateCheckButton";
 
-const Input = ({ title, text, duplicate }) => {
+const Input = ({ title, text, duplicate, errorMsg, passMsg }) => {
   return (
     <Wrapper>
       <Title>
@@ -12,6 +11,8 @@ const Input = ({ title, text, duplicate }) => {
         <Text {...text}></Text>
         {duplicate && duplicate}
       </ContentsWrapper>
+      {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
+      {passMsg && <PassMsg>{passMsg}</PassMsg>}
     </Wrapper>
   );
 };
@@ -46,6 +47,16 @@ const Text = styled.input`
     outline: none;
   }
   margin-top: 10px;
+`;
+
+const ErrorMsg = styled.span`
+  color: red;
+  font-size: 13px;
+`;
+
+const PassMsg = styled.span`
+  color: green;
+  font-size: 13px;
 `;
 
 export default Input;
