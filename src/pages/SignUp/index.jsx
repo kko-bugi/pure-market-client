@@ -6,6 +6,7 @@ import { useState } from "react";
 import Profile from "./Profile";
 import DuplicateCheckButton from "./DuplicateCheckButton";
 import Input from "./Input";
+import SignUpButton from "./SignUpButton";
 
 export default function SignUp() {
   // 핸드폰 번호
@@ -203,9 +204,7 @@ export default function SignUp() {
             errorMsg={phoneNumberErrorMsg}
           ></Input>
 
-          <BtnWrapper>
-            <SignUpBtn disabled={signUpButtonDisabled}>가입 완료하기</SignUpBtn>
-          </BtnWrapper>
+          <SignUpButton disabled={signUpButtonDisabled} />
         </Form>
       </SignUpContainer>
     </Wrapper>
@@ -234,27 +233,4 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 30px;
-`;
-
-const BtnWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 40px 0 40px 0;
-`;
-
-const SignUpBtn = styled.button`
-  width: 360px;
-  height: 60px;
-  background-color: #8de6b4;
-  border-radius: 37.5px;
-  font-size: 20px;
-  color: #ffffff;
-  border: transparent;
-  cursor: pointer;
-
-  &:disabled {
-    background-color: #d6e9dd;
-    cursor: default;
-  }
 `;
