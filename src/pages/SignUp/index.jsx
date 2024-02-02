@@ -36,7 +36,6 @@ export default function SignUp() {
   // 비밀번호
   const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
   // 핸드폰 번호
-  const [phoneNumber, setPhoneNumber] = useState(""); // 실제 넘길 값
   const [phoneNumberErrorMsg, setPhoneNumberErrorMsg] = useState("");
   // 가입 완료하기
   const [signUpButtonDisabled, setSignUpButtonDisabled] = useState(true);
@@ -149,7 +148,6 @@ export default function SignUp() {
       setPhoneNumberErrorMsg("숫자만 입력해주세요.");
     } else {
       setPhoneNumberErrorMsg("");
-      setPhoneNumber(e.target.value); // 실제 넘길 값
     }
   };
 
@@ -232,7 +230,11 @@ export default function SignUp() {
             text={{
               type: "text",
               placeholder: "‘-’ 없이 숫자만",
-              onChange: handlePhoneNumberChange,
+              name: "phoneNumber",
+              onChange: (e) => {
+                handleChange(e);
+                handlePhoneNumberChange(e);
+              },
             }}
             errorMsg={phoneNumberErrorMsg}
           ></Input>
