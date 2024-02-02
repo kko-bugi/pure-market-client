@@ -56,7 +56,6 @@ export default function SignUp() {
 
   const handleValidation = (key, isValid) => {
     setValid((prevValid) => ({ ...prevValid, [key]: isValid }));
-    console.log(valid);
   };
 
   const handleErrorMsg = (key, value) => {
@@ -155,7 +154,6 @@ export default function SignUp() {
 
   // 가입 완료하기 버튼 활성화 : form 확인
   useEffect(() => {
-    console.log(form);
     // profile은 버튼 활성화 조건에서 제외
     const { profile, ...formWithoutProfile } = form;
     const isFormValid = Object.keys(formWithoutProfile).every(
@@ -175,7 +173,6 @@ export default function SignUp() {
       profile: form.profile || DefaultProfileImg,
     };
 
-    console.log(valid);
     // valid에 있는 데이터가 모두 true인지 확인
     const isAllValid = Object.values(valid).every((value) => value);
     if (isAllValid) {
