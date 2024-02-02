@@ -4,6 +4,7 @@ import Header from "./Header";
 
 import { useState } from "react";
 import Profile from "./Profile";
+import DuplicateCheckButton from "./DuplicateCheckButton";
 
 export default function SignUp() {
   // 핸드폰 번호
@@ -151,9 +152,7 @@ export default function SignUp() {
               <DuplicateCheckButton
                 onClick={handleNicknameCheck}
                 disabled={nicknameButtonDisabled}
-              >
-                중복 확인
-              </DuplicateCheckButton>
+              ></DuplicateCheckButton>
             </InputBtnWrapper>
             {nicknameErrorMessage && (
               <ErrorMsg>{nicknameErrorMessage}</ErrorMsg>
@@ -173,9 +172,7 @@ export default function SignUp() {
               <DuplicateCheckButton
                 onClick={handleIdCheck}
                 disabled={idButtonDisabled}
-              >
-                중복 확인
-              </DuplicateCheckButton>
+              ></DuplicateCheckButton>
             </InputBtnWrapper>
             {idErrorMessage && <ErrorMsg>{idErrorMessage}</ErrorMsg>}
             {isIdChecked && <PassMsg>사용 가능한 아이디입니다.</PassMsg>}
@@ -275,31 +272,6 @@ const Input = styled.input`
     outline: none;
   }
   margin-top: 10px;
-`;
-
-const DuplicateCheckButton = styled.button`
-  width: 78px;
-  height: 30px;
-  border-radius: 5px;
-  border: 1px solid #0a5226;
-  background-color: white;
-  font-size: 14px;
-  font-family: inherit;
-  color: #4da36f;
-  cursor: pointer;
-  margin-left: 15px;
-  margin-bottom: 6px;
-
-  &:hover {
-    background-color: #d9d9d9;
-  }
-
-  &:disabled {
-    background-color: #bababa;
-    color: #666666;
-    cursor: default;
-    border: 1px solid #999999;
-  }
 `;
 
 const ErrorMsg = styled.span`
