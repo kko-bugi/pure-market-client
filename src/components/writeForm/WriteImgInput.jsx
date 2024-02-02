@@ -9,12 +9,9 @@ function WriteImgInput() {
 
   const checkIsValid = (file) => {
     const SIZE_LIMIT = 5 * 1024 * 1024; // 5MB
-    if (!file) {
-      alert("юл╧лаЖ╦╕ ╪╠ецгьаж╪╪©Д.");
-      return false;
-    }
+
     if (file.size > SIZE_LIMIT) {
-      alert("юл╧лаЖ фдюо е╘╠Б╢б 5MB юлго©╘╬ъ гу╢о╢ы.");
+      alert("Л²╢К╞╦Л╖─ М▄▄Л²╪ М│╛Й╦╟К┼■ 5MB Л²╢М∙≤Л≈╛Л∙╪ М∙╘К▀┬К▀╓.");
       return false;
     }
     return true;
