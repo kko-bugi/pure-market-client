@@ -11,7 +11,7 @@ import SignUpButton from "./SignUpButton";
 export default function SignUp() {
   // 넘길 값
   const [form, setForm] = useState({
-    profile: "", //유효성 검사 체크 필요없이 바로 이 값 넘기기
+    //profile: "", //유효성 검사 체크 필요없이 바로 이 값 넘기기
     nickname: "",
     id: "",
     password: "",
@@ -20,11 +20,9 @@ export default function SignUp() {
   });
   // 유효성 검사
   const [valid, setValid] = useState({
-    //profileValid: false,
     nickname: false,
     id: false,
     password: false,
-    //passwordConfirm: false,
     phoneNumber: false,
   });
   // 에러 메세지
@@ -154,6 +152,15 @@ export default function SignUp() {
       handleValidation("phoneNumber", true);
     }
   };
+
+  useEffect(() => {
+    console.log(form);
+    // form 객체의 각 key에 대해 값이 존재하는지 확인
+    const isFormValid = Object.keys(form).every((key) => form[key]);
+
+    // 모든 key에 값이 존재할 경우 isSignUpBtnDisabled를 false로 설정
+    setIsSignUpBtnDisabled(!isFormValid);
+  }, [form]);
 
   return (
     <Wrapper>
