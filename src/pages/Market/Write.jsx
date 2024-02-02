@@ -4,7 +4,7 @@ import MiniProfile from "../../components/MiniProfile";
 import WriteInput from "../../components/writeForm/WriteInput";
 import WriteTextArea from "../../components/writeForm/WriteTextArea";
 import SubmitBtn from "../../components/writeForm/SubmitBtn";
-import CameraIcon from "../../assets/CameraIcon.svg";
+import WriteImgInput from "../../components/writeForm/WriteImgInput";
 
 function Write() {
   return (
@@ -14,7 +14,7 @@ function Write() {
         <StyledForm action="">
           <InputsWrapper>
             <LeftWrapper>
-              <img src={CameraIcon} alt="" />
+              <WriteImgInput />
             </LeftWrapper>
             <RightWrapper>
               <MiniProfile />
@@ -61,6 +61,8 @@ const Title = styled.div`
 const ContentWrapper = styled.div`
   width: 100%;
   max-width: 898px;
+  height: 100%;
+  padding-top: 46px;
 `;
 
 const LeftWrapper = styled.div`
@@ -69,6 +71,7 @@ const LeftWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  max-height: 416px;
 `;
 
 const RightWrapper = styled.div`
@@ -87,6 +90,7 @@ const InputsWrapper = styled.div`
   gap: 66px;
   width: 100%;
 `;
+
 const PriceWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
