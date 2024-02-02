@@ -34,15 +34,20 @@ export default function SignUp() {
       [e.target.name]: e.target.value,
     };
     setForm(newForm);
+    console.log(form);
   };
 
   const handleValidation = (key, isValid) => {
     setValid((prevValid) => ({ ...prevValid, [key]: isValid }));
+    console.log(valid);
   };
 
   // 닉네임
   const [nicknameErrorMessage, setNicknameErrorMessage] = useState("");
   const [nicknameButtonDisabled, setNicknameButtonDisabled] = useState(false);
+  // 아이디
+  const [idErrorMessage, setIdErrorMessage] = useState("");
+  const [idButtonDisabled, setIdButtonDisabled] = useState(false);
   // 핸드폰 번호
   const [phoneNumber, setPhoneNumber] = useState(""); // 실제 넘길 값
   const [phoneNumberErrorMsg, setPhoneNumberErrorMsg] = useState("");
@@ -50,12 +55,6 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState(""); //실제 넘길 값
   const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
-
-  // 아이디
-  const [id, setId] = useState("");
-  const [isIdChecked, setIsIdChecked] = useState(false);
-  const [idErrorMessage, setIdErrorMessage] = useState("");
-  const [idButtonDisabled, setIdButtonDisabled] = useState(false);
   // 가입 완료하기
   const [signUpButtonDisabled, setSignUpButtonDisabled] = useState(true);
 
@@ -64,7 +63,8 @@ export default function SignUp() {
     setNicknameErrorMessage(""); // 새로 내용 입력하면 초기화
     handleValidation("nickname", false); // 새로 내용 입력하면 다시 중복체크 하도록
 
-    if (e.target.value.includes(" ")) {
+    const userInput = e.target.value;
+    if (userInput.includes(" ")) {
       setNicknameErrorMessage("닉네임에 공백을 포함할 수 없습니다.");
       handleValidation("nickname", false);
       setNicknameButtonDisabled(true); // 공백이 있으면 버튼 비활성화
@@ -94,6 +94,44 @@ export default function SignUp() {
     }
   };
 
+  // 아이디
+  const handleIdChange = (e) => {
+    setIdErrorMessage(""); // 새로 내용 입력하면 초기화
+    handleValidation("id", false); // 새로 내용 입력하면 다시 중복체크 하도록
+
+    const userInput = e.target.value;
+    if (/[^a-zA-Z0-9]/.test(userInput) || userInput.includes(" ")) {
+      setIdErrorMessage(
+        "영어와 숫자만 입력 가능하며, 공백을 포함할 수 없습니다."
+      );
+      setIdButtonDisabled(true);
+      handleValidation("id", false);
+    } else {
+      setIdErrorMessage("");
+      setIdButtonDisabled(false);
+    }
+  };
+
+  const handleIdCheck = (e) => {
+    e.preventDefault();
+
+    // 공백 입력 처리
+    if (!form.id) {
+      setIdErrorMessage("아이디를 입력해주세요.");
+      handleValidation("id", false);
+      return;
+    }
+
+    const isIdAvailable = true; // 백엔드에서 받아온 데이터. 중복 여부 결과
+    if (isIdAvailable) {
+      setIdErrorMessage("");
+      handleValidation("id", true);
+    } else {
+      setIdErrorMessage("이미 사용 중인 아이디입니다.");
+      handleValidation("id", false);
+    }
+  };
+
   // 핸드폰 번호
   const handlePhoneNumberChange = (e) => {
     if (/[^0-9]/.test(e.target.value)) {
@@ -116,46 +154,6 @@ export default function SignUp() {
     } else {
       setPasswordErrorMsg("");
       setPasswordConfirm(e.target.value); // 실제 넘길 값
-    }
-  };
-
-  // 아이디
-  const handleIdChange = (e) => {
-    setIdErrorMessage(""); // 새로 내용 입력하면 초기화
-    setIsIdChecked(false); // 새로 내용 입력하면 다시 중복체크 하도록
-
-    const userInput = e.target.value;
-
-    if (/[^a-zA-Z0-9]/.test(userInput) || userInput.includes(" ")) {
-      setIdErrorMessage(
-        "영어와 숫자만 입력 가능하며, 공백을 포함할 수 없습니다."
-      );
-      setIdButtonDisabled(true);
-      setIsIdChecked(false);
-    } else {
-      setId(userInput);
-      setIdErrorMessage("");
-      setIdButtonDisabled(false);
-    }
-  };
-
-  const handleIdCheck = (e) => {
-    e.preventDefault();
-
-    // 공백 입력 처리
-    if (!id) {
-      setIdErrorMessage("아이디를 입력해주세요.");
-      setIsIdChecked(false);
-      return;
-    }
-
-    const isIdAvailable = true; // 백엔드에서 받아온 데이터. 중복 여부 결과
-    if (isIdAvailable) {
-      setIdErrorMessage("");
-      setIsIdChecked(true);
-    } else {
-      setIdErrorMessage("이미 사용 중인 아이디입니다.");
-      setIsIdChecked(false);
     }
   };
 
@@ -191,7 +189,11 @@ export default function SignUp() {
             text={{
               type: "text",
               placeholder: "아이디를 입력해주세요",
-              onChange: handleIdChange,
+              name: "id",
+              onChange: (e) => {
+                handleChange(e);
+                handleIdChange(e);
+              },
             }}
             duplicate={
               <DuplicateCheckButton
@@ -200,7 +202,7 @@ export default function SignUp() {
               ></DuplicateCheckButton>
             }
             errorMsg={idErrorMessage}
-            passMsg={isIdChecked && "사용 가능한 아이디입니다."}
+            passMsg={valid.id && "사용 가능한 아이디입니다."}
           ></Input>
 
           <Input
