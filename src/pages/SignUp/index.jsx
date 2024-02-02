@@ -122,7 +122,7 @@ export default function SignUp() {
       return;
     }
 
-    const isIdAvailable = false; // 백엔드에서 받아온 데이터. 중복 여부 결과
+    const isIdAvailable = true; // 백엔드에서 받아온 데이터. 중복 여부 결과
     if (isIdAvailable) {
       handleErrorMsg("id", "");
       handleValidation("id", true);
@@ -153,6 +153,7 @@ export default function SignUp() {
     }
   };
 
+  // 가입 완료하기 버튼 활성화 : form 확인
   useEffect(() => {
     console.log(form);
     // form 객체의 각 key에 대해 값이 존재하는지 확인
@@ -161,6 +162,49 @@ export default function SignUp() {
     // 모든 key에 값이 존재할 경우 isSignUpBtnDisabled를 false로 설정
     setIsSignUpBtnDisabled(!isFormValid);
   }, [form]);
+
+  // 가입 완료하기 버튼 클릭 : valid 확인
+  const handleSignUpBtnClick = (e) => {
+    e.preventDefault();
+    console.log(valid);
+    // valid에 있는 데이터가 모두 true인지 확인
+    const isAllValid = Object.values(valid).every((value) => value);
+    if (isAllValid) {
+      // 모두 true이면: form에 있는 데이터 백엔드로 전송
+      console.log("전송!");
+    } else {
+      // false인 게 존재하면 차례대로 확인
+      for (const key in valid) {
+        if (!valid[key]) {
+          // false인 곳으로 커서 옮김
+          document.getElementsByName(key)[0].focus();
+
+          switch (key) {
+            case "nickname":
+              handleErrorMsg("nickname", "닉네임 중복 확인을 해주세요.");
+              break;
+            case "id":
+              handleErrorMsg("id", "아이디 중복 확인을 해주세요.");
+              break;
+            case "password":
+              setForm((prevForm) => ({
+                ...prevForm,
+                password: "",
+                passwordConfirm: "",
+              }));
+              handleErrorMsg("password", "비밀번호가 일치하지 않습니다.");
+              break;
+            case "phoneNumber":
+              handleErrorMsg("phoneNumber", "숫자만 입력해주세요.");
+              break;
+            default:
+              break;
+          }
+          break;
+        }
+      }
+    }
+  };
 
   return (
     <Wrapper>
@@ -251,7 +295,10 @@ export default function SignUp() {
             errorMsg={errorMsg.phoneNumber}
           ></Input>
 
-          <SignUpButton disabled={isSignUpBtnDisabled} />
+          <SignUpButton
+            disabled={isSignUpBtnDisabled}
+            onClick={handleSignUpBtnClick}
+          />
         </Form>
       </SignUpContainer>
     </Wrapper>
