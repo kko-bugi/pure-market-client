@@ -27,6 +27,19 @@ export default function SignUp() {
     passwordConfirm: false,
     phoneNumber: false,
   });
+  // 닉네임
+  const [nicknameErrorMessage, setNicknameErrorMessage] = useState("");
+  const [nicknameButtonDisabled, setNicknameButtonDisabled] = useState(false);
+  // 아이디
+  const [idErrorMessage, setIdErrorMessage] = useState("");
+  const [idButtonDisabled, setIdButtonDisabled] = useState(false);
+  // 비밀번호
+  const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
+  // 핸드폰 번호
+  const [phoneNumber, setPhoneNumber] = useState(""); // 실제 넘길 값
+  const [phoneNumberErrorMsg, setPhoneNumberErrorMsg] = useState("");
+  // 가입 완료하기
+  const [signUpButtonDisabled, setSignUpButtonDisabled] = useState(true);
 
   const handleChange = (e) => {
     const newForm = {
@@ -41,22 +54,6 @@ export default function SignUp() {
     setValid((prevValid) => ({ ...prevValid, [key]: isValid }));
     console.log(valid);
   };
-
-  // 닉네임
-  const [nicknameErrorMessage, setNicknameErrorMessage] = useState("");
-  const [nicknameButtonDisabled, setNicknameButtonDisabled] = useState(false);
-  // 아이디
-  const [idErrorMessage, setIdErrorMessage] = useState("");
-  const [idButtonDisabled, setIdButtonDisabled] = useState(false);
-  // 핸드폰 번호
-  const [phoneNumber, setPhoneNumber] = useState(""); // 실제 넘길 값
-  const [phoneNumberErrorMsg, setPhoneNumberErrorMsg] = useState("");
-  // 비밀번호
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState(""); //실제 넘길 값
-  const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
-  // 가입 완료하기
-  const [signUpButtonDisabled, setSignUpButtonDisabled] = useState(true);
 
   // 닉네임
   const handleNicknameChange = (e) => {
@@ -132,6 +129,20 @@ export default function SignUp() {
     }
   };
 
+  // 비밀번호
+  // const handlePasswordChange = (e) => {
+  //   setPassword(e.target.value);
+  // };
+
+  // 비밀번호 확인
+  const handlePasswordConfirmChange = (e) => {
+    if (e.target.value !== form.password) {
+      setPasswordErrorMsg("비밀번호가 일치하지 않습니다.");
+    } else {
+      setPasswordErrorMsg("");
+    }
+  };
+
   // 핸드폰 번호
   const handlePhoneNumberChange = (e) => {
     if (/[^0-9]/.test(e.target.value)) {
@@ -139,21 +150,6 @@ export default function SignUp() {
     } else {
       setPhoneNumberErrorMsg("");
       setPhoneNumber(e.target.value); // 실제 넘길 값
-    }
-  };
-
-  // 비밀번호
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  // 비밀번호 확인
-  const handlePasswordConfirmChange = (e) => {
-    if (e.target.value !== password) {
-      setPasswordErrorMsg("비밀번호가 일치하지 않습니다.");
-    } else {
-      setPasswordErrorMsg("");
-      setPasswordConfirm(e.target.value); // 실제 넘길 값
     }
   };
 
@@ -210,7 +206,10 @@ export default function SignUp() {
             text={{
               type: "password",
               placeholder: "비밀번호를 입력해주세요",
-              onChange: handlePasswordChange,
+              name: "password",
+              onChange: (e) => {
+                handleChange(e);
+              },
             }}
           ></Input>
 
@@ -219,7 +218,11 @@ export default function SignUp() {
             text={{
               type: "password",
               placeholder: "비밀번호를 한번 더 입력해주세요",
-              onChange: handlePasswordConfirmChange,
+              name: "passwordConfirm",
+              onChange: (e) => {
+                handleChange(e);
+                handlePasswordConfirmChange(e);
+              },
             }}
             errorMsg={passwordErrorMsg}
           ></Input>
