@@ -13,4 +13,7 @@ const StyledBtn = styled.button`
   background-color: white;
   padding: 0;
   border: none;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 `;
