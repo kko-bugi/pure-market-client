@@ -22,7 +22,7 @@ const VerticalBar = styled.span`
   color: #888;
   font-weight: 500;
   font-size: 12px;
-  margin: 0 6px;
+  margin: 0 13px;
 `;
 
 export default BtnForMine;
