@@ -8,5 +8,4 @@ export default ContentContent;
 
 const StyledContent = styled.div`
   font-size: 18px;
-  margin-bottom: 30px;
 `;
