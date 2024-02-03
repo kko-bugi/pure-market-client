@@ -2,12 +2,12 @@ import styled from "styled-components";
 import DeleteBtn from "./DeleteBtn";
 import SoldOutBtn from "./SoldOutBtn";
 
-const BtnForMine = () => {
+const BtnForMine = ({ isSoldOut }) => {
   return (
     <Wrapper>
       <DeleteBtn />
       <VerticalBar>|</VerticalBar>
-      <SoldOutBtn />
+      <SoldOutBtn isSoldOut={isSoldOut} />
     </Wrapper>
   );
 };

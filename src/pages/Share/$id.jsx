@@ -23,7 +23,9 @@ function Detailed() {
             <MiniProfile />
             <ContentTitle txt={productInfo.name} />
             <ContentContent txt={productInfo.description} />
-            {productInfo.isMine && <BtnForMine />}
+            {productInfo.isMine && (
+              <BtnForMine isSoldOut={productInfo.isSoldOut} />
+            )}
           </RightWrapper>
         </ContentWrapper>
       </Wrapper>
