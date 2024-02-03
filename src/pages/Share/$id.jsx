@@ -6,7 +6,7 @@ import MiniProfile from "../../components/MiniProfile";
 import ContentImg from "../../components/detail/ContentImg";
 import ContentTitle from "../../components/detail/ContentTitle";
 import ContentContent from "../../components/detail/ContentContent";
-import DeleteBtn from "../../components/DeleteBtn";
+import BtnForMine from "../../components/BtnForMine";
 
 function Detailed() {
   const location = useLocation();
@@ -23,7 +23,7 @@ function Detailed() {
             <MiniProfile />
             <ContentTitle txt={productInfo.name} />
             <ContentContent txt={productInfo.description} />
-            {productInfo.isMine && <DeleteBtn onClick={() => {}} />}
+            {productInfo.isMine && <BtnForMine />}
           </RightWrapper>
         </ContentWrapper>
       </Wrapper>
@@ -65,5 +65,4 @@ const LeftWrapper = styled.div`
 
 const RightWrapper = styled.div`
   width: 100%;
-  position: relative;
 `;
