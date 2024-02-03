@@ -9,7 +9,7 @@ function NavBar() {
       </a>
 
       <MainFeature href="/market">농산물 쇼핑</MainFeature>
-      <MainFeature href="">나눔 장터</MainFeature>
+      <MainFeature href="/share">나눔 장터</MainFeature>
       <MainFeature href="">레시피 Book</MainFeature>
 
       <div>
