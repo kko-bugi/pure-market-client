@@ -17,7 +17,11 @@ function Detailed() {
         <Title>우리 지역 나눔 장터</Title>
         <ContentWrapper>
           <LeftWrapper>
-            <ContentImg src={productInfo.img} alt="" />
+            <ContentImg
+              src={productInfo.img}
+              alt=""
+              isSoldOut={productInfo.isSoldOut}
+            />
           </LeftWrapper>
           <RightWrapper>
             <MiniProfile />
