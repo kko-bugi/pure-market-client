@@ -7,28 +7,32 @@ import ContentImg from "../../components/detail/ContentImg";
 import ContentTitle from "../../components/detail/ContentTitle";
 import ContentContent from "../../components/detail/ContentContent";
 import BtnForMine from "../../components/BtnForMine";
+import { useState } from "react";
 
 function Detailed() {
   const location = useLocation();
   const productInfo = { ...location.state };
+
+  // 로컬 state
+  const [isSoldOut, setIsSoldOut] = useState(productInfo.isSoldOut);
+
   return (
     <Template>
       <Wrapper>
         <Title>우리 지역 나눔 장터</Title>
         <ContentWrapper>
           <LeftWrapper>
-            <ContentImg
-              src={productInfo.img}
-              alt=""
-              isSoldOut={productInfo.isSoldOut}
-            />
+            <ContentImg src={productInfo.img} alt="" isSoldOut={isSoldOut} />
           </LeftWrapper>
           <RightWrapper>
             <MiniProfile />
             <ContentTitle txt={productInfo.name} />
             <ContentContent txt={productInfo.description} />
             {productInfo.isMine && (
-              <BtnForMine isSoldOut={productInfo.isSoldOut} />
+              <BtnForMine
+                isSoldOut={isSoldOut}
+                toggleSoldOut={() => setIsSoldOut(!isSoldOut)}
+              />
             )}
           </RightWrapper>
         </ContentWrapper>

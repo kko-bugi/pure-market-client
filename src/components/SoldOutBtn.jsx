@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-const SoldOutBtn = ({ onClick, isSoldOut }) => {
+const SoldOutBtn = ({ toggleSoldOut, isSoldOut }) => {
   const content = isSoldOut ? "판매재개 하기" : "판매완료 하기";
-  return <StyledBtn onClick={onClick}>{content}</StyledBtn>;
+  return <StyledBtn onClick={toggleSoldOut}>{content}</StyledBtn>;
 };
 
 export default SoldOutBtn;
