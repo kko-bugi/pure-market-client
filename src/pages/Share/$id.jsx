@@ -34,7 +34,7 @@ export default Detailed;
 const Title = styled.div`
   font-size: 34px;
   font-weight: 700;
-  border-bottom: 3px solid #feb37a;
+  border-bottom: 3px solid #83c1fc;
   margin-bottom: 32px;
   width: fit-content;
 `;
