@@ -8,6 +8,7 @@ const ShareBanner = () => {
       txt="맛있는 건 나눠 먹자!"
       strongTxt="우리 지역 나눔 장터"
       img={ShareBannerImg}
+      imgAlign="left"
     />
   );
 };

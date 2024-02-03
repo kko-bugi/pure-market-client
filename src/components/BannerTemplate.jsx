@@ -1,14 +1,15 @@
 import styled from "styled-components";
 
-function BannerTemplate({ txt, strongTxt, img, color }) {
+function BannerTemplate({ txt, strongTxt, img, color, imgAlign }) {
   return (
     <BannerWrapper bgColor={color}>
       <BannerContentWrapper>
+        {imgAlign === "left" && <BannerImg src={img} alt="" />}
         <BannerTextWrapper>
           <BannerText>{txt}</BannerText>
           <BannerTextStrong>{strongTxt}</BannerTextStrong>
         </BannerTextWrapper>
-        <BannerImg src={img} alt="" />
+        {imgAlign === "right" && <BannerImg src={img} alt="" />}
       </BannerContentWrapper>
     </BannerWrapper>
   );
