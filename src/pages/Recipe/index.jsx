@@ -14,7 +14,7 @@ function Recipe() {
           <RecipeCard key={el.recipe} recipe={el} />
         ))}
       </ItemWrapper>
-      <AddIcon src={Icon} href="" />
+      <AddIcon src={Icon} href="/recipe/write" />
     </Template>
   );
 }

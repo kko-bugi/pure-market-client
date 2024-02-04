@@ -11,6 +11,7 @@ import ContentPrice from "./ContentPrice";
 function Detailed() {
   const location = useLocation();
   const productInfo = { ...location.state };
+
   return (
     <Template>
       <Wrapper>

@@ -2,15 +2,27 @@
     "recipeItems": [
       {
         "img": "https://i.ibb.co/dGQpqY2/image-10.png",
-        "name": "[자취요리신]김치볶음밥"
+        "name": "[자취요리신]김치볶음밥",
+        "description": "맛있어요굳",
+        "ingredient": "김치, 밥, 파",
+        "sauce": "설탕, 소금, 간장",
+        "order": "김치를 썹니다"
       },
       {
         "img": "https://i.ibb.co/dGQpqY2/image-10.png",
-        "name": "[자취요리신]김치볶음밥"
+        "name": "[자취요리신]김치볶음밥",
+        "description": "맛있어요굳",
+        "ingredient": "김치, 밥, 파",
+        "sauce": "설탕, 소금, 간장",
+        "order": "김치를 썹니다"
       },
       {
         "img": "https://i.ibb.co/dGQpqY2/image-10.png",
-        "name": "[자취요리신]김치볶음밥"
+        "name": "[자취요리신]김치볶음밥",
+        "description": "맛있어요굳",
+        "ingredient": "김치, 밥, 파",
+        "sauce": "설탕, 소금, 간장",
+        "order": "김치를 썹니다"
       },
       {
         "img": "https://i.ibb.co/dGQpqY2/image-10.png",

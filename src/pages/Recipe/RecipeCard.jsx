@@ -1,8 +1,14 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 function RecipeCard({ recipe }) {
+  const navigate = useNavigate();
   return (
-    <CardWrapper href="">
+    <CardWrapper
+      onClick={() => {
+        navigate(`/recipe/${recipe.name}`, { state: recipe });
+      }}
+    >
       <RecipeItemImg src={recipe.img} alt="" />
       <RecipeItemName>{recipe.name}</RecipeItemName>
     </CardWrapper>
@@ -13,6 +19,7 @@ export default RecipeCard;
 
 const CardWrapper = styled.a`
   max-width: 783px;
+  cursor: pointer;
 `;
 
 const RecipeItemImg = styled.img`
@@ -25,6 +32,6 @@ const RecipeItemImg = styled.img`
 
 const RecipeItemName = styled.div`
   color: #000;
-  font-size: 12px;
+  font-size: 14px;
   min-height: 39px;
 `;
