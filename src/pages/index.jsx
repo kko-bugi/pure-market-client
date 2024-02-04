@@ -1,15 +1,13 @@
 import React from "react";
 import Template from "../components/Template";
-import data from "../data/marketList.json"; /*오늘의 농산물 리스트, ProductCard*/
-import RecipeData from "../data/recipeList.json"; /*이 레시피는 어떠세요 리스트, ProductCard2*/
-import ShareData from "../data/shareList.json";  /*오늘의 나눔글 리스트, ProductCard3*/
+import data from "../data/marketList.json"; /*오늘의 농산물*/
+import RecipeData from "../data/recipeList.json"; /*이 레시피는 어떠세요*/
+import ShareData from "../data/shareList.json";  /*오늘의 나눔글*/
 import HomeBanner from "./HomeBanner";
-import ProductCard from "./HomeProductCard";
-import RecipeCard from "./HomeRecipeCard";
-import ShareCard from "./HomeShareCard";
+import HomeProductCard from "./HomeProductCard";
+import HomeRecipeCard from "./HomeRecipeCard";
+import HomeShareCard from "./HomeShareCard";
 import styled from "styled-components";
-
-import Icon from "../assets/ButtonIcon.png";
 
 function Home() {
 
@@ -20,26 +18,26 @@ function Home() {
   return (
     <Template banner={<HomeBanner />}>
       <Title>오늘의 농산물</Title>
-      <ItemWrapper>
+      <ItemWrapper4Grid>
         {todayFourItems.map((el) => (
-          <ProductCard key={el.product} product={el} />
+          <HomeProductCard key={el.product} product={el} />
         ))}
-      </ItemWrapper>
+      </ItemWrapper4Grid>
       
       <Title>이 레시피는 어떠세요?</Title>
-      <ItemWrapper2>
+      <ItemWrapper3Grid>
         {todayThreeRecipes.map((el) => (
-          <RecipeCard key={el.recipe} recipe={el} />
+          <HomeRecipeCard key={el.recipe} recipe={el} />
         ))}
-      </ItemWrapper2>
+      </ItemWrapper3Grid>
 
       <Title>오늘의 나눔글</Title>
-      <ItemWrapper>
+      <ItemWrapper4Grid>
         {todayFourShares.map((el) => (
-          <ShareCard key={el.share} share={el} />
+          <HomeShareCard key={el.share} share={el} />
         ))}
 
-      </ItemWrapper>
+      </ItemWrapper4Grid>
 
     </Template>
   );
@@ -47,13 +45,13 @@ function Home() {
 
 export default Home;
 
-const ItemWrapper = styled.div`
+const ItemWrapper4Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 23px;
 `;
 
-const ItemWrapper2 = styled.div`
+const ItemWrapper3Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 23px;
