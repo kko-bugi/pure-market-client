@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-function BannerTemplate({ txt, strongTxt, img, color, imgAlign }) {
+function BannerTemplate({ txt, strongTxt, img, color, imgAlign = "left" }) {
   return (
     <BannerWrapper bgColor={color}>
       <BannerContentWrapper>
