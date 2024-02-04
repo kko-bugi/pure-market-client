@@ -6,7 +6,7 @@ import MiniProfile from "../../components/MiniProfile";
 import ContentImg from "../../components/detail/ContentImg";
 import ContentTitle from "../../components/detail/ContentTitle";
 import ContentContent from "../../components/detail/ContentContent";
-import BtnForMine from "../../components/BtnForMine";
+import PostControlBtn from "../../components/PostControlBtn";
 import { useState } from "react";
 
 function Detailed() {
@@ -29,7 +29,7 @@ function Detailed() {
             <ContentTitle txt={productInfo.name} />
             <ContentContent txt={productInfo.description} />
             {productInfo.isMine && (
-              <BtnForMine
+              <PostControlBtn
                 isSoldOut={isSoldOut}
                 toggleSoldOut={() => setIsSoldOut(!isSoldOut)}
               />

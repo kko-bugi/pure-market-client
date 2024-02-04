@@ -2,7 +2,7 @@ import styled from "styled-components";
 import DeleteBtn from "./DeleteBtn";
 import SoldOutBtn from "./SoldOutBtn";
 
-const BtnForMine = ({ isSoldOut, toggleSoldOut }) => {
+const PostControlBtn = ({ isSoldOut, toggleSoldOut }) => {
   return (
     <Wrapper>
       <DeleteBtn />
@@ -25,4 +25,4 @@ const VerticalBar = styled.span`
   margin: 0 13px;
 `;
 
-export default BtnForMine;
+export default PostControlBtn;
