@@ -3,7 +3,7 @@ import styled from "styled-components";
 function ContentImg({ src, alt, isSoldOut }) {
   return (
     <StyledImgContainer>
-      <StyledImg src={src} alt={alt} isSoldOut={isSoldOut}></StyledImg>
+      <StyledImg src={src} alt={alt} isSoldOut={isSoldOut} />
       {isSoldOut && <SoldOutLabel>거래 완료</SoldOutLabel>}
     </StyledImgContainer>
   );
