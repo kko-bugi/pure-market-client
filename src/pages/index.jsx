@@ -4,9 +4,9 @@ import data from "../data/marketList.json"; /*오늘의 농산물 리스트, Pro
 import RecipeData from "../data/recipeList.json"; /*이 레시피는 어떠세요 리스트, ProductCard2*/
 import ShareData from "../data/shareList.json";  /*오늘의 나눔글 리스트, ProductCard3*/
 import HomeBanner from "./HomeBanner";
-import ProductCard from "./ProductCard";
-import ProductCard2 from "./ProductCard2";
-import ProductCard3 from "./ProductCard3";
+import ProductCard from "./HomeProductCard";
+import RecipeCard from "./HomeRecipeCard";
+import ShareCard from "./HomeShareCard";
 import styled from "styled-components";
 
 import Icon from "../assets/ButtonIcon.png";
@@ -29,14 +29,14 @@ function Home() {
       <Title>이 레시피는 어떠세요?</Title>
       <ItemWrapper2>
         {todayThreeRecipes.map((el) => (
-          <ProductCard2 key={el.recipe} recipe={el} />
+          <RecipeCard key={el.recipe} recipe={el} />
         ))}
       </ItemWrapper2>
 
       <Title>오늘의 나눔글</Title>
       <ItemWrapper>
         {todayFourShares.map((el) => (
-          <ProductCard3 key={el.share} share={el} />
+          <ShareCard key={el.share} share={el} />
         ))}
 
       </ItemWrapper>

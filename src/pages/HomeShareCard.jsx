@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-function ProductCard3({ share }) {
+function HomeShareCard({ share }) {
   return (
     <CardWrapper href="">
       <ShareItemImg src={share.img} alt="" />
@@ -12,7 +12,7 @@ function ProductCard3({ share }) {
   );
 }
 
-export default ProductCard3;
+export default HomeShareCard;
 
 const CardWrapper = styled.a`
   max-width: 180px;

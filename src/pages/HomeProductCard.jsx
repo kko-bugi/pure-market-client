@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-function ProductCard({ product }) {
+function HomeProductCard({ product }) {
   const navigate = useNavigate();
   return (
     <CardWrapper
@@ -19,7 +19,7 @@ function ProductCard({ product }) {
   );
 }
 
-export default ProductCard;
+export default HomeProductCard;
 
 const CardWrapper = styled.div`
   max-width: 183px;

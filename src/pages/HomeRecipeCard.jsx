@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-function ProductCard2({ recipe}) {
+function HomeRecipeCard({ recipe}) {
   return (
     <CardWrapper href="">
       <RecipeItemImg src={recipe.img} alt="" />
@@ -9,7 +9,7 @@ function ProductCard2({ recipe}) {
   );
 }
 
-export default ProductCard2;
+export default HomeRecipeCard;
 
 const CardWrapper = styled.div`
   max-width: 783px;
