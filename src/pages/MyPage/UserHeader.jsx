@@ -6,6 +6,7 @@ const UserHeader = () => {
     name: "미야옹",
     img: "https://i.pinimg.com/474x/ea/bd/28/eabd28ad0a00cb6dbe478b1fb69aa9a8.jpg",
   };
+
   return (
     <HeaderWrapper>
       <ProfileImg src={userData.img}></ProfileImg>
@@ -22,7 +23,7 @@ export default UserHeader;
 
 const HeaderWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1.15fr 1fr 1.5fr;
+  grid-template-columns: 1.15fr 1fr 1.2fr;
   align-items: center;
   justify-content: space-between;
 `;
