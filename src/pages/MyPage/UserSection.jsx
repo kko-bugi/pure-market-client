@@ -4,21 +4,9 @@ import UserRecentPosts from "./UserRecentPosts";
 const UserSection = ({ data }) => {
   return (
     <RecentPostWrapper>
-      <UserRecentPosts
-        name="market"
-        postType="판매"
-        recentPostData={data.produceList}
-      />
-      <UserRecentPosts
-        name="recipe"
-        postType="레시피"
-        recentPostData={data.recipeList}
-      />
-      <UserRecentPosts
-        name="share"
-        postType="나눔"
-        recentPostData={data.giveawayList}
-      />
+      <UserRecentPosts postType="market" recentPostData={data.produceList} />
+      <UserRecentPosts postType="recipe" recentPostData={data.recipeList} />
+      <UserRecentPosts postType="share" recentPostData={data.giveawayList} />
     </RecentPostWrapper>
   );
 };

@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-const UserRecentPostCard = ({ post, name }) => {
+const UserRecentPostCard = ({ post, postType, dataName }) => {
   const navigate = useNavigate();
   return (
     <PostWrapper
       onClick={() => {
-        navigate(`/${name}/${post.name}`);
+        navigate(`/${postType}/${post.title}`);
       }}
     >
-      <PostImg src={post.img} />
-      <PostName>{post.name}</PostName>
+      <PostImg src={post[`${dataName}Image`]} />
+      <PostName>{post.title}</PostName>
     </PostWrapper>
   );
 };

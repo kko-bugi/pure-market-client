@@ -1,15 +1,42 @@
 import styled from "styled-components";
 import UserRecentPostCard from "./UserRecentPostCard";
 
-const UserRecentPosts = ({ name, postType, recentPostData }) => {
-  console.log(name);
+const UserRecentPosts = ({ postType, recentPostData }) => {
+  let dataName = "";
+  let korName = "";
+  const setNames = () => {
+    switch (postType) {
+      case "market":
+        dataName = "produce";
+        korName = "판매";
+        break;
+      case "recipe":
+        dataName = "recipe";
+        korName = "레시피";
+        break;
+      case "share":
+        dataName = "giveaway";
+        korName = "나눔";
+        break;
+    }
+  };
+  setNames();
+
   return (
     <RecentPostDetailWrapper>
-      <Title>최근 내가 작성한 {postType}글</Title>
-      <ItemWrapper name={name}>
-        {recentPostData.map((el) => (
-          <UserRecentPostCard key="name" post={el} name={name} />
-        ))}
+      <Title>최근 내가 작성한 {korName}글</Title>
+      <ItemWrapper postType={postType}>
+        {recentPostData.map((el) => {
+          console.log(el[`${dataName}Idx`]);
+          return (
+            <UserRecentPostCard
+              key={el[`${dataName}Idx`]}
+              post={el}
+              postType={postType}
+              dataName={dataName}
+            />
+          );
+        })}
       </ItemWrapper>
     </RecentPostDetailWrapper>
   );
@@ -29,7 +56,7 @@ const Title = styled.h2`
 const ItemWrapper = styled.div`
   display: grid;
   grid-template-columns: ${(props) =>
-    props.name === "recipe" ? "repeat(3,133px)" : "repeat(4, 133px)"};
+    props.postType === "recipe" ? "repeat(3,133px)" : "repeat(4, 133px)"};
 
   gap: 20px;
 `;
