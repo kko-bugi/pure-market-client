@@ -12,6 +12,7 @@ function HomeShareCard({ share }) {
   );
 }
 
+
 export default HomeShareCard;
 
 const CardWrapper = styled.a`
