@@ -11,6 +11,7 @@ const UserRecentPostCard = ({ post, postType, dataName }) => {
     >
       <PostImg src={post[`${dataName}Image`]} />
       <PostName>{post.title}</PostName>
+      <PostDate>{post.createdDate}</PostDate>
     </PostWrapper>
   );
 };
@@ -18,7 +19,6 @@ const UserRecentPostCard = ({ post, postType, dataName }) => {
 export default UserRecentPostCard;
 
 const PostWrapper = styled.div`
-  font-size: 12px;
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -35,4 +35,12 @@ const PostName = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 12px;
+`;
+
+const PostDate = styled.span`
+  text-align: right;
+  font-size: 8px;
+
+  color: #8e8e8e;
 `;
