@@ -8,6 +8,9 @@ import HomeProductCard from "./HomeProductCard";
 import HomeRecipeCard from "./HomeRecipeCard";
 import HomeShareCard from "./HomeShareCard";
 import styled from "styled-components";
+import Icon from "../assets/ButtonIcon.svg";
+import ButtonIcon from "../components/ButtonIcon";
+
 
 function Home() {
 
@@ -17,26 +20,34 @@ function Home() {
   
   return (
     <Template banner={<HomeBanner />}>
+      <TitleWrapper>
       <Title>오늘의 농산물</Title>
+      <ButtonIcon src={Icon} href="/market" />
+      </TitleWrapper>
       <ItemWrapper4Grid>
         {todayFourItems.map((el) => (
           <HomeProductCard key={el.product} product={el} />
         ))}
       </ItemWrapper4Grid>
       
+      <TitleWrapper>
       <Title>이 레시피는 어떠세요?</Title>
+      <ButtonIcon src={Icon} href="/recipe" />
+      </TitleWrapper>
       <ItemWrapper3Grid>
         {todayThreeRecipes.map((el) => (
           <HomeRecipeCard key={el.recipe} recipe={el} />
         ))}
       </ItemWrapper3Grid>
 
+      <TitleWrapper>
       <Title>오늘의 나눔글</Title>
+      <ButtonIcon src={Icon} href="/share" />
+      </TitleWrapper>
       <ItemWrapper4Grid>
         {todayFourShares.map((el) => (
           <HomeShareCard key={el.share} share={el} />
         ))}
-
       </ItemWrapper4Grid>
 
     </Template>
@@ -63,4 +74,11 @@ const Title = styled.h2`
   color: #000;
   margin-bottom: 20px;
   text-align: left !important;
+`;
+
+const TitleWrapper = styled.div`
+display: flex;
+align-items: center;
+justify-content: space-between;
+text-align: left !important;
 `;
