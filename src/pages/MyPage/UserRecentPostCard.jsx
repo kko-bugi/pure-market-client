@@ -28,6 +28,7 @@ const PostImg = styled.img`
   width: 133px;
   height: 119px;
   border-radius: 15px;
+  padding-bottom: 3px;
 `;
 
 const PostName = styled.span`
