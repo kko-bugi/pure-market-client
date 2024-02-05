@@ -27,7 +27,6 @@ const UserRecentPosts = ({ postType, recentPostData }) => {
       <Title>최근 내가 작성한 {korName}글</Title>
       <ItemWrapper postType={postType}>
         {recentPostData.map((el) => {
-          console.log(el[`${dataName}Idx`]);
           return (
             <UserRecentPostCard
               key={el[`${dataName}Idx`]}

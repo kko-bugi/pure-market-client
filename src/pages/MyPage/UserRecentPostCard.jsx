@@ -30,4 +30,8 @@ const PostImg = styled.img`
   border-radius: 15px;
 `;
 
-const PostName = styled.span``;
+const PostName = styled.span`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;

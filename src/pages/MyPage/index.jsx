@@ -10,7 +10,8 @@ const data = {
   produceList: [
     {
       produceIdx: 0,
-      title: "판매글 데이터임",
+      title:
+        "판매글 데이터임판매글 데이터임판매글 데이터임판매글 데이터임판매글 데이터임판매글 데이터임판매글 데이터임판매글 데이터임판매글 데이터임",
       produceImage:
         "https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/advices/166557187462755279.jpg?gif=1&w=480",
       createdDate: "2023/12/28",
@@ -47,7 +48,8 @@ const data = {
     },
     {
       recipeIdx: 1,
-      title: "레시피글 데이터임",
+      title:
+        "레시피글 데이터임레시피글 데이터임레시피글 데이터임레시피글 데이터임레시피글 데이터임레시피글 데이터임",
       recipeImage:
         "https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/advices/166557187462755279.jpg?gif=1&w=480",
       createdDate: "2023/12/28",
