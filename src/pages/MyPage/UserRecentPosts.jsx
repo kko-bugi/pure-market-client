@@ -17,7 +17,9 @@ const UserRecentPosts = ({ name, postType, recentPostData }) => {
 
 export default UserRecentPosts;
 
-const RecentPostDetailWrapper = styled.div``;
+const RecentPostDetailWrapper = styled.div`
+  padding-bottom: 20px;
+`;
 
 const Title = styled.h2`
   font-size: 18px;
