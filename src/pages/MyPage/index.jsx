@@ -63,34 +63,34 @@ const data = {
     },
   ],
   giveawayList: [
-    {
-      giveawayIdx: 0,
-      title: "나눔글 데이터임",
-      giveawayImage:
-        "https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/advices/166557187462755279.jpg?gif=1&w=480",
-      createdDate: "2023/12/28",
-    },
-    {
-      giveawayIdx: 1,
-      title: "나눔글 데이터임",
-      giveawayImage:
-        "https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/advices/166557187462755279.jpg?gif=1&w=480",
-      createdDate: "2023/12/28",
-    },
-    {
-      giveawayIdx: 2,
-      title: "나눔글 데이터임",
-      giveawayImage:
-        "https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/advices/166557187462755279.jpg?gif=1&w=480",
-      createdDate: "2023/12/28",
-    },
-    {
-      giveawayIdx: 3,
-      title: "나눔글 데이터임",
-      giveawayImage:
-        "https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/advices/166557187462755279.jpg?gif=1&w=480",
-      createdDate: "2023/12/28",
-    },
+    // {
+    //   giveawayIdx: 0,
+    //   title: "나눔글 데이터임",
+    //   giveawayImage:
+    //     "https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/advices/166557187462755279.jpg?gif=1&w=480",
+    //   createdDate: "2023/12/28",
+    // },
+    // {
+    //   giveawayIdx: 1,
+    //   title: "나눔글 데이터임",
+    //   giveawayImage:
+    //     "https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/advices/166557187462755279.jpg?gif=1&w=480",
+    //   createdDate: "2023/12/28",
+    // },
+    // {
+    //   giveawayIdx: 2,
+    //   title: "나눔글 데이터임",
+    //   giveawayImage:
+    //     "https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/advices/166557187462755279.jpg?gif=1&w=480",
+    //   createdDate: "2023/12/28",
+    // },
+    // {
+    //   giveawayIdx: 3,
+    //   title: "나눔글 데이터임",
+    //   giveawayImage:
+    //     "https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/advices/166557187462755279.jpg?gif=1&w=480",
+    //   createdDate: "2023/12/28",
+    // },
   ],
 };
 
