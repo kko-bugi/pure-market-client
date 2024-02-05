@@ -1,17 +1,42 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
 import Template from "../../components/Template";
 
+import useToken from "../../hooks/useToken";
+
 function Login() {
+  const [id, setId] = useState("");
+  const [pw, setPW] = useState("");
+  const navigate = useNavigate();
+
   return (
     <Template>
       <Title>로그인</Title>
-      <Form action="">
-        <Input required type="text" placeholder="아이디를 입력해주세요" />
-        <Input required type="password" placeholder="비밀번호를 입력해주세요" />
+      <Form id="loginForm" onSubmit={useToken(id, pw)}>
+        <Input
+          required
+          type="text"
+          name="loginId"
+          placeholder="아이디를 입력해주세요"
+        />
+        <Input
+          required
+          name="password"
+          type="password"
+          placeholder="비밀번호를 입력해주세요"
+        />
 
         <BtnsWrapper>
           <LoginBtn type="submit" value="로그인" />
-          <SignUpBtn>회원가입</SignUpBtn>
+          <SignUpBtn
+            onClick={() => {
+              navigate("/signup");
+            }}
+          >
+            회원가입
+          </SignUpBtn>
         </BtnsWrapper>
       </Form>
     </Template>

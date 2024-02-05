@@ -1,38 +1,60 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import * as React from "react";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  redirect,
+} from "react-router-dom";
+import { useRecoilValue } from "recoil";
 
-const pages = import.meta.glob("./pages/**/*.jsx", { eager: true });
+// Pages
+import ErrorPage from "./ErrorPage";
+import Main from "./pages/index";
+import Login from "./pages/Login/index";
+import Market from "./pages/Market/index";
+import MarketWrite from "./pages/Market/Write";
+import ProductDetailed from "./pages/Market/$id";
 
-const routes = [];
+import { accessTokenState } from "./atoms/accessTokenState";
 
-for (const path of Object.keys(pages)) {
-  const fileName = path.match(/\.\/pages\/(.*)\.jsx$/)?.[1];
-  if (!fileName) {
-    continue;
-  }
-
-  const normalizedPathName = fileName.includes("$")
-    ? fileName.replace("$", ":")
-    : fileName.replace(/\/index/, "");
-
-  routes.push({
-    path: fileName === "index" ? "/" : `/${normalizedPathName.toLowerCase()}`,
-    Element: pages[path].default,
-    loader: pages[path]?.loader,
-    action: pages[path]?.action,
-    ErrorBoundary: pages[path]?.ErrorBoundary,
-  });
+function App() {
+  const accessToken = useRecoilValue(accessTokenState);
+  const loginLoader = async () => {
+    // [TODO] accessToken 받아오기...아니면 유저 정보?
+    if (accessToken === "") {
+      return redirect("/login");
+    }
+    return null;
+  };
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Main />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/market",
+      element: <Market />,
+    },
+    {
+      path: "/market/write",
+      element: <MarketWrite />,
+      loader: loginLoader,
+    },
+    {
+      path: "/market/:id",
+      element: <ProductDetailed />,
+      errorElement: <ErrorPage />,
+    },
+  ]);
+  return (
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+  );
 }
-
-const router = createBrowserRouter(
-  routes.map(({ Element, ErrorBoundary, ...rest }) => ({
-    ...rest,
-    element: <Element />,
-    ...(ErrorBoundary && { errorElement: <ErrorBoundary /> }),
-  }))
-);
-
-const App = () => {
-  return <RouterProvider router={router} />;
-};
 
 export default App;
