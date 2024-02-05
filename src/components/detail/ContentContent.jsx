@@ -8,4 +8,5 @@ export default ContentContent;
 
 const StyledContent = styled.div`
   font-size: 18px;
+  min-height: 250px;
 `;
