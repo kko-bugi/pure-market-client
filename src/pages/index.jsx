@@ -73,7 +73,7 @@ const Title = styled.h2`
   font-weight: 300;
   color: #000;
   margin-bottom: 20px;
-  text-align: left !important;
+  text-align: left;
 `;
 
 const TitleWrapper = styled.div`
