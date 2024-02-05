@@ -1,18 +1,12 @@
 import styled from "styled-components";
 
-const UserHeader = () => {
-  //임시 데이터
-  const userData = {
-    name: "미야옹",
-    img: "https://i.pinimg.com/474x/ea/bd/28/eabd28ad0a00cb6dbe478b1fb69aa9a8.jpg",
-  };
-
+const UserHeader = ({ data }) => {
   return (
     <HeaderWrapper>
-      <ProfileImg src={userData.img}></ProfileImg>
+      <ProfileImg src={data.profileImage}></ProfileImg>
       <GreetingWrapper>
         <GreetingHello>안녕하세요</GreetingHello>
-        <GreetingUserName>{userData.name} 님!</GreetingUserName>
+        <GreetingUserName>{data.nickname} 님!</GreetingUserName>
       </GreetingWrapper>
       <LogOutBtn>로그아웃</LogOutBtn>
     </HeaderWrapper>
@@ -26,6 +20,7 @@ const HeaderWrapper = styled.div`
   grid-template-columns: 1.15fr 1fr 1.2fr;
   align-items: center;
   justify-content: space-between;
+  margin-top: 80px;
 `;
 
 const ProfileImg = styled.img`
