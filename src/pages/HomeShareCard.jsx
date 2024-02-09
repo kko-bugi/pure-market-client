@@ -1,14 +1,22 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 function HomeShareCard({ product }) {
+  const navigate = useNavigate();
   return (
-    <CardWrapper href="">
-      <ItemImg src={product.img} alt="" />
-      <ItemName>{product.name}</ItemName>
-      <ItemDescription>
+
+    <CardWrapper
+    onClick={() => {
+      navigate(`/share/${product.name}`, { state: product });
+    }}
+  >
+    <ItemImg src={product.img} alt="" />
+    <ItemName>{product.name}</ItemName>
+    <ItemDescription>
         {product.description.toLocaleString()}
-      </ItemDescription>
-    </CardWrapper>
+    </ItemDescription>
+  </CardWrapper>
+    
   );
 }
 
@@ -22,6 +30,7 @@ const CardWrapper = styled.a`
   margin-left: 5px;
   margin-right: 5px;
   vertical-align: top;
+  cursor: pointer;
 `;
 
 const ItemImg = styled.img`

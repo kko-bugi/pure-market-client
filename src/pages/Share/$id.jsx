@@ -6,27 +6,34 @@ import MiniProfile from "../../components/MiniProfile";
 import ContentImg from "../../components/detail/ContentImg";
 import ContentTitle from "../../components/detail/ContentTitle";
 import ContentContent from "../../components/detail/ContentContent";
-import ContentPrice from "./ContentPrice";
+import PostControlBtn from "../../components/PostControlBtn";
+import { useState } from "react";
 
 function Detailed() {
   const location = useLocation();
-  if (location.state === null) throw Error(404); // 존재하지 않는 페이지
-
   const productInfo = { ...location.state };
+
+  // 로컬 state
+  const [isSoldOut, setIsSoldOut] = useState(productInfo.isSoldOut);
 
   return (
     <Template>
       <Wrapper>
-        <Title>우리 지역 농산물 장터</Title>
+        <Title>우리 지역 나눔 장터</Title>
         <ContentWrapper>
           <LeftWrapper>
-            <ContentImg src={productInfo.img} alt="" />
+            <ContentImg src={productInfo.img} alt="" isSoldOut={isSoldOut} />
           </LeftWrapper>
           <RightWrapper>
             <MiniProfile />
             <ContentTitle txt={productInfo.name} />
             <ContentContent txt={productInfo.description} />
-            <ContentPrice price={productInfo.price} />
+            {productInfo.isMine && (
+              <PostControlBtn
+                isSoldOut={isSoldOut}
+                toggleSoldOut={() => setIsSoldOut(!isSoldOut)}
+              />
+            )}
           </RightWrapper>
         </ContentWrapper>
       </Wrapper>
@@ -39,7 +46,7 @@ export default Detailed;
 const Title = styled.div`
   font-size: 34px;
   font-weight: 700;
-  border-bottom: 3px solid #feb37a;
+  border-bottom: 3px solid #83c1fc;
   margin-bottom: 32px;
   width: fit-content;
 `;

@@ -9,6 +9,8 @@ import ContentContent from "../../components/detail/ContentContent";
 
 function Detailed() {
   const location = useLocation();
+  if (location.state === null) throw Error(404); // 존재하지 않는 페이지
+
   const recipeInfo = { ...location.state };
 
   return (
