@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-function HomeShareCard({ share }) {
+function HomeShareCard({ product }) {
   return (
     <CardWrapper href="">
-      <ShareItemImg src={share.img} alt="" />
-      <ShareItemName>{share.name}</ShareItemName>
-      <ShareItemContents>
-        {share.contents.toLocaleString()}
-      </ShareItemContents>
+      <ItemImg src={product.img} alt="" />
+      <ItemName>{product.name}</ItemName>
+      <ItemDescription>
+        {product.description.toLocaleString()}
+      </ItemDescription>
     </CardWrapper>
   );
 }
@@ -24,19 +24,19 @@ const CardWrapper = styled.a`
   vertical-align: top;
 `;
 
-const ShareItemImg = styled.img`
+const ItemImg = styled.img`
   width: 180px;
   height: 155px;
   border-radius: 15px;
 `;
 
-const ShareItemName = styled.div`
+const ItemName = styled.div`
   color: #000;
   font-size: 12px;
   min-height: 39px;
 `;
 
-const ShareItemContents = styled.div`
+const ItemDescription = styled.div`
   color: #8e8e8e;
   font-size: 10px;
   font-weight: 400;

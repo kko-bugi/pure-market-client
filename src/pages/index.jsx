@@ -13,7 +13,7 @@ function Home() {
 
   const todayFourItems = data.items.slice(0, 4);
   const todayThreeRecipes = RecipeData. recipeItems.slice(0, 3);
-  const todayFourShares = ShareData. shareItems.slice(0, 4);
+  const todayFourShares = ShareData. items.slice(0, 4);
   
   return (
     <Template banner={<HomeBanner />}>
@@ -34,7 +34,7 @@ function Home() {
       <Title>오늘의 나눔글</Title>
       <ItemWrapper4Grid>
         {todayFourShares.map((el) => (
-          <HomeShareCard key={el.share} share={el} />
+          <HomeShareCard key={el.product} product={el} />
         ))}
 
       </ItemWrapper4Grid>

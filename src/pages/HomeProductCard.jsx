@@ -24,6 +24,7 @@ export default HomeProductCard;
 const CardWrapper = styled.div`
   max-width: 183px;
   cursor: pointer;
+  margin-bottom: 40px;
 `;
 
 const ItemImg = styled.img`
