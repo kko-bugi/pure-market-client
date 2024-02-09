@@ -53,6 +53,7 @@ function App() {
     {
       path: "/market/write",
       element: <MarketWrite />,
+      loader: loginLoader,
     },
     {
       path: "/market/:id",
@@ -66,6 +67,7 @@ function App() {
     {
       path: "/recipe/write",
       element: <RecipeWrite />,
+      loader: loginLoader,
     },
     {
       path: "/recipe/:id",
