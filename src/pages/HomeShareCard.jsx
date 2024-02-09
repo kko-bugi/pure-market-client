@@ -42,17 +42,20 @@ const ItemImg = styled.img`
 const ItemName = styled.div`
   color: #000;
   font-size: 12px;
-  min-height: 39px;
+  font-weight: 500;
+  min-height: 30px;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const ItemDescription = styled.div`
   color: #8e8e8e;
   font-size: 10px;
   font-weight: 400;
-  display: flex;
-  align-items: center;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden; 
-  text-overflow: ellipsis; /*말줄임표가안나온다?*/
-  min-width: 0;
 `;

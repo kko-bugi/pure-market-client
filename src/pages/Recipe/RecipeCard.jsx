@@ -26,7 +26,7 @@ const RecipeItemImg = styled.img`
   width: 224px;
   height: 224px;
   border-radius: 15px;
-  margin-right: 3px
+  margin-right: 20px
   object-fit: cover;
 `;
 
@@ -34,4 +34,8 @@ const RecipeItemName = styled.div`
   color: #000;
   font-size: 14px;
   min-height: 39px;
+  max-width: 224px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;

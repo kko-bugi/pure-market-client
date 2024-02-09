@@ -25,6 +25,8 @@ const CardWrapper = styled.div`
   max-width: 183px;
   cursor: pointer;
   margin-bottom: 40px;
+  margin-left: 3px;
+  margin-right: 3px;
 `;
 
 const ItemImg = styled.img`
@@ -38,7 +40,13 @@ const ItemName = styled.div`
   font-size: 12px;
   min-height: 39px;
   font-weight: 500;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
+
 const ItemPrice = styled.div`
   color: #000;
   font-size: 15px;

@@ -3,7 +3,7 @@ import Template from "../../components/Template";
 import RecipeBanner from "./RecipeBanner";
 import RecipeData from "../../data/recipeList.json";
 import RecipeCard from "./RecipeCard";
-import Icon from "../../assets/AddIcon.svg";
+import Icon from "../../assets/RecipeAddIcon.svg";
 import AddIcon from "../../components/AddIcon";
 
 function Recipe() {

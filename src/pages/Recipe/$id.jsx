@@ -25,16 +25,14 @@ function Detailed() {
             <MiniProfile />
             <ContentTitle txt={recipeInfo.name} />
             <ContentContent txt={recipeInfo.description} /><br/>
-            
             <SubtitleWrapper>
-            <Subtitle>[재료]&nbsp;</Subtitle>
-            <ContentContent txt={recipeInfo. ingredient}/><br/>
+              <Subtitle>[재료]&nbsp;</Subtitle>
+              <ContentContent txt={recipeInfo. ingredient}/><br/>
             </SubtitleWrapper>
             <SubtitleWrapper>
-            <Subtitle>[양념]&nbsp;</Subtitle>
-            <ContentContent txt={recipeInfo. sauce}/>
+              <Subtitle>[양념]&nbsp;</Subtitle>
+              <ContentContent txt={recipeInfo. sauce}/>
             </SubtitleWrapper>
-
           </RightWrapper>
           </ContentWrapper>
 

@@ -68,17 +68,18 @@ const ItemWrapper3Grid = styled.div`
   gap: 23px;
 `;
 
+const TitleWrapper = styled.div`
+display: flex;
+align-items: center;
+justify-content: flex-start; 
+width: 65%;
+`;
+
+
 const Title = styled.h2`
   font-size: 22px;
   font-weight: 300;
   color: #000;
   margin-bottom: 20px;
   text-align: left;
-`;
-
-const TitleWrapper = styled.div`
-display: flex;
-align-items: center;
-justify-content: space-between;
-text-align: left !important;
 `;
