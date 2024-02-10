@@ -6,11 +6,11 @@ function ProductCard({ product }) {
   return (
     <CardWrapper
       onClick={() => {
-        navigate(`/market/${product.name}`, { state: product });
+        navigate(`/market/${product.produceIdx}`, { state: product });
       }}
     >
-      <ItemImg src={product.img} alt="" />
-      <ItemName>{product.name}</ItemName>
+      <ItemImg src={product.produceImage} alt="" />
+      <ItemName>{product.title}</ItemName>
       <ItemPrice>
         {product.price.toLocaleString()}
         <PriceUnit>원</PriceUnit>
