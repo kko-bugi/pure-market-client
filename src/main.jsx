@@ -6,8 +6,7 @@ import { RecoilRoot } from "recoil";
 
 import "./index.css";
 
-// axios.defaults.baseURL =""; // [TODO] 백엔드 연결 시 등록
-axios.defaults.withCredentials = true;
+axios.defaults.baseURL = "http://35.212.150.138:8080/api/v1";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
