@@ -10,16 +10,23 @@ import { useRecoilValue } from "recoil";
 import ErrorPage from "./ErrorPage";
 import Main from "./pages/index";
 import Login from "./pages/Login/index";
+import SignUp from "./pages/SignUp/index";
 import Market from "./pages/Market/index";
 import MarketWrite from "./pages/Market/Write";
 import ProductDetailed from "./pages/Market/$id";
+import Recipe from "./pages/Recipe/index";
+import RecipeWrite from "./pages/Recipe/Write";
+import RecipeDetailed from "./pages/Recipe/$id";
+import Share from "./pages/Share/index";
+import ShareWrite from "./pages/Share/Write";
+import ShareDetailed from "./pages/Share/$id";
 
 import { accessTokenState } from "./atoms/accessTokenState";
 
 function App() {
   const accessToken = useRecoilValue(accessTokenState);
   const loginLoader = async () => {
-    // [TODO] accessToken ¹Þ¾Æ¿À±â...¾Æ´Ï¸é À¯Àú Á¤º¸?
+    // [TODO] accessToken ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½...ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½?
     if (accessToken === "") {
       return redirect("/login");
     }
@@ -36,6 +43,10 @@ function App() {
       element: <Login />,
     },
     {
+      path: "/signUp",
+      element: <SignUp />,
+    },
+    {
       path: "/market",
       element: <Market />,
     },
@@ -47,6 +58,34 @@ function App() {
     {
       path: "/market/:id",
       element: <ProductDetailed />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/recipe",
+      element: <Recipe />,
+    },
+    {
+      path: "/recipe/write",
+      element: <RecipeWrite />,
+      loader: loginLoader,
+    },
+    {
+      path: "/recipe/:id",
+      element: <RecipeDetailed />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/share",
+      element: <Share />,
+    },
+    {
+      path: "/share/write",
+      element: <ShareWrite />,
+      loader: loginLoader,
+    },
+    {
+      path: "/share/:id",
+      element: <ShareDetailed />,
       errorElement: <ErrorPage />,
     },
   ]);
