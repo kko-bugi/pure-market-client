@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-function WriteTextArea({ name, placeholder, height, style }) {
+function WriteTextArea({ name, placeholder, height, style, onChange }) {
   return (
     <StyledTextArea
       required
@@ -8,6 +8,7 @@ function WriteTextArea({ name, placeholder, height, style }) {
       placeholder={placeholder}
       height={height}
       styles={style}
+      onChange={onChange}
     />
   );
 }

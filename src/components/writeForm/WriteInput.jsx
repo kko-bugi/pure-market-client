@@ -1,6 +1,13 @@
 import styled from "styled-components";
 
-function WriteInput({ type = "text", name, placeholder, height, style }) {
+function WriteInput({
+  type = "text",
+  name,
+  placeholder,
+  height,
+  style,
+  onChange,
+}) {
   return (
     <StyledInput
       required
@@ -10,6 +17,7 @@ function WriteInput({ type = "text", name, placeholder, height, style }) {
       placeholder={placeholder}
       height={height}
       style={style}
+      onChange={onChange}
     />
   );
 }
