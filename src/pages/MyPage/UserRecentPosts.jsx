@@ -3,29 +3,20 @@ import UserRecentPostCard from "./UserRecentPostCard";
 import DefaultMyPostImg from "../../assets/DefaultMyPostImg.svg";
 
 const UserRecentPosts = ({ postType, recentPostData }) => {
-  let dataName = "";
-  let korName = "";
-  const setNames = () => {
-    switch (postType) {
-      case "market":
-        dataName = "produce";
-        korName = "판매";
-        break;
-      case "recipe":
-        dataName = "recipe";
-        korName = "레시피";
-        break;
-      case "share":
-        dataName = "giveaway";
-        korName = "나눔";
-        break;
-    }
+  const DataName = {
+    market: "produce",
+    recipe: "recipe",
+    share: "giveaway",
   };
-  setNames();
+  const KorName = {
+    market: "판매",
+    recipe: "레시피",
+    share: "나눔",
+  };
 
   return (
     <RecentPostDetailWrapper>
-      <Title>최근 내가 작성한 {korName}글</Title>
+      <Title>최근 내가 작성한 {KorName[postType]}글</Title>
       {recentPostData.length === 0 ? (
         <DefaultContent>
           <DefaultImg src={DefaultMyPostImg} />
@@ -35,10 +26,10 @@ const UserRecentPosts = ({ postType, recentPostData }) => {
         <ItemWrapper postType={postType}>
           {recentPostData.map((el) => (
             <UserRecentPostCard
-              key={el[`${dataName}Idx`]}
+              key={el[`${DataName[postType]}Idx`]}
               post={el}
               postType={postType}
-              dataName={dataName}
+              dataName={DataName[postType]}
             />
           ))}
         </ItemWrapper>
