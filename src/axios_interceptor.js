@@ -13,7 +13,6 @@ instance.interceptors.response.use(
   },
   async (err) => {
     if (err.response?.status === 401 || err.response?.status === 403) {
-      console.log(`status code = ${err.response?.status}`);
       const accessToken = await refreshAccessToken();
       err.config.headers = {
         Authorization: `Bearer ${accessToken}`,
