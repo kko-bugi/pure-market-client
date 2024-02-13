@@ -6,7 +6,9 @@ function ProductCard({ product }) {
   return (
     <CardWrapper
       onClick={() => {
-        navigate(`/market/${product.produceIdx}`, { state: product });
+        navigate(`/market/${product.produceIdx}`, {
+          state: product.produceIdx,
+        });
       }}
     >
       <ItemImg src={product.produceImage} alt="" />

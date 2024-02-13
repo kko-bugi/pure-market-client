@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
+import instance from "../../axios_interceptor";
 
 import Template from "../../components/Template";
 import MiniProfile from "../../components/MiniProfile";
@@ -10,25 +12,53 @@ import ContentPrice from "./ContentPrice";
 
 function Detailed() {
   const location = useLocation();
-  if (location.state === null) throw Error(404); // 존재하지 않는 페이지
 
-  const productInfo = { ...location.state };
+  if (location.state === null) {
+    throw Error(404); // 존재하지 않는 페이지
+  }
+
+  const productIdx = location.state;
+  const [productInfo, setProductInfo] = useState(null);
+
+  useEffect(() => {
+    const getProductData = async () => {
+      try {
+        const res = await instance.get(`/produce/${productIdx}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        setProductInfo(res.data.result);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    getProductData();
+  }, []);
 
   return (
     <Template>
       <Wrapper>
         <Title>우리 지역 농산물 장터</Title>
-        <ContentWrapper>
-          <LeftWrapper>
-            <ContentImg src={productInfo.img} alt="" />
-          </LeftWrapper>
-          <RightWrapper>
-            <MiniProfile />
-            <ContentTitle txt={productInfo.name} />
-            <ContentContent txt={productInfo.description} />
-            <ContentPrice price={productInfo.price} />
-          </RightWrapper>
-        </ContentWrapper>
+        {!productInfo ? (
+          <div>로딩중...</div>
+        ) : (
+          <ContentWrapper>
+            <LeftWrapper>
+              <ContentImg src={productInfo.produceImage} alt="" />
+            </LeftWrapper>
+            <RightWrapper>
+              <MiniProfile
+                profileImg={productInfo.profileImg}
+                nickname={productInfo.nickname}
+                contact={productInfo.contact}
+              />
+              <ContentTitle txt={productInfo.title} />
+              <ContentContent txt={productInfo.content} />
+              <ContentPrice price={productInfo.price} />
+            </RightWrapper>
+          </ContentWrapper>
+        )}
       </Wrapper>
     </Template>
   );
