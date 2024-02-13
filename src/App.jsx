@@ -4,7 +4,7 @@ import {
   RouterProvider,
   redirect,
 } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { Cookies } from "react-cookie";
 
 // Pages
 import ErrorPage from "./ErrorPage";
@@ -14,15 +14,14 @@ import Market from "./pages/Market/index";
 import MarketWrite from "./pages/Market/Write";
 import ProductDetailed from "./pages/Market/$id";
 
-import { accessTokenState } from "./atoms/accessTokenState";
-
 function App() {
-  const accessToken = useRecoilValue(accessTokenState);
+  const cookies = new Cookies();
+
   const loginLoader = async () => {
-    // [TODO] accessToken 받아오기...아니면 유저 정보?
-    if (accessToken === "") {
+    if (cookies.get("refreshToken") === undefined) {
       return redirect("/login");
     }
+
     return null;
   };
   const router = createBrowserRouter([
