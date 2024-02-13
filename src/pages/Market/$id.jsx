@@ -13,6 +13,7 @@ function Detailed() {
   if (location.state === null) throw Error(404); // 존재하지 않는 페이지
 
   const productInfo = { ...location.state };
+
   return (
     <Template>
       <Wrapper>
