@@ -4,7 +4,7 @@ import {
   RouterProvider,
   redirect,
 } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { Cookies } from "react-cookie";
 
 // Pages
 import ErrorPage from "./ErrorPage";
@@ -15,19 +15,21 @@ import MyPage from "./pages/MyPage/index";
 import Market from "./pages/Market/index";
 import MarketWrite from "./pages/Market/Write";
 import ProductDetailed from "./pages/Market/$id";
+import Recipe from "./pages/Recipe/index";
+import RecipeWrite from "./pages/Recipe/Write";
+import RecipeDetailed from "./pages/Recipe/$id";
 import Share from "./pages/Share/index";
 import ShareWrite from "./pages/Share/Write";
 import ShareDetailed from "./pages/Share/$id";
 
-import { accessTokenState } from "./atoms/accessTokenState";
-
 function App() {
-  const accessToken = useRecoilValue(accessTokenState);
+  const cookies = new Cookies();
+
   const loginLoader = async () => {
-    // [TODO] accessToken �޾ƿ���...�ƴϸ� ���� ����?
-    if (accessToken === "") {
+    if (cookies.get("refreshToken") === undefined) {
       return redirect("/login");
     }
+
     return null;
   };
   const router = createBrowserRouter([
@@ -60,6 +62,20 @@ function App() {
     {
       path: "/market/:id",
       element: <ProductDetailed />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/recipe",
+      element: <Recipe />,
+    },
+    {
+      path: "/recipe/write",
+      element: <RecipeWrite />,
+      loader: loginLoader,
+    },
+    {
+      path: "/recipe/:id",
+      element: <RecipeDetailed />,
       errorElement: <ErrorPage />,
     },
     {

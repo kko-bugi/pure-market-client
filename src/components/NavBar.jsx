@@ -11,7 +11,7 @@ function NavBar() {
 
       <MainFeature to="/market">농산물 쇼핑</MainFeature>
       <MainFeature to="/share">나눔 장터</MainFeature>
-      <MainFeature to="">레시피 Book</MainFeature>
+      <MainFeature to="/recipe">레시피 Book</MainFeature>
 
       <div>
         <SubFeature to="/signUp">회원가입</SubFeature>
