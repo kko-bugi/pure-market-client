@@ -6,7 +6,12 @@ const UserHeader = ({ data }) => {
       <ProfileImg src={data.profileImage}></ProfileImg>
       <GreetingWrapper>
         <GreetingHello>안녕하세요</GreetingHello>
-        <GreetingUserName>{data.nickname} 님!</GreetingUserName>
+        <GreetingUserName>
+          {data.nickname.length > 4
+            ? data.nickname.slice(0, 4) + "..."
+            : data.nickname}{" "}
+          님!
+        </GreetingUserName>
       </GreetingWrapper>
       <LogOutBtn>로그아웃</LogOutBtn>
     </HeaderWrapper>
@@ -17,7 +22,7 @@ export default UserHeader;
 
 const HeaderWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1.15fr 1fr 1.2fr;
+  grid-template-columns: 126px 250px 60px;
   align-items: center;
   justify-content: space-between;
   margin-top: 80px;
@@ -32,6 +37,7 @@ const ProfileImg = styled.img`
 const GreetingWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  padding-left: 35px;
 `;
 
 const GreetingHello = styled.span`
