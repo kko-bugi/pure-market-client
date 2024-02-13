@@ -4,7 +4,7 @@ import {
   RouterProvider,
   redirect,
 } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { Cookies } from "react-cookie";
 
 // Pages
 import ErrorPage from "./ErrorPage";
@@ -21,15 +21,14 @@ import Share from "./pages/Share/index";
 import ShareWrite from "./pages/Share/Write";
 import ShareDetailed from "./pages/Share/$id";
 
-import { accessTokenState } from "./atoms/accessTokenState";
-
 function App() {
-  const accessToken = useRecoilValue(accessTokenState);
+  const cookies = new Cookies();
+
   const loginLoader = async () => {
-    // [TODO] accessToken �޾ƿ���...�ƴϸ� ���� ����?
-    if (accessToken === "") {
+    if (cookies.get("refreshToken") === undefined) {
       return redirect("/login");
     }
+
     return null;
   };
   const router = createBrowserRouter([
