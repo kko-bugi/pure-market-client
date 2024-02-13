@@ -1,13 +1,17 @@
 import styled from "styled-components";
-import data from "../data/user.json";
+import DefaultImg from "../assets/DefaultProfileImg.png";
 
-function MiniProfile() {
+function MiniProfile({
+  profileImg = DefaultImg,
+  nickname = "이름없음",
+  contact = "010-XXXX-XXX",
+}) {
   return (
     <ProfileWrapper>
-      <ProfileImg src={data.img} alt="" />
+      <ProfileImg src={profileImg} alt="" />
       <TextWrapper>
-        <Nickname>{data.nickname}</Nickname>
-        <PhoneNumber>{data.phone}</PhoneNumber>
+        <Nickname>{nickname}</Nickname>
+        <PhoneNumber>{contact}</PhoneNumber>
       </TextWrapper>
     </ProfileWrapper>
   );
