@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import instance from "../../axios_interceptor";
+import { useNavigate } from "react-router-dom";
 
 import Template from "../../components/Template";
 import MiniProfile from "../../components/MiniProfile";
@@ -9,9 +10,11 @@ import ContentImg from "../../components/detail/ContentImg";
 import ContentTitle from "../../components/detail/ContentTitle";
 import ContentContent from "../../components/detail/ContentContent";
 import ContentPrice from "./ContentPrice";
+import PostControlBtn from "../../components/PostControlBtn";
 
 function Detailed() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   if (location.state === null) {
     throw Error(404); // 존재하지 않는 페이지
@@ -19,20 +22,46 @@ function Detailed() {
 
   const productIdx = location.state;
   const [productInfo, setProductInfo] = useState(null);
+  const getProductData = async () => {
+    try {
+      const res = await instance.get(`/produce/${productIdx}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      setProductInfo(res.data.result);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await instance.patch(`/produce?produceIdx=${productIdx}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      navigate("/market");
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleStatusChange = async () => {
+    try {
+      await instance.patch(`/produce/${productIdx}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      await getProductData();
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   useEffect(() => {
-    const getProductData = async () => {
-      try {
-        const res = await instance.get(`/produce/${productIdx}`, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        setProductInfo(res.data.result);
-      } catch (e) {
-        console.error(e);
-      }
-    };
     getProductData();
   }, []);
 
@@ -45,14 +74,32 @@ function Detailed() {
         ) : (
           <ContentWrapper>
             <LeftWrapper>
-              <ContentImg src={productInfo.produceImage} alt="" />
+              <ContentImg
+                src={productInfo.produceImage}
+                alt=""
+                isSoldOut={
+                  productInfo.produceStatus === "판매완료" ? true : false
+                }
+              />
             </LeftWrapper>
             <RightWrapper>
-              <MiniProfile
-                profileImg={productInfo.profileImg}
-                nickname={productInfo.nickname}
-                contact={productInfo.contact}
-              />
+              <UserWrapper>
+                <MiniProfile
+                  profileImg={productInfo.profileImg}
+                  nickname={productInfo.nickname}
+                  contact={productInfo.contact}
+                />
+                {!productInfo.isWriter && (
+                  <PostControlBtn
+                    isSoldOut={
+                      productInfo.produceStatus === "판매완료" ? true : false
+                    }
+                    handleDelete={handleDelete}
+                    toggleSoldOut={handleStatusChange}
+                  />
+                )}
+              </UserWrapper>
+
               <ContentTitle txt={productInfo.title} />
               <ContentContent txt={productInfo.content} />
               <ContentPrice price={productInfo.price} />
@@ -98,4 +145,10 @@ const LeftWrapper = styled.div`
 
 const RightWrapper = styled.div`
   width: 100%;
+`;
+
+const UserWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 `;
