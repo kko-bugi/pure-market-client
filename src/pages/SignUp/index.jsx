@@ -13,24 +13,24 @@ export default function SignUp() {
   const [form, setForm] = useState({
     profile: null,
     nickname: "",
-    id: "",
+    loginId: "",
     password: "",
-    passwordConfirm: "",
-    phoneNumber: "",
+    passwordCheck: "",
+    contact: "",
   });
   // 유효성 검사
   const [valid, setValid] = useState({
     nickname: false,
-    id: false,
+    loginId: false,
     password: false,
-    phoneNumber: false,
+    contact: false,
   });
   // 에러 메세지
   const [errorMsg, setErrorMsg] = useState({
     nickname: "",
-    id: "",
+    loginId: "",
     password: "",
-    phoneNumber: "",
+    contact: "",
   });
   // 닉네임
   const [isNicknameBtnDisabled, setIsNicknameBtnDisabled] = useState(false);
@@ -46,8 +46,7 @@ export default function SignUp() {
     };
     setForm(newForm);
 
-    const name =
-      e.target.name === "passwordConfirm" ? "password" : e.target.name;
+    const name = e.target.name === "passwordCheck" ? "password" : e.target.name;
     //에러메세지 초기화
     handleErrorMsg(name, "");
     //validation 초기화
@@ -100,13 +99,13 @@ export default function SignUp() {
     const userInput = e.target.value;
     if (/[^a-zA-Z0-9]/.test(userInput) || userInput.includes(" ")) {
       handleErrorMsg(
-        "id",
+        "loginId",
         "영어와 숫자만 입력 가능하며, 공백을 포함할 수 없습니다."
       );
       setIsIdBtnDisabled(true);
-      handleValidation("id", false);
+      handleValidation("loginId", false);
     } else {
-      handleErrorMsg("id", "");
+      handleErrorMsg("loginId", "");
       setIsIdBtnDisabled(false);
     }
   };
@@ -115,40 +114,40 @@ export default function SignUp() {
     e.preventDefault();
 
     // 공백 입력 처리
-    if (!form.id) {
-      handleErrorMsg("id", "아이디를 입력해주세요.");
-      handleValidation("id", false);
+    if (!form.loginId) {
+      handleErrorMsg("loginId", "아이디를 입력해주세요.");
+      handleValidation("loginId", false);
       return;
     }
 
     const isIdAvailable = true; // 백엔드에서 받아온 데이터. 중복 여부 결과
     if (isIdAvailable) {
-      handleErrorMsg("id", "");
-      handleValidation("id", true);
+      handleErrorMsg("loginId", "");
+      handleValidation("loginId", true);
     } else {
-      handleErrorMsg("id", "이미 사용 중인 아이디입니다.");
-      handleValidation("id", false);
+      handleErrorMsg("loginId", "이미 사용 중인 아이디입니다.");
+      handleValidation("loginId", false);
     }
   };
 
   // 비밀번호
   useEffect(() => {
-    if (form.passwordConfirm) {
-      if (form.password === form.passwordConfirm) {
+    if (form.passwordCheck) {
+      if (form.password === form.passwordCheck) {
         handleValidation("password", true);
       } else {
         handleErrorMsg("password", "비밀번호가 일치하지 않습니다.");
       }
     }
-  }, [form.password, form.passwordConfirm]);
+  }, [form.password, form.passwordCheck]);
 
   // 핸드폰 번호
   const handlePhoneNumberChange = (e) => {
     if (/[^0-9]/.test(e.target.value)) {
-      handleErrorMsg("phoneNumber", "숫자만 입력해주세요.");
+      handleErrorMsg("contact", "숫자만 입력해주세요.");
     } else {
-      handleErrorMsg("phoneNumber", "");
-      handleValidation("phoneNumber", true);
+      handleErrorMsg("contact", "");
+      handleValidation("contact", true);
     }
   };
 
@@ -189,19 +188,19 @@ export default function SignUp() {
             case "nickname":
               handleErrorMsg("nickname", "닉네임 중복 확인을 해주세요.");
               break;
-            case "id":
-              handleErrorMsg("id", "아이디 중복 확인을 해주세요.");
+            case "loginId":
+              handleErrorMsg("loginId", "아이디 중복 확인을 해주세요.");
               break;
             case "password":
               setForm((prevForm) => ({
                 ...prevForm,
                 password: "",
-                passwordConfirm: "",
+                passwordCheck: "",
               }));
               handleErrorMsg("password", "비밀번호가 일치하지 않습니다.");
               break;
-            case "phoneNumber":
-              handleErrorMsg("phoneNumber", "숫자만 입력해주세요.");
+            case "contact":
+              handleErrorMsg("contact", "숫자만 입력해주세요.");
               break;
             default:
               break;
@@ -244,7 +243,7 @@ export default function SignUp() {
             text={{
               type: "text",
               placeholder: "아이디를 입력해주세요",
-              name: "id",
+              name: "loginId",
               onChange: (e) => {
                 handleChange(e);
                 handleIdChange(e);
@@ -256,8 +255,8 @@ export default function SignUp() {
                 disabled={isIdBtnDisabled}
               ></DuplicateCheckButton>
             }
-            errorMsg={errorMsg.id}
-            passMsg={valid.id && "사용 가능한 아이디입니다."}
+            errorMsg={errorMsg.loginId}
+            passMsg={valid.loginId && "사용 가능한 아이디입니다."}
           ></Input>
 
           <Input
@@ -278,8 +277,8 @@ export default function SignUp() {
             text={{
               type: "password",
               placeholder: "비밀번호를 한번 더 입력해주세요",
-              value: form.passwordConfirm,
-              name: "passwordConfirm",
+              value: form.passwordCheck,
+              name: "passwordCheck",
               onChange: (e) => {
                 handleChange(e);
               },
@@ -292,13 +291,13 @@ export default function SignUp() {
             text={{
               type: "text",
               placeholder: "‘-’ 없이 숫자만",
-              name: "phoneNumber",
+              name: "contact",
               onChange: (e) => {
                 handleChange(e);
                 handlePhoneNumberChange(e);
               },
             }}
-            errorMsg={errorMsg.phoneNumber}
+            errorMsg={errorMsg.contact}
           ></Input>
 
           <SignUpButton
