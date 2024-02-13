@@ -11,6 +11,7 @@ import ErrorPage from "./ErrorPage";
 import Main from "./pages/index";
 import Login from "./pages/Login/index";
 import SignUp from "./pages/SignUp/index";
+import MyPage from "./pages/MyPage/index";
 import Market from "./pages/Market/index";
 import MarketWrite from "./pages/Market/Write";
 import ProductDetailed from "./pages/Market/$id";
@@ -44,6 +45,10 @@ function App() {
     {
       path: "/signUp",
       element: <SignUp />,
+    },
+    {
+      path: "/myPage",
+      element: <MyPage />,
     },
     {
       path: "/market",
