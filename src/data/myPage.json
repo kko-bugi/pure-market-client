@@ -1,0 +1,45 @@
+{
+  "isSuccess": true,
+  "code": 1000,
+  "message": "요청에 성공하였습니다.",
+  "result": {
+    "nickname": "미야옹",
+    "profileImage": "https://storage.googleapis.com/pure-market-bucket/users/ba5f8de6-85e9-44b9-ae1e-cf4c1f74ba29GDSC23-VideoChatBG-Server.png",
+    "produceList": [
+      {
+        "produceIdx": 1,
+        "title": "판매글입니다옹",
+        "produceImage": "https://storage.googleapis.com/pure-market-bucket/produce/2bc46d31-83c3-4410-b8e5-3f6ca602d990스프링.png",
+        "createdDate": "2024/02/06",
+        "status": "판매중"
+      },
+      {
+        "produceIdx": 2,
+        "title": "판매글 데이터임판매글 데이터임판매글 데이터임판매글 데이터임판매글 데이터임판매글 데이터임판매글 데이터임판매글 데이터임판매글 데이터임",
+        "produceImage": "https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/advices/166557187462755279.jpg?gif=1&w=480",
+        "createdDate": "2023/12/28"
+      }
+    ],
+    "recipeList": [
+      {
+        "recipeIdx": 1,
+        "title": "레시피 제목",
+        "recipeImage": "https://storage.googleapis.com/pure-market-bucket/recipe/7beb67b9-ae85-4f31-a552-852c52ae96f1GDSC23-VideoChatBG-Server.png",
+        "createdDate": "2024/02/06"
+      },
+      {
+        "recipeIdx": 2,
+        "title": "레시피글 데이터임레시피글 데이터임레시피글 데이터임레시피글 데이터임레시피글 데이터임레시피글 데이터임",
+        "recipeImage": "https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/advices/166557187462755279.jpg?gif=1&w=480",
+        "createdDate": "2023/12/28"
+      },
+      {
+        "recipeIdx": 3,
+        "title": "세번째",
+        "recipeImage": "https://storage.googleapis.com/pure-market-bucket/recipe/7beb67b9-ae85-4f31-a552-852c52ae96f1GDSC23-VideoChatBG-Server.png",
+        "createdDate": "2024/02/06"
+      }
+    ],
+    "giveawayList": []
+  }
+}
