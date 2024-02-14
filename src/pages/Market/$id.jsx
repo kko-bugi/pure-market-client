@@ -89,7 +89,7 @@ function Detailed() {
                   nickname={productInfo.nickname}
                   contact={productInfo.contact}
                 />
-                {!productInfo.isWriter && (
+                {productInfo.isWriter && (
                   <PostControlBtn
                     isSoldOut={
                       productInfo.produceStatus === "판매완료" ? true : false
