@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import CameraIcon from "../../assets/CameraIcon.svg";
 
-function WriteImgInput() {
+function WriteImgInput({ setImage }) {
   const handleImgInputClick = () => {
     const imgInput = document.getElementById("img");
     if (imgInput) imgInput.click();
@@ -26,6 +26,7 @@ function WriteImgInput() {
   const handleImgInput = () => {
     const fileInput = document.getElementById("img");
     const file = fileInput.files[0];
+    setImage(file);
 
     if (checkIsValid(file) === false) return;
     showPreview(file);
