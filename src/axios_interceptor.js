@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Cookies } from "react-cookie";
 import refreshAccessToken from "./utils/refreshAccessToken";
 
 const instance = axios.create({
@@ -6,22 +7,20 @@ const instance = axios.create({
   timeout: 2000,
 });
 
-instance.interceptors.response.use(
-  (res) => {
-    console.log(res);
-    return res;
-  },
-  async (err) => {
-    if (err.response?.status === 403) {
+instance.interceptors.request.use(
+  async (config) => {
+    const cookies = new Cookies();
+    if (cookies.get("refreshToken") !== undefined) {
       const accessToken = await refreshAccessToken();
-      err.config.headers = {
+      config.headers = {
         Authorization: `Bearer ${accessToken}`,
       };
       axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-
-      const res = await axios.request(err.config);
-      return res;
     }
+    return config;
+  },
+  (err) => {
+    console.log(err);
     return Promise.reject(err);
   }
 );
