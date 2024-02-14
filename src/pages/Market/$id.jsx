@@ -85,7 +85,7 @@ function Detailed() {
             <RightWrapper>
               <UserWrapper>
                 <MiniProfile
-                  profileImg={productInfo.profileImg}
+                  profileImg={productInfo.profileImage}
                   nickname={productInfo.nickname}
                   contact={productInfo.contact}
                 />
