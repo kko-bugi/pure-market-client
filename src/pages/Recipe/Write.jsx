@@ -1,6 +1,8 @@
-import axios from "axios";
 import React, { useState } from 'react';
 import styled from "styled-components";
+import instance from "../../axios_interceptor";
+import { useNavigate } from "react-router-dom";
+
 import Template from "../../components/Template";
 import MiniProfile from "../../components/MiniProfile";
 import WriteInput from "../../components/writeForm/WriteInput";
@@ -11,7 +13,7 @@ import AddContainerIcon from "../../assets/AddContainerIcon.svg";
 
 function Write() {
   const [image, setImage] = useState("");
-  const [produceRequest, setProduceRequest] = useState({
+  const [recipeRequest, setRecipeRequest] = useState({
     title: "",
     description: "",
     ingredients: [{ name: '', quantity: '' }],
@@ -19,49 +21,80 @@ function Write() {
     orders: [{ order: '' }]
   });
 
-  const { ingredients, sauces, orders } = produceRequest;
+  const navigate = useNavigate();
+
+  const handleTextInputChange = (e, index, type) => {
+    const { name, value } = e.target;
+    if (type === 'ingredient') {
+      const updatedIngredients = [...recipeRequest.ingredients];
+      updatedIngredients[index][name] = value;
+      setRecipeRequest({
+        ...recipeRequest,
+        ingredients: updatedIngredients,
+      });
+    } else if (type === 'sauce') {
+      const updatedSauces = [...recipeRequest.sauces];
+      updatedSauces[index][name] = value;
+      setRecipeRequest({
+        ...recipeRequest,
+        sauces: updatedSauces,
+      });
+    } else if (type === 'order') {
+      const updatedOrders = [...recipeRequest.orders];
+      updatedOrders[index][name] = value;
+      setRecipeRequest({
+        ...recipeRequest,
+        orders: updatedOrders,
+      });
+    } else {
+      setRecipeRequest({
+        ...recipeRequest,
+        [name]: value,
+      });
+    }
+  };
 
   const handleWrite = async (e) => {
     e.preventDefault();
+  
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("title", recipeRequest.title);
+    formData.append("description", recipeRequest.description);
+    formData.append("ingredients", JSON.stringify(recipeRequest.ingredients));
+    formData.append("sauces", JSON.stringify(recipeRequest.sauces));
+    formData.append("orders", JSON.stringify(recipeRequest.orders));
+  
     try {
-      const data = {
-        image: image,
-        produceRequest: {
-          title: produceRequest.title,
-          description: produceRequest.description,
-          ingredients: produceRequest.ingredients,
-          sauces: produceRequest.sauces,
-          orders: produceRequest.orders
-        }
-      };
-      const res = await axios.post("/produce", data, {
+      const res = await instance.post("/recipe", formData, {
         headers: {
-        }
+          "Content-Type": "multipart/form-data",
+        },
       });
       
-      console.log("글이 성공적으로 등록되었습니다.");
-      window.location.href = '/recipe';
-    } catch (error) {
-      console.error("글 등록에 실패했습니다:", error);
+      navigate("/recipe");
+      console.log(res);
+    } catch (e) {
+      console.error(e);
     }
   };
 
   const handleAddIngredient = () => {
-    setProduceRequest(prevState => ({
+    setRecipeRequest(prevState => ({
       ...prevState,
       ingredients: [...prevState.ingredients, { name: '', quantity: '' }]
     }));
   };
-
+  
   const handleAddSauce = () => {
-    setProduceRequest(prevState => ({
+    setRecipeRequest(prevState => ({
       ...prevState,
       sauces: [...prevState.sauces, { name: '', quantity: '' }]
     }));
   };
-
+  
   const handleAddOrder = () => {
-    setProduceRequest(prevState => ({
+    setRecipeRequest(prevState => ({
       ...prevState,
       orders: [...prevState.orders, { order: '' }]
     }));
@@ -73,11 +106,11 @@ function Write() {
     <Template>
       <ContentWrapper>
         <Title>레시피 추천 Book</Title>
-        <StyledForm action="">
+        <StyledForm onSubmit={(e) => handleWrite(e)}>
           <InputsWrapper>
 
             <LeftWrapper>
-              <WriteImgInput />
+              <WriteImgInput setImage={setImage} />
             </LeftWrapper>
 
             <RightWrapper>
@@ -86,7 +119,8 @@ function Write() {
                 name="title"
                 placeholder="제목을 입력해주세요."
                 style={{ marginTop: "23px" }}
-              />
+                onChange={(e) => handleTextInputChange(e)}
+                />
               <WriteTextArea
                 name="description"
                 placeholder={
@@ -94,22 +128,25 @@ function Write() {
                 }
                 height="80px"
                 style={{ marginTop: "10px", marginBottom: "10px" }}
+                onChange={(e) => handleTextInputChange(e)}
               />
 
               <Subtitle>[재료]</Subtitle>
-              {ingredients.map((ingredient, index) => (
+              {recipeRequest.ingredients.map((ingredient, index) => (
                 <IngredientWrapper key={index}>
                   <WriteInput
                     name="ingredient"
                     placeholder="재료명"
                     style={{ width: "140px", marginRight: "15px" }}
+                    onChange={(e) => handleTextInputChange(e)}
                   />
                   <WriteInput
                     name="ingredient"
                     placeholder="양(ex. 한 숟가락)"
                     style={{ width: "140px", marginRight: "15px" }}
+                    onChange={(e) => handleTextInputChange(e)}
                   />
-                  {index === ingredients.length - 1 && (
+                  {index === recipeRequest.ingredients.length - 1 && (
                     <img src={AddContainerIcon} alt="재료 추가" onClick={handleAddIngredient} />
                   )}
                 </IngredientWrapper>
@@ -117,19 +154,21 @@ function Write() {
 
 
                 <Subtitle>[양념]</Subtitle>
-                {sauces.map((sauce, index) => (
+                {recipeRequest.sauces.map((sauce, index) => (
                     <SauceWrapper key={index}>
                         <WriteInput
-                        name="sauce"
-                        placeholder="재료명"
-                        style={{ width: "140px", marginRight: "15px" }}
+                          name="sauce"
+                          placeholder="재료명"
+                          style={{ width: "140px", marginRight: "15px" }}
+                          onChange={(e) => handleTextInputChange(e)}
                         />
                         <WriteInput
-                        name="sauce"
-                        placeholder="양(ex. 한 숟가락)"
-                        style={{ width: "140px", marginRight: "15px" }}
+                          name="sauce"
+                          placeholder="양(ex. 한 숟가락)"
+                          style={{ width: "140px", marginRight: "15px" }}
+                          onChange={(e) => handleTextInputChange(e)}
                         />
-                        {index === sauces.length - 1 && (
+                        {index === recipeRequest.sauces.length - 1 && (
                             <img src={AddContainerIcon} alt="양념 재료 추가" onClick={handleAddSauce} />
                         )}
                     </SauceWrapper>
@@ -139,16 +178,17 @@ function Write() {
         </StyledForm>
 
         <Subtitle2>[조리순서]</Subtitle2>
-        <StyledForm action="">
-          {orders.map((order, index) => (
+        <StyledForm onSubmit={(e) => handleWrite(e)}>
+        {recipeRequest.orders.map((order, index) => (
             <OrderWrapper key={index}>
                 <OrderNumber>{index + 1}.</OrderNumber>
                 <OrderTextArea
                     name="order"
                     placeholder={ "내용을 입력해주세요 *상세하게 쓸수록 좋아요!"}
                     height="44px" 
-                />
-                {index === orders.length - 1 && (
+                    onChange={(e) => handleTextInputChange(e)}
+                 />
+                 {index === recipeRequest.orders.length - 1 && (
                     <img src={AddContainerIcon} alt="조리순서 추가" onClick={handleAddOrder} />
                 )}
             </OrderWrapper>

@@ -11,10 +11,12 @@ function HomeProductCard({ product }) {
     >
       <ItemImg src={product.img} alt="" />
       <ItemName>{product.name}</ItemName>
-      <ItemPrice>
-        {product.price.toLocaleString()}
-        <PriceUnit>원</PriceUnit>
-      </ItemPrice>
+      {product.price && ( 
+        <ItemPrice>
+          {product.price.toLocaleString()}
+          <PriceUnit>원</PriceUnit>
+        </ItemPrice>
+      )}
     </CardWrapper>
   );
 }

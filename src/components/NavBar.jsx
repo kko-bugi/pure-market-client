@@ -21,7 +21,7 @@ function NavBar() {
 
        <div>
         {accessToken ? (
-          <NavBarProfile to="/profile"/>
+          <NavBarProfile/>
         ) : (
           <>
             <SubFeature to="/signUp">회원가입</SubFeature>

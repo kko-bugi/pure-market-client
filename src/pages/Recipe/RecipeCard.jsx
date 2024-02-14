@@ -6,9 +6,11 @@ function RecipeCard({ recipe }) {
   return (
     <CardWrapper
       onClick={() => {
-        navigate(`/recipe/${recipe.name}`, { state: recipe });
-      }}
-    >
+        navigate(`/recipe/${recipe.recipeIdx}`, {
+            state: recipe.recipeIdx,
+          });
+        }}
+      >
       <RecipeItemImg src={recipe.img} alt="" />
       <RecipeItemName>{recipe.name}</RecipeItemName>
     </CardWrapper>

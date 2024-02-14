@@ -13,7 +13,7 @@ function HomeShareCard({ product }) {
     <ItemImg src={product.img} alt="" />
     <ItemName>{product.name}</ItemName>
     <ItemDescription>
-        {product.description.toLocaleString()}
+        {product.description}
     </ItemDescription>
   </CardWrapper>
     

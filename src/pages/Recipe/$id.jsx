@@ -1,30 +1,56 @@
-import axios from "axios"; 
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom"; //
 import styled from "styled-components";
+import instance from "../../axios_interceptor";
+import { useNavigate } from "react-router-dom";
+
 import Template from "../../components/Template";
 import MiniProfile from "../../components/MiniProfile";
 import ContentImg from "../../components/detail/ContentImg";
 import ContentTitle from "../../components/detail/ContentTitle";
 import ContentContent from "../../components/detail/ContentContent";
-import DeleteBtn from "../../components/DeleteBtn";
 
+  
 function Detailed() {
   const location = useLocation();
-  if (location.state === null) throw Error(404); 
+  const navigate = useNavigate();
 
-  const recipeInfo = { ...location.state };
+  if (location.state === null) {
+    throw Error(404); // 존재하지 않는 페이지
+  }
 
-  const handleDelete = () => {
-    axios.delete(`/api/v1/recipe/${recipeInfo.recipeIdx}`)
-      .then((response) => {
-        console.log("게시물이 삭제되었습니다.");
-        window.location.href = '/recipe'; 
-      })
-      .catch((error) => {
-        console.error("게시물 삭제에 실패했습니다:", error);
+  const recipeIdx = location.state;
+  const [recipeInfo, setRecipeInfo] = useState(null);
+  const getRecipeData = async () => {
+    try {
+      const res = await instance.get(`/recipe/${recipeIdx}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
+      setRecipeInfo(res.data.result);
+    } catch (e) {
+      console.error(e);
+    }
   };
+
+  const handleDelete = async () => {
+    try {
+      await instance.patch(`/recipe?recipeIdx=${recipeIdx}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      navigate("/recipe");
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    getRecipeData();
+  }, []);
+
 
   return (
     <Template>
@@ -34,17 +60,20 @@ function Detailed() {
           <LeftWrapper>
             <ContentImg src={recipeInfo.img} alt="" />
           </LeftWrapper>
+
           <RightWrapper>
-          <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "flex-start",
-              }}
-            >
-              <MiniProfile />
-              <DeleteBtn onClick={handleDelete} />
-            </div>
+             <UserWrapper>
+                <MiniProfile
+                  profileImg={recipeInfo.profileImage}
+                  nickname={recipeInfo.nickname}
+                  contact={recipeInfo.contact}
+                />
+                {recipeInfo.isWriter && (
+                  <PostControlBtn
+                    handleDelete={handleDelete}
+                  />
+                )}
+              </UserWrapper>
             <ContentTitle txt={recipeInfo.name} />
             <ContentContent txt={recipeInfo.description} /><br/>
             <SubtitleWrapper>
@@ -65,7 +94,6 @@ function Detailed() {
                 <ContentContent txt={recipeInfo.order} />
             </OrderWrapper>
         </OrderBox>
-        
       </Wrapper>
     </Template>
   );

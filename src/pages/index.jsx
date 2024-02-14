@@ -15,7 +15,7 @@ function Home() {
   const [giveawayList, setGiveawayList] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/v1/home")
+    axios.get("/home")
       .then(response => {
         const { produceList, recipeList, giveawayList } = response.data.result;
         setProduceList(produceList.slice(0, 4));
