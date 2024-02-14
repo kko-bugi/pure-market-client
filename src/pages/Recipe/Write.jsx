@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from 'react';
 import styled from "styled-components";
 import Template from "../../components/Template";
@@ -9,21 +10,65 @@ import WriteImgInput from "../../components/writeForm/WriteImgInput";
 import AddContainerIcon from "../../assets/AddContainerIcon.svg";
 
 function Write() {
-    const [ingredients, setIngredients] = useState([{ name: '', quantity: '' }, { name: '', quantity: '' }]);
-    const AddIngredient = () => {
-      setIngredients([...ingredients, { name: '', quantity: '' }]);
-    };
-  
-    const [sauces, setSauces] = useState([{ name: '', quantity: '' }]);
-    const AddSauce = () => {
-        setSauces([...sauces, { name: '', quantity: '' }]);
-      };
+  const [image, setImage] = useState("");
+  const [produceRequest, setProduceRequest] = useState({
+    title: "",
+    description: "",
+    ingredients: [{ name: '', quantity: '' }],
+    sauces: [{ name: '', quantity: '' }],
+    orders: [{ order: '' }]
+  });
 
-    const [orders, setOrders] = useState([{ order: '' }]);
-    const AddOrder = () => {
-        setOrders([...orders, { order: '' }]);
+  const { ingredients, sauces, orders } = produceRequest;
+
+  const handleWrite = async (e) => {
+    e.preventDefault();
+    try {
+      const data = {
+        image: image,
+        produceRequest: {
+          title: produceRequest.title,
+          description: produceRequest.description,
+          ingredients: produceRequest.ingredients,
+          sauces: produceRequest.sauces,
+          orders: produceRequest.orders
+        }
       };
+      const res = await axios.post("/produce", data, {
+        headers: {
+        }
+      });
       
+      console.log("글이 성공적으로 등록되었습니다.");
+      window.location.href = '/recipe';
+    } catch (error) {
+      console.error("글 등록에 실패했습니다:", error);
+    }
+  };
+
+  const handleAddIngredient = () => {
+    setProduceRequest(prevState => ({
+      ...prevState,
+      ingredients: [...prevState.ingredients, { name: '', quantity: '' }]
+    }));
+  };
+
+  const handleAddSauce = () => {
+    setProduceRequest(prevState => ({
+      ...prevState,
+      sauces: [...prevState.sauces, { name: '', quantity: '' }]
+    }));
+  };
+
+  const handleAddOrder = () => {
+    setProduceRequest(prevState => ({
+      ...prevState,
+      orders: [...prevState.orders, { order: '' }]
+    }));
+  };
+
+
+
   return (
     <Template>
       <ContentWrapper>
@@ -65,7 +110,7 @@ function Write() {
                     style={{ width: "140px", marginRight: "15px" }}
                   />
                   {index === ingredients.length - 1 && (
-                    <img src={AddContainerIcon} alt="재료 추가" onClick={AddIngredient} />
+                    <img src={AddContainerIcon} alt="재료 추가" onClick={handleAddIngredient} />
                   )}
                 </IngredientWrapper>
               ))}
@@ -85,7 +130,7 @@ function Write() {
                         style={{ width: "140px", marginRight: "15px" }}
                         />
                         {index === sauces.length - 1 && (
-                            <img src={AddContainerIcon} alt="양념 재료 추가" onClick={AddSauce} />
+                            <img src={AddContainerIcon} alt="양념 재료 추가" onClick={handleAddSauce} />
                         )}
                     </SauceWrapper>
                     ))}
@@ -104,7 +149,7 @@ function Write() {
                     height="44px" 
                 />
                 {index === orders.length - 1 && (
-                    <img src={AddContainerIcon} alt="조리순서 추가" onClick={AddOrder} />
+                    <img src={AddContainerIcon} alt="조리순서 추가" onClick={handleAddOrder} />
                 )}
             </OrderWrapper>
             ))}

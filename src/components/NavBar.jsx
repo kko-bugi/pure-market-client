@@ -1,8 +1,14 @@
 import styled from "styled-components";
 import Logo from "../assets/Logo.svg";
 import { Link } from "react-router-dom";
+import NavBarProfile from "./NavBarProfile";
+import { useRecoilValue } from "recoil";
+import { accessTokenState } from "../atoms/accessTokenState";
+
 
 function NavBar() {
+  const accessToken = useRecoilValue(accessTokenState);
+
   return (
     <Wrapper>
       <a href="/">
@@ -13,10 +19,16 @@ function NavBar() {
       <MainFeature to="/share">나눔 장터</MainFeature>
       <MainFeature to="/recipe">레시피 Book</MainFeature>
 
-      <div>
-        <SubFeature to="/signUp">회원가입</SubFeature>
-        <VerticalBar>|</VerticalBar>
-        <SubFeature to="/login">로그인</SubFeature>
+       <div>
+        {accessToken ? (
+          <NavBarProfile to="/profile"/>
+        ) : (
+          <>
+            <SubFeature to="/signUp">회원가입</SubFeature>
+            <VerticalBar>|</VerticalBar>
+            <SubFeature to="/login">로그인</SubFeature>
+          </>
+        )}
       </div>
     </Wrapper>
   );
