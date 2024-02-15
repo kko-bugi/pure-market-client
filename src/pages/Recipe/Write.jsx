@@ -28,54 +28,29 @@ function Write() {
     if (type === 'ingredient') {
       const updatedIngredients = [...recipeRequest.ingredients];
       updatedIngredients[index][name] = value;
-      setRecipeRequest({
-        ...recipeRequest,
+      setRecipeRequest(prevState => ({
+        ...prevState,
         ingredients: updatedIngredients,
-      });
+      }));
     } else if (type === 'sauce') {
       const updatedSauces = [...recipeRequest.sauces];
       updatedSauces[index][name] = value;
-      setRecipeRequest({
-        ...recipeRequest,
+      setRecipeRequest(prevState => ({
+        ...prevState,
         sauces: updatedSauces,
-      });
+      }));
     } else if (type === 'order') {
       const updatedOrders = [...recipeRequest.orders];
       updatedOrders[index][name] = value;
-      setRecipeRequest({
-        ...recipeRequest,
+      setRecipeRequest(prevState => ({
+        ...prevState,
         orders: updatedOrders,
-      });
+      }));
     } else {
-      setRecipeRequest({
-        ...recipeRequest,
+      setRecipeRequest(prevState => ({
+        ...prevState,
         [name]: value,
-      });
-    }
-  };
-
-  const handleWrite = async (e) => {
-    e.preventDefault();
-  
-    const formData = new FormData();
-    formData.append("image", image);
-    formData.append("title", recipeRequest.title);
-    formData.append("description", recipeRequest.description);
-    formData.append("ingredients", JSON.stringify(recipeRequest.ingredients));
-    formData.append("sauces", JSON.stringify(recipeRequest.sauces));
-    formData.append("orders", JSON.stringify(recipeRequest.orders));
-  
-    try {
-      const res = await instance.post("/recipe", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      
-      navigate("/recipe");
-      console.log(res);
-    } catch (e) {
-      console.error(e);
+      }));
     }
   };
 
@@ -98,6 +73,30 @@ function Write() {
       ...prevState,
       orders: [...prevState.orders, { order: '' }]
     }));
+  };
+
+  const handleWrite = async (e) => {
+    e.preventDefault();
+  
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("title", recipeRequest.title);
+    formData.append("description", recipeRequest.description);
+    formData.append("ingredients", JSON.stringify(recipeRequest.ingredients));
+    formData.append("sauces", JSON.stringify(recipeRequest.sauces));
+    formData.append("orders", JSON.stringify(recipeRequest.orders));
+  
+    try {
+      const res = await instance.post("/recipe", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      navigate("/recipe");
+      console.log(res);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
 
@@ -193,7 +192,7 @@ function Write() {
                 )}
             </OrderWrapper>
             ))}
-          <SubmitBtn onClick={() => {}} bgColor="#ffe9c8" color="black"/>
+          <SubmitBtn bgColor="#ffe9c8" color="black"/>
         </StyledForm>
       </ContentWrapper>
     </Template>
