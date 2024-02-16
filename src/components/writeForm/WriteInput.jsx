@@ -8,9 +8,11 @@ function WriteInput({
   style,
   onChange,
 }) {
+  const required = name === 'name' && name === 'title';
+
   return (
     <StyledInput
-      required
+      required={required}
       name={name}
       autoFocus={true}
       type={type}
