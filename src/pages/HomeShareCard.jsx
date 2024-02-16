@@ -3,20 +3,17 @@ import { useNavigate } from "react-router-dom";
 
 function HomeShareCard({ product }) {
   const navigate = useNavigate();
-  return (
 
-    <CardWrapper
-    onClick={() => {
-      navigate(`/share/${product.name}`, { state: product });
-    }}
-  >
-    <ItemImg src={product.img} alt="" />
-    <ItemName>{product.name}</ItemName>
-    <ItemDescription>
-        {product.description}
-    </ItemDescription>
-  </CardWrapper>
-    
+  const handleCardClick = () => {
+    navigate(`/share/${product.giveawayIdx}`, { state: product.giveawayIdx });
+  };
+
+  return (
+    <CardWrapper onClick={handleCardClick}>
+      <ItemImg src={product.giveawayImage} alt="" />
+      <ItemName>{product.title}</ItemName>
+      <ItemDescription>{product.content}</ItemDescription>
+    </CardWrapper>
   );
 }
 

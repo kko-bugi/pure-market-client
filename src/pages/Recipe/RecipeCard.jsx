@@ -11,8 +11,8 @@ function RecipeCard({ recipe }) {
           });
         }}
       >
-      <RecipeItemImg src={recipe.img} alt="" />
-      <RecipeItemName>{recipe.name}</RecipeItemName>
+      <RecipeItemImg src={recipe.recipeImage} alt="" />
+      <RecipeItemName>{recipe.title}</RecipeItemName>
     </CardWrapper>
   );
 }

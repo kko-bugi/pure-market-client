@@ -23,7 +23,7 @@ function Home() {
         setGiveawayList(giveawayList.slice(0, 4));
       })
       .catch(error => {
-        console.error("Error fetching data:", error);
+        console.error(error);
       });
   }, []);
 

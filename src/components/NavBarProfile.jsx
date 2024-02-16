@@ -1,14 +1,32 @@
 import React from 'react';
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import data from "../data/user.json";
+import { useEffect, useState } from "react";
+import DefaultImg from "../assets/DefaultProfileImg.png";
+import instance from "../axios_interceptor";
 
-function NavBarProfile() {
+function NavBarProfile({ profileImg, nickname, contact }) {
+  const [img, setImg] = useState(profileImg);
+  const [name, setName] = useState(nickname);
+  useEffect(() => {
+    const getUserProfile = async () => {
+      try {
+        const res = await instance.get("/users/profile");
+        console.log(res);
+        setImg(res.data.isSuccess ? res.data.result.profileImage : DefaultImg);
+        setName(res.data.isSuccess ? res.data.result.nickname : "이름없음");
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    if (contact === undefined) getUserProfile();
+  }, []);
+
   return (
     <ProfileLink to="/mypage">
       <ProfileWrapper>
-        <Nickname>{data.nickname}</Nickname>
-        <ProfileImg src={data.img} alt="" />
+        <Nickname>{name}</Nickname>
+        <ProfileImg src={img} alt="" />
       </ProfileWrapper>
     </ProfileLink>
   );

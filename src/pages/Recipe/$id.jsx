@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom"; //
+import { useLocation } from "react-router-dom"; 
 import styled from "styled-components";
 import instance from "../../axios_interceptor";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,9 @@ import MiniProfile from "../../components/MiniProfile";
 import ContentImg from "../../components/detail/ContentImg";
 import ContentTitle from "../../components/detail/ContentTitle";
 import ContentContent from "../../components/detail/ContentContent";
+import DeleteBtn from "../../components/DeleteBtn";
+import ListContent from "../../components/detail/ListContent";
+
 
   
 function Detailed() {
@@ -21,6 +24,7 @@ function Detailed() {
 
   const recipeIdx = location.state;
   const [recipeInfo, setRecipeInfo] = useState(null);
+
   const getRecipeData = async () => {
     try {
       const res = await instance.get(`/recipe/${recipeIdx}`, {
@@ -36,7 +40,7 @@ function Detailed() {
 
   const handleDelete = async () => {
     try {
-      await instance.patch(`/recipe?recipeIdx=${recipeIdx}`, {
+      await instance.patch(`/recipe/${recipeIdx}`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -56,44 +60,65 @@ function Detailed() {
     <Template>
       <Wrapper>
         <Title>레시피 추천 Book</Title>
-        <ContentWrapper>
-          <LeftWrapper>
-            <ContentImg src={recipeInfo.img} alt="" />
-          </LeftWrapper>
+        {recipeInfo ? (
+          <ContentWrapper>
+            <LeftWrapper>
+              <ContentImg src={recipeInfo.recipeImage} alt="" />
+            </LeftWrapper>
 
-          <RightWrapper>
-             <UserWrapper>
+            <RightWrapper>
+              <UserWrapper>
                 <MiniProfile
                   profileImg={recipeInfo.profileImage}
                   nickname={recipeInfo.nickname}
                   contact={recipeInfo.contact}
                 />
                 {recipeInfo.isWriter && (
-                  <PostControlBtn
-                    handleDelete={handleDelete}
-                  />
+                  <DeleteBtn onClick={handleDelete} />
                 )}
               </UserWrapper>
-            <ContentTitle txt={recipeInfo.name} />
-            <ContentContent txt={recipeInfo.description} /><br/>
-            <SubtitleWrapper>
-              <Subtitle>[재료]&nbsp;</Subtitle>
-              <ContentContent txt={recipeInfo. ingredient}/><br/>
-            </SubtitleWrapper>
-            <SubtitleWrapper>
-              <Subtitle>[양념]&nbsp;</Subtitle>
-              <ContentContent txt={recipeInfo. sauce}/>
-            </SubtitleWrapper>
-          </RightWrapper>
-          </ContentWrapper>
+              <ContentTitle txt={recipeInfo.title} />
+              <ContentContent txt={recipeInfo.content} />
 
-          <Subtitle2>[조리순서]</Subtitle2>
-          <OrderBox>
-            <OrderWrapper>
-                <OrderNumber>1.&nbsp;</OrderNumber>
-                <ContentContent txt={recipeInfo.order} />
-            </OrderWrapper>
-        </OrderBox>
+              <SubtitleWrapper>
+                <Subtitle>[재료]&nbsp;</Subtitle>
+                {recipeInfo.ingredientList.map((ingredient, index) => (
+                <React.Fragment key={index}>
+                    <ListContent txt={`${ingredient.name}${ingredient.quantity ? `: ${ingredient.quantity}` : ''}`}  />
+                    {index !== recipeInfo.ingredientList.length - 1 && <>,&nbsp;&nbsp;</>}
+                </React.Fragment>
+                ))}
+              </SubtitleWrapper>
+
+              <SubtitleWrapper>
+                <Subtitle>[양념]&nbsp;</Subtitle>
+                {recipeInfo.sauceList.map((sauce, index) => (
+                  <React.Fragment key={index}>
+                    <ListContent txt={`${sauce.name}${sauce.quantity ? `: ${sauce.quantity}` : ''}`}  />
+                    {index !== recipeInfo.sauceList.length - 1 && <>,&nbsp;&nbsp;</>}
+                </React.Fragment>
+                ))}
+              </SubtitleWrapper>
+
+            </RightWrapper>
+          </ContentWrapper>
+        ) : (
+          <div>로딩중...</div>
+        )}
+
+        {recipeInfo && (
+          <>
+            <Subtitle2>[조리순서]</Subtitle2>
+            <OrderBox>
+              {recipeInfo.recipeDescriptionList.map((step, index) => (
+                <OrderWrapper key={index}>
+                  <OrderNumber>{`${step.orderNumber}.`}&nbsp;</OrderNumber>
+                  <ListContent txt={step.description} />
+                </OrderWrapper>
+              ))}
+            </OrderBox>
+          </>
+        )}
       </Wrapper>
     </Template>
   );
@@ -168,4 +193,10 @@ const OrderWrapper = styled.div`
 
 const OrderNumber = styled.div`
  font-size: 18px;
+`;
+
+const UserWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 `;

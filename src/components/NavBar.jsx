@@ -11,9 +11,10 @@ function NavBar() {
 
   return (
     <Wrapper>
-      <a href="/">
+      <LogoLink to="/"> 
         <img src={Logo} alt="" />
-      </a>
+      </LogoLink>
+
 
       <MainFeature to="/market">농산물 쇼핑</MainFeature>
       <MainFeature to="/share">나눔 장터</MainFeature>
@@ -67,4 +68,8 @@ const VerticalBar = styled.span`
   font-size: 12px;
   line-height: 283.3%;
   margin: 0 6px;
+`;
+const LogoLink = styled(Link)`
+  text-decoration: none; 
+  cursor: pointer; 
 `;
