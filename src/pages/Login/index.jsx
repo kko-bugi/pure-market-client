@@ -1,31 +1,69 @@
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import styled from "styled-components";
-
+import { useSetRecoilState } from "recoil";
+import { accessTokenState } from "../../atoms/accessTokenState";
 import Template from "../../components/Template";
-
-import useToken from "../../hooks/useToken";
 
 function Login() {
   const [id, setId] = useState("");
   const [pw, setPW] = useState("");
+  const setAccessToken = useSetRecoilState(accessTokenState);
+
+  const [, setCookie] = useCookies(["refreshToken"]);
   const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    try {
+      e.preventDefault();
+
+      const data = { loginId: id, password: pw };
+
+      const res = await axios.post("/users/login", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const { accessToken, refreshToken } = res.data.result;
+
+      setCookie("refreshToken", refreshToken);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+      setAccessToken(accessToken);
+      navigate(-1);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <Template>
       <Title>로그인</Title>
-      <Form id="loginForm" onSubmit={useToken(id, pw)}>
+      <Form
+        id="loginForm"
+        onSubmit={(e) => {
+          handleLogin(e);
+        }}
+      >
         <Input
           required
           type="text"
           name="loginId"
           placeholder="아이디를 입력해주세요"
+          onChange={(e) => {
+            setId(e.target.value);
+          }}
         />
         <Input
           required
           name="password"
           type="password"
           placeholder="비밀번호를 입력해주세요"
+          onChange={(e) => {
+            setPW(e.target.value);
+          }}
         />
 
         <BtnsWrapper>

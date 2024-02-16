@@ -1,13 +1,35 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import data from "../data/user.json";
+import DefaultImg from "../assets/DefaultProfileImg.png";
+import instance from "../axios_interceptor";
 
-function MiniProfile() {
+function MiniProfile({ profileImg, nickname, contact }) {
+  const [img, setImg] = useState(profileImg);
+  const [name, setName] = useState(nickname);
+  const [phone, setPhone] = useState(contact);
+  useEffect(() => {
+    const getUserProfile = async () => {
+      try {
+        const res = await instance.get("/users/profile");
+        console.log(res);
+        setImg(res.data.isSuccess ? res.data.result.profileImage : DefaultImg);
+        setName(res.data.isSuccess ? res.data.result.nickname : "이름없음");
+        setPhone(
+          res.data.isSuccess ? res.data.result.contact : "010-XXXX-XXXX"
+        );
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    if (contact === undefined) getUserProfile();
+  }, []);
+
   return (
     <ProfileWrapper>
-      <ProfileImg src={data.img} alt="" />
+      <ProfileImg src={img} alt="" />
       <TextWrapper>
-        <Nickname>{data.nickname}</Nickname>
-        <PhoneNumber>{data.phone}</PhoneNumber>
+        <Nickname>{name}</Nickname>
+        <PhoneNumber>{phone}</PhoneNumber>
       </TextWrapper>
     </ProfileWrapper>
   );

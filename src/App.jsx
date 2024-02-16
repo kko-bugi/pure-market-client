@@ -4,13 +4,14 @@ import {
   RouterProvider,
   redirect,
 } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { Cookies } from "react-cookie";
 
 // Pages
 import ErrorPage from "./ErrorPage";
 import Main from "./pages/index";
 import Login from "./pages/Login/index";
 import SignUp from "./pages/SignUp/index";
+import MyPage from "./pages/MyPage/index";
 import Market from "./pages/Market/index";
 import MarketWrite from "./pages/Market/Write";
 import ProductDetailed from "./pages/Market/$id";
@@ -21,15 +22,14 @@ import Share from "./pages/Share/index";
 import ShareWrite from "./pages/Share/Write";
 import ShareDetailed from "./pages/Share/$id";
 
-import { accessTokenState } from "./atoms/accessTokenState";
-
 function App() {
-  const accessToken = useRecoilValue(accessTokenState);
+  const cookies = new Cookies();
+
   const loginLoader = async () => {
-    // [TODO] accessToken �޾ƿ���...�ƴϸ� ���� ����?
-    if (accessToken === "") {
+    if (cookies.get("refreshToken") === undefined) {
       return redirect("/login");
     }
+
     return null;
   };
   const router = createBrowserRouter([
@@ -47,12 +47,17 @@ function App() {
       element: <SignUp />,
     },
     {
+      path: "/myPage",
+      element: <MyPage />,
+    },
+    {
       path: "/market",
       element: <Market />,
     },
     {
       path: "/market/write",
       element: <MarketWrite />,
+      loader: loginLoader,
     },
     {
       path: "/market/:id",
@@ -66,6 +71,7 @@ function App() {
     {
       path: "/recipe/write",
       element: <RecipeWrite />,
+      loader: loginLoader,
     },
     {
       path: "/recipe/:id",

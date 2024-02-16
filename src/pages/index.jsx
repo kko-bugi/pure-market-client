@@ -1,8 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Template from "../components/Template";
-import data from "../data/marketList.json"; /*오늘의 농산물*/
-import RecipeData from "../data/recipeList.json"; /*이 레시피는 어떠세요*/
-import ShareData from "../data/shareList.json";  /*오늘의 나눔글*/
 import HomeBanner from "./HomeBanner";
 import HomeProductCard from "./HomeProductCard";
 import HomeRecipeCard from "./HomeRecipeCard";
@@ -11,45 +9,55 @@ import styled from "styled-components";
 import Icon from "../assets/ButtonIcon.svg";
 import ButtonIcon from "../components/ButtonIcon";
 
-
 function Home() {
+  const [produceList, setProduceList] = useState([]);
+  const [recipeList, setRecipeList] = useState([]);
+  const [giveawayList, setGiveawayList] = useState([]);
 
-  const todayFourItems = data.items.slice(0, 4);
-  const todayThreeRecipes = RecipeData. recipeItems.slice(0, 3);
-  const todayFourShares = ShareData. items.slice(0, 4);
-  
+  useEffect(() => {
+    axios.get("/home")
+      .then(response => {
+        const { produceList, recipeList, giveawayList } = response.data.result;
+        setProduceList(produceList.slice(0, 4));
+        setRecipeList(recipeList.slice(0, 3));
+        setGiveawayList(giveawayList.slice(0, 4));
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+
   return (
     <Template banner={<HomeBanner />}>
       <TitleWrapper>
-      <Title>오늘의 농산물</Title>
-      <ButtonIcon src={Icon} href="/market" />
+        <Title>오늘의 농산물</Title>
+        <ButtonIcon src={Icon} href="/market" />
       </TitleWrapper>
       <ItemWrapper4Grid>
-        {todayFourItems.map((el) => (
-          <HomeProductCard key={el.product} product={el} />
+        {produceList.map(item => (
+          <HomeProductCard key={item.produceIdx} product={item} />
         ))}
       </ItemWrapper4Grid>
-      
+
       <TitleWrapper>
-      <Title>이 레시피는 어떠세요?</Title>
-      <ButtonIcon src={Icon} href="/recipe" />
+        <Title>이 레시피는 어떠세요?</Title>
+        <ButtonIcon src={Icon} href="/recipe" />
       </TitleWrapper>
       <ItemWrapper3Grid>
-        {todayThreeRecipes.map((el) => (
-          <HomeRecipeCard key={el.recipe} recipe={el} />
+        {recipeList.map(item => (
+          <HomeRecipeCard key={item.recipeIdx} recipe={item} />
         ))}
       </ItemWrapper3Grid>
 
       <TitleWrapper>
-      <Title>오늘의 나눔글</Title>
-      <ButtonIcon src={Icon} href="/share" />
+        <Title>오늘의 나눔글</Title>
+        <ButtonIcon src={Icon} href="/share" />
       </TitleWrapper>
       <ItemWrapper4Grid>
-        {todayFourShares.map((el) => (
-          <HomeShareCard key={el.product} product={el} />
+        {giveawayList.map(item => (
+          <HomeShareCard key={item.giveawayIdx} product={item} />
         ))}
       </ItemWrapper4Grid>
-
     </Template>
   );
 }
