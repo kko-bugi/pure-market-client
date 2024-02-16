@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 function HomeRecipeCard({ recipe}) {
   const navigate = useNavigate();
+  const handleCardClick = () => {
+    navigate(`/recipe/${recipe.recipeIdx}`, { state: recipe.recipeIdx });
+  };
+  
   return (
-    <CardWrapper
-      onClick={() => {
-        navigate(`/recipe/${recipe.name}`, { state: recipe });
-      }}
-    >
-      <RecipeItemImg src={recipe.img} alt="" />
-      <RecipeItemName>{recipe.name}</RecipeItemName>
+    <CardWrapper onClick={handleCardClick}>
+      <RecipeItemImg src={recipe.recipeImage} alt="" />
+      <RecipeItemName>{recipe.title}</RecipeItemName>
     </CardWrapper>
   );
 }
