@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import instance from "../../axios_interceptor";
 
 import Template from "../../components/Template";
 import MiniProfile from "../../components/MiniProfile";
@@ -7,35 +9,97 @@ import ContentImg from "../../components/detail/ContentImg";
 import ContentTitle from "../../components/detail/ContentTitle";
 import ContentContent from "../../components/detail/ContentContent";
 import PostControlBtn from "../../components/PostControlBtn";
-import { useState } from "react";
 
 function Detailed() {
   const location = useLocation();
-  const productInfo = { ...location.state };
+  const navigate = useNavigate();
 
-  // 로컬 state
-  const [isSoldOut, setIsSoldOut] = useState(productInfo.isSoldOut);
+  if (location.state === null) {
+    throw Error(404); // 존재하지 않는 페이지
+  }
+
+  const productIdx = location.state;
+  const [productInfo, setProductInfo] = useState(null);
+  const getProductData = async () => {
+    try {
+      const res = await instance.get(`/giveaway/${productIdx}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      setProductInfo(res.data.result);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await instance.patch(`/giveaway?giveawayIdx=${productIdx}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      navigate("/share");
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleStatusChange = async () => {
+    try {
+      await instance.patch(`/giveaway/${productIdx}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      await getProductData();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    getProductData();
+  }, []);
 
   return (
     <Template>
       <Wrapper>
         <Title>우리 지역 나눔 장터</Title>
-        <ContentWrapper>
-          <LeftWrapper>
-            <ContentImg src={productInfo.img} alt="" isSoldOut={isSoldOut} />
-          </LeftWrapper>
-          <RightWrapper>
-            <MiniProfile />
-            <ContentTitle txt={productInfo.name} />
-            <ContentContent txt={productInfo.description} />
-            {productInfo.isMine && (
-              <PostControlBtn
-                isSoldOut={isSoldOut}
-                toggleSoldOut={() => setIsSoldOut(!isSoldOut)}
+        {!productInfo ? (
+          <div>로딩중...</div>
+        ) : (
+          <ContentWrapper>
+            <LeftWrapper>
+              <ContentImg
+                src={productInfo.giveawayImage}
+                alt=""
+                isSoldOut={
+                  productInfo.giveawayStatus === "판매완료" ? true : false
+                }
               />
-            )}
-          </RightWrapper>
-        </ContentWrapper>
+            </LeftWrapper>
+            <RightWrapper>
+              <MiniProfile
+                profileImg={productInfo.profileImage}
+                nickname={productInfo.nickname}
+                contact={productInfo.contact}
+              />
+              <ContentTitle txt={productInfo.title} />
+              <ContentContent txt={productInfo.content} />
+              {productInfo.isWriter && (
+                <PostControlBtn
+                  isSoldOut={
+                    productInfo.produceStatus === "판매완료" ? true : false
+                  }
+                  handleDelete={handleDelete}
+                  toggleSoldOut={handleStatusChange}
+                />
+              )}
+            </RightWrapper>
+          </ContentWrapper>
+        )}
       </Wrapper>
     </Template>
   );
