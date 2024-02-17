@@ -75,7 +75,7 @@ const Write = () => {
               />
             </RightWrapper>
           </InputsWrapper>
-          <SubmitBtn onClick={() => {}} bgColor="#83C1FC" />
+          <SubmitBtn bgColor="#83C1FC" />
         </StyledForm>
       </ContentWrapper>
     </Template>

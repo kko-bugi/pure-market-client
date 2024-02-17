@@ -76,27 +76,30 @@ function Detailed() {
                 src={productInfo.giveawayImage}
                 alt=""
                 isSoldOut={
-                  productInfo.giveawayStatus === "판매완료" ? true : false
+                  productInfo.giveawayStatus === "나눔완료" ? true : false
                 }
               />
             </LeftWrapper>
             <RightWrapper>
-              <MiniProfile
-                profileImg={productInfo.profileImage}
-                nickname={productInfo.nickname}
-                contact={productInfo.contact}
-              />
+              <UserWrapper>
+                <MiniProfile
+                  profileImg={productInfo.profileImage}
+                  nickname={productInfo.nickname}
+                  contact={productInfo.contact}
+                />
+                {productInfo.isWriter && (
+                  <PostControlBtn
+                    isSoldOut={
+                      productInfo.produceStatus === "나눔완료" ? true : false
+                    }
+                    handleDelete={handleDelete}
+                    toggleSoldOut={handleStatusChange}
+                  />
+                )}
+              </UserWrapper>
+
               <ContentTitle txt={productInfo.title} />
               <ContentContent txt={productInfo.content} />
-              {productInfo.isWriter && (
-                <PostControlBtn
-                  isSoldOut={
-                    productInfo.produceStatus === "판매완료" ? true : false
-                  }
-                  handleDelete={handleDelete}
-                  toggleSoldOut={handleStatusChange}
-                />
-              )}
             </RightWrapper>
           </ContentWrapper>
         )}
@@ -139,4 +142,10 @@ const LeftWrapper = styled.div`
 
 const RightWrapper = styled.div`
   width: 100%;
+`;
+
+const UserWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 `;
