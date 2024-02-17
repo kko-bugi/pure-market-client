@@ -147,19 +147,23 @@ export default function SignUp() {
 
   // 비밀번호
   useEffect(() => {
+    handleErrorMsg("password", "");
+    handleErrorMsg("passwordCheck", "");
+
     if (form.password.length < 8 && form.password.length > 0) {
       handleValidation("password", false);
       handleErrorMsg("password", "8자 이상의 비밀번호를 입력해주세요.");
     } else {
       handleErrorMsg("password", "");
-    }
-    if (form.passwordCheck) {
-      if (form.password === form.passwordCheck) {
-        handleValidation("password", true);
-        handleErrorMsg("passwordCheck", "");
-      } else {
-        handleValidation("password", false);
-        handleErrorMsg("passwordCheck", "비밀번호가 일치하지 않습니다.");
+
+      if (form.passwordCheck) {
+        if (form.password === form.passwordCheck) {
+          handleValidation("password", true);
+          handleErrorMsg("passwordCheck", "");
+        } else {
+          handleValidation("password", false);
+          handleErrorMsg("passwordCheck", "비밀번호가 일치하지 않습니다.");
+        }
       }
     }
   }, [form.password, form.passwordCheck]);
@@ -220,10 +224,6 @@ export default function SignUp() {
                 password: "",
                 passwordCheck: "",
               }));
-              handleErrorMsg(
-                "password",
-                "8자 이상의 비밀번호를 동일하게 입력해주세요."
-              );
               break;
             case "contact":
               handleErrorMsg("contact", "숫자만 입력해주세요.");
