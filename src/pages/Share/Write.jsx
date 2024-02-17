@@ -6,15 +6,55 @@ import WriteTextArea from "../../components/writeForm/WriteTextArea";
 import SubmitBtn from "../../components/writeForm/SubmitBtn";
 import WriteImgInput from "../../components/writeForm/WriteImgInput";
 
+import { useState } from "react";
+import instance from "../../axios_interceptor";
+import { useNavigate } from "react-router-dom";
+
 const Write = () => {
+  const [image, setImage] = useState(null);
+  const [giveawayRequest, setGiveawayRequest] = useState({
+    title: "",
+    content: "",
+  });
+  const navigate = useNavigate();
+
+  const handleTextInputChange = (e) => {
+    setGiveawayRequest({
+      ...giveawayRequest,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleWrite = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append(
+      "giveawayRequest",
+      new Blob([JSON.stringify(giveawayRequest)], { type: "application/json" })
+    );
+
+    try {
+      const res = await instance.post("/giveaway", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      navigate("/share");
+      console.log(res);
+    } catch (e) {
+      console.error(e);
+    }
+  };
   return (
     <Template>
       <ContentWrapper>
         <Title>우리 지역 나눔 장터</Title>
-        <StyledForm action="">
+        <StyledForm onSubmit={(e) => handleWrite(e)}>
           <InputsWrapper>
             <LeftWrapper>
-              <WriteImgInput />
+              <WriteImgInput setImage={setImage} />
             </LeftWrapper>
             <RightWrapper>
               <MiniProfile />
@@ -22,14 +62,16 @@ const Write = () => {
                 name="title"
                 placeholder="제목을 입력해주세요."
                 style={{ marginTop: "23px" }}
+                onChange={(e) => handleTextInputChange(e)}
               />
               <WriteTextArea
-                name="description"
+                name="content"
                 placeholder={
                   "내용을 입력해주세요\n*무게, 개수, 상태 등 자세한 설명을 남길 수록 좋아요!"
                 }
                 height="193px"
                 style={{ marginTop: "11px", marginBottom: "19px" }}
+                onChange={(e) => handleTextInputChange(e)}
               />
             </RightWrapper>
           </InputsWrapper>

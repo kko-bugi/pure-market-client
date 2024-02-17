@@ -10,12 +10,14 @@ const ProductCard = ({ product }) => {
   return (
     <CardWrapper
       onClick={() => {
-        navigate(`/share/${product.name}`, { state: product });
+        navigate(`/share/${product.giveawayIdx}`, {
+          state: product.giveawayIdx,
+        });
       }}
     >
-      <ItemImg src={product.img} alt="" />
-      <ItemName>{getTruncatedText(product.name)}</ItemName>
-      <ItemDesc>{getTruncatedText(product.description)}</ItemDesc>
+      <ItemImg src={product.giveawayImage} alt="" />
+      <ItemName>{getTruncatedText(product.title)}</ItemName>
+      <ItemDesc>{getTruncatedText(product.content)}</ItemDesc>
     </CardWrapper>
   );
 };
