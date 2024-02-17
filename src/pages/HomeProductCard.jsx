@@ -5,19 +5,17 @@ import React from "react";
 function HomeProductCard({ product }) {
   const navigate = useNavigate();
   const handleCardClick = () => {
-    navigate(`/market/${product.produceIdx}`, { state: product.produceIdx});
+    navigate(`/market/${product.produceIdx}`, { state: product.produceIdx });
   };
 
   return (
     <CardWrapper onClick={handleCardClick}>
       <ItemImg src={product.produceImage} alt="" />
       <ItemName>{product.title}</ItemName>
-      {product.price && ( 
-        <ItemPrice>
-          {product.price.toLocaleString()}
-          <PriceUnit>원</PriceUnit>
-        </ItemPrice>
-      )}
+      <ItemPrice>
+        {product.price.toLocaleString()}
+        <PriceUnit>원</PriceUnit>
+      </ItemPrice>
     </CardWrapper>
   );
 }
