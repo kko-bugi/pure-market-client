@@ -1,7 +1,7 @@
 /**
  *
- * @description refreshTokenÀ¸·Î
- * »õ·Î¿î accessTokenÀ» »õ·Ó°Ô ¿äÃ»ÇÑ µÚ ¹İÈ¯ÇÏ´Â ÇÔ¼öÀÔ´Ï´Ù.
+ * @description refreshTokenìœ¼ë¡œ
+ * ìƒˆë¡œìš´ accessTokenì„ ìƒˆë¡­ê²Œ ìš”ì²­í•œ ë’¤ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜ì…ë‹ˆë‹¤.
  */
 
 import axios from "axios";
@@ -16,8 +16,9 @@ async function refreshAccessToken() {
         "Content-Type": "application/json",
       },
     });
-    if (res.data.isSuccess === false) return "";
-    else return res.data.result.accessToken;
+    if (res.data.isSuccessful === false) {
+      throw Error(res.data.code);
+    } else return res.data.result.accessToken;
   } catch (e) {
     console.log(e);
   }

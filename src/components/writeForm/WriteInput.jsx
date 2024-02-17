@@ -2,14 +2,13 @@ import styled from "styled-components";
 
 function WriteInput({
   type = "text",
+  required = true,
   name,
   placeholder,
   height,
   style,
   onChange,
 }) {
-  const required = name === 'name' && name === 'title';
-
   return (
     <StyledInput
       required={required}
