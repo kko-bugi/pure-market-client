@@ -4,9 +4,6 @@ import { useNavigate } from "react-router-dom";
 const ProductCard = ({ product }) => {
   const navigate = useNavigate();
 
-  const getTruncatedText = (text) =>
-    text.length > 32 ? `${text.slice(0, 32)} ...` : text;
-
   return (
     <CardWrapper
       onClick={() => {
@@ -16,8 +13,8 @@ const ProductCard = ({ product }) => {
       }}
     >
       <ItemImg src={product.giveawayImage} alt="" />
-      <ItemName>{getTruncatedText(product.title)}</ItemName>
-      <ItemDesc>{getTruncatedText(product.content)}</ItemDesc>
+      <ItemName>{product.title}</ItemName>
+      <ItemDesc>{product.content}</ItemDesc>
     </CardWrapper>
   );
 };
@@ -40,6 +37,9 @@ const ItemName = styled.div`
   font-size: 12px;
   font-weight: 500;
   margin-bottom: 7px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const ItemDesc = styled.div`
@@ -47,4 +47,7 @@ const ItemDesc = styled.div`
   font-size: 10px;
   line-height: 12.1px;
   font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;

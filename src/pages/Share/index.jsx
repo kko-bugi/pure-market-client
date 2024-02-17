@@ -25,15 +25,21 @@ const Share = () => {
 
   return (
     <Template banner={<ShareBanner />}>
-      <ItemWrapper>
-        {itemList.map((el) => (
-          <ProductCard key={el.giveawayIdx} product={el} />
-        ))}
-      </ItemWrapper>
-      <AddIcon src={Icon} href="/share/write" />
+      <ContentWrapper>
+        <ItemWrapper>
+          {itemList.map((el) => (
+            <ProductCard key={el.giveawayIdx} product={el} />
+          ))}
+        </ItemWrapper>
+        <AddIcon src={Icon} href="/share/write" />
+      </ContentWrapper>
     </Template>
   );
 };
+
+const ContentWrapper = styled.div`
+  height: 100%;
+`;
 
 const ItemWrapper = styled.div`
   display: grid;
