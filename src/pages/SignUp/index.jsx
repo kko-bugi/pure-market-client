@@ -190,7 +190,7 @@ export default function SignUp() {
   }, [form]);
 
   // 가입 완료하기 버튼 클릭 : valid 확인
-  const handleSignUpBtnClick = (e) => {
+  const handleSignUpBtnClick = async (e) => {
     e.preventDefault();
 
     // 기본 프로필 설정
@@ -202,8 +202,28 @@ export default function SignUp() {
     // valid에 있는 데이터가 모두 true인지 확인
     const isAllValid = Object.values(valid).every((value) => value);
     if (isAllValid) {
-      // 모두 true이면: form에 있는 데이터 백엔드로 전송
-      console.log("전송!", formWithProfile);
+      try {
+        const formData = new FormData();
+        const jsonData = {
+          nickname: formWithProfile.nickname,
+          loginId: formWithProfile.loginId,
+          password: formWithProfile.password,
+          passwordCheck: formWithProfile.passwordCheck,
+          contact: formWithProfile.contact,
+        };
+
+        formData.append("data", JSON.stringify(jsonData));
+        formData.append("image", formWithProfile.profile);
+
+        const data = await axios.post(`/users/signup`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log(data);
+      } catch (e) {
+        console.log("에러 : " + e);
+      }
     } else {
       // false인 게 존재하면 차례대로 확인
       for (const key in valid) {
