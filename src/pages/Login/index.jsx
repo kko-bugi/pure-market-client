@@ -12,7 +12,7 @@ function Login() {
   const [pw, setPW] = useState("");
   const setAccessToken = useSetRecoilState(accessTokenState);
 
-  const [, setCookie] = useCookies(["refreshToken"]);
+  const [, setCookie, removeCookie] = useCookies(["refreshToken"]);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -28,9 +28,10 @@ function Login() {
       });
 
       const { accessToken, refreshToken } = res.data.result;
-
+      removeCookie("refreshToken");
       setCookie("refreshToken", refreshToken);
       axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+
       setAccessToken(accessToken);
       navigate(-1);
     } catch (e) {
