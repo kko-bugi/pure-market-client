@@ -3,7 +3,7 @@ import styled from "styled-components";
 function ContentPrice({ price }) {
   return (
     <PriceWrapper>
-      <Price>{price}</Price>원
+      <Price>{price.toLocaleString()}</Price>원
     </PriceWrapper>
   );
 }

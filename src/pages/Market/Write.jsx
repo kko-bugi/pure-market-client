@@ -6,15 +6,56 @@ import WriteTextArea from "../../components/writeForm/WriteTextArea";
 import SubmitBtn from "../../components/writeForm/SubmitBtn";
 import WriteImgInput from "../../components/writeForm/WriteImgInput";
 
+import { useState } from "react";
+import instance from "../../axios_interceptor";
+import { useNavigate } from "react-router-dom";
+
 function Write() {
+  const [image, setImage] = useState(null);
+  const [produceRequest, setProduceRequest] = useState({
+    title: "",
+    content: "",
+    price: 0,
+  });
+  const navigate = useNavigate();
+
+  const handleTextInputChange = (e) => {
+    setProduceRequest({
+      ...produceRequest,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleWrite = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append(
+      "produceRequest",
+      new Blob([JSON.stringify(produceRequest)], { type: "application/json" })
+    );
+
+    try {
+      const res = await instance.post("/produce", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      navigate("/market");
+      console.log(res);
+    } catch (e) {
+      console.error(e);
+    }
+  };
   return (
     <Template>
       <ContentWrapper>
         <Title>우리 지역 농산물 장터</Title>
-        <StyledForm action="">
+        <StyledForm onSubmit={(e) => handleWrite(e)}>
           <InputsWrapper>
             <LeftWrapper>
-              <WriteImgInput />
+              <WriteImgInput setImage={setImage} />
             </LeftWrapper>
             <RightWrapper>
               <MiniProfile />
@@ -22,14 +63,16 @@ function Write() {
                 name="title"
                 placeholder="제목을 입력해주세요."
                 style={{ marginTop: "23px" }}
+                onChange={(e) => handleTextInputChange(e)}
               />
               <WriteTextArea
-                name="description"
+                name="content"
                 placeholder={
                   "내용을 입력해주세요\n*무게, 개수, 상태 등 자세한 설명을 남길 수록 좋아요!"
                 }
                 height="193px"
                 style={{ marginTop: "11px", marginBottom: "19px" }}
+                onChange={(e) => handleTextInputChange(e)}
               />
               <PriceWrapper>
                 <WriteInput
@@ -37,12 +80,13 @@ function Write() {
                   type="number"
                   placeholder="가격을 입력해주세요"
                   style={{ width: "167px", marginRight: "10px" }}
+                  onChange={(e) => handleTextInputChange(e)}
                 />
                 원
               </PriceWrapper>
             </RightWrapper>
           </InputsWrapper>
-          <SubmitBtn onClick={() => {}} bgColor="#FEB37A" />
+          <SubmitBtn bgColor="#FEB37A" />
         </StyledForm>
       </ContentWrapper>
     </Template>

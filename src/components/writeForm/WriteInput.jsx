@@ -1,15 +1,25 @@
 import styled from "styled-components";
 
-function WriteInput({ type = "text", name, placeholder, height, style }) {
+function WriteInput({
+  type = "text",
+  name,
+  placeholder,
+  height,
+  style,
+  onChange,
+}) {
+  const required = name === 'name' && name === 'title';
+
   return (
     <StyledInput
-      required
+      required={required}
       name={name}
       autoFocus={true}
       type={type}
       placeholder={placeholder}
       height={height}
       style={style}
+      onChange={onChange}
     />
   );
 }

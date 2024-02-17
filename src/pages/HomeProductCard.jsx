@@ -1,20 +1,23 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 function HomeProductCard({ product }) {
   const navigate = useNavigate();
+  const handleCardClick = () => {
+    navigate(`/market/${product.produceIdx}`, { state: product.produceIdx});
+  };
+
   return (
-    <CardWrapper
-      onClick={() => {
-        navigate(`/market/${product.name}`, { state: product });
-      }}
-    >
-      <ItemImg src={product.img} alt="" />
-      <ItemName>{product.name}</ItemName>
-      <ItemPrice>
-        {product.price.toLocaleString()}
-        <PriceUnit>원</PriceUnit>
-      </ItemPrice>
+    <CardWrapper onClick={handleCardClick}>
+      <ItemImg src={product.produceImage} alt="" />
+      <ItemName>{product.title}</ItemName>
+      {product.price && ( 
+        <ItemPrice>
+          {product.price.toLocaleString()}
+          <PriceUnit>원</PriceUnit>
+        </ItemPrice>
+      )}
     </CardWrapper>
   );
 }
