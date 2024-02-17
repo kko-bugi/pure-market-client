@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import axios from "axios";
 import { useState, useEffect } from "react";
 import Header from "./Header";
 import Profile from "./Profile";
@@ -74,7 +74,7 @@ export default function SignUp() {
     }
   };
 
-  const handleNicknameCheck = (e) => {
+  const handleNicknameCheck = async (e) => {
     e.preventDefault();
 
     // 공백 입력 처리
@@ -84,13 +84,20 @@ export default function SignUp() {
       return;
     }
 
-    const isNicknameAvailable = true; // 백엔드에서 받아온 데이터. 중복 여부 결과
-    if (isNicknameAvailable) {
-      handleErrorMsg("nickname", ""); // 에러 메시지 초기화
-      handleValidation("nickname", true); // PassMsg를 표시하기 위해 상태 업데이트
-    } else {
-      handleErrorMsg("nickname", "이미 사용 중인 닉네임입니다.");
-      handleValidation("nickname", false);
+    // 닉네임 중복체크
+    try {
+      const response = await axios.post("/users/nickname", {
+        nickname: form.nickname,
+      });
+      if (response.data.isSuccess) {
+        handleErrorMsg("nickname", "");
+        handleValidation("nickname", true);
+      } else {
+        handleErrorMsg("nickname", "이미 사용 중인 닉네임입니다.");
+        handleValidation("nickname", false);
+      }
+    } catch (error) {
+      console.error("Error checking nickname availability:", error);
     }
   };
 
@@ -110,7 +117,7 @@ export default function SignUp() {
     }
   };
 
-  const handleIdCheck = (e) => {
+  const handleIdCheck = async (e) => {
     e.preventDefault();
 
     // 공백 입력 처리
@@ -120,13 +127,20 @@ export default function SignUp() {
       return;
     }
 
-    const isIdAvailable = true; // 백엔드에서 받아온 데이터. 중복 여부 결과
-    if (isIdAvailable) {
-      handleErrorMsg("loginId", "");
-      handleValidation("loginId", true);
-    } else {
-      handleErrorMsg("loginId", "이미 사용 중인 아이디입니다.");
-      handleValidation("loginId", false);
+    // 아이디 중복체크
+    try {
+      const response = await axios.post("/users/loginId", {
+        loginId: form.loginId,
+      });
+      if (response.data.isSuccess) {
+        handleErrorMsg("loginId", "");
+        handleValidation("loginId", true);
+      } else {
+        handleErrorMsg("loginId", "이미 사용 중인 아이디입니다.");
+        handleValidation("loginId", false);
+      }
+    } catch (error) {
+      console.error("Error checking loginId availability:", error);
     }
   };
 
