@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import axios from "axios";
 import { useState, useEffect } from "react";
 import Header from "./Header";
 import Profile from "./Profile";
@@ -13,24 +13,25 @@ export default function SignUp() {
   const [form, setForm] = useState({
     profile: null,
     nickname: "",
-    id: "",
+    loginId: "",
     password: "",
-    passwordConfirm: "",
-    phoneNumber: "",
+    passwordCheck: "",
+    contact: "",
   });
   // 유효성 검사
   const [valid, setValid] = useState({
     nickname: false,
-    id: false,
+    loginId: false,
     password: false,
-    phoneNumber: false,
+    contact: false,
   });
   // 에러 메세지
   const [errorMsg, setErrorMsg] = useState({
     nickname: "",
-    id: "",
+    loginId: "",
     password: "",
-    phoneNumber: "",
+    passwordCheck: "",
+    contact: "",
   });
   // 닉네임
   const [isNicknameBtnDisabled, setIsNicknameBtnDisabled] = useState(false);
@@ -46,8 +47,7 @@ export default function SignUp() {
     };
     setForm(newForm);
 
-    const name =
-      e.target.name === "passwordConfirm" ? "password" : e.target.name;
+    const name = e.target.name === "passwordCheck" ? "password" : e.target.name;
     //에러메세지 초기화
     handleErrorMsg(name, "");
     //validation 초기화
@@ -75,7 +75,7 @@ export default function SignUp() {
     }
   };
 
-  const handleNicknameCheck = (e) => {
+  const handleNicknameCheck = async (e) => {
     e.preventDefault();
 
     // 공백 입력 처리
@@ -85,13 +85,20 @@ export default function SignUp() {
       return;
     }
 
-    const isNicknameAvailable = true; // 백엔드에서 받아온 데이터. 중복 여부 결과
-    if (isNicknameAvailable) {
-      handleErrorMsg("nickname", ""); // 에러 메시지 초기화
-      handleValidation("nickname", true); // PassMsg를 표시하기 위해 상태 업데이트
-    } else {
-      handleErrorMsg("nickname", "이미 사용 중인 닉네임입니다.");
-      handleValidation("nickname", false);
+    // 닉네임 중복체크
+    try {
+      const response = await axios.post("/users/nickname", {
+        nickname: form.nickname,
+      });
+      if (response.data.isSuccess) {
+        handleErrorMsg("nickname", "");
+        handleValidation("nickname", true);
+      } else {
+        handleErrorMsg("nickname", "이미 사용 중인 닉네임입니다.");
+        handleValidation("nickname", false);
+      }
+    } catch (error) {
+      console.error("Error checking nickname availability:", error);
     }
   };
 
@@ -100,55 +107,74 @@ export default function SignUp() {
     const userInput = e.target.value;
     if (/[^a-zA-Z0-9]/.test(userInput) || userInput.includes(" ")) {
       handleErrorMsg(
-        "id",
+        "loginId",
         "영어와 숫자만 입력 가능하며, 공백을 포함할 수 없습니다."
       );
       setIsIdBtnDisabled(true);
-      handleValidation("id", false);
+      handleValidation("loginId", false);
     } else {
-      handleErrorMsg("id", "");
+      handleErrorMsg("loginId", "");
       setIsIdBtnDisabled(false);
     }
   };
 
-  const handleIdCheck = (e) => {
+  const handleIdCheck = async (e) => {
     e.preventDefault();
 
     // 공백 입력 처리
-    if (!form.id) {
-      handleErrorMsg("id", "아이디를 입력해주세요.");
-      handleValidation("id", false);
+    if (!form.loginId) {
+      handleErrorMsg("loginId", "아이디를 입력해주세요.");
+      handleValidation("loginId", false);
       return;
     }
 
-    const isIdAvailable = true; // 백엔드에서 받아온 데이터. 중복 여부 결과
-    if (isIdAvailable) {
-      handleErrorMsg("id", "");
-      handleValidation("id", true);
-    } else {
-      handleErrorMsg("id", "이미 사용 중인 아이디입니다.");
-      handleValidation("id", false);
+    // 아이디 중복체크
+    try {
+      const response = await axios.post("/users/loginId", {
+        loginId: form.loginId,
+      });
+      if (response.data.isSuccess) {
+        handleErrorMsg("loginId", "");
+        handleValidation("loginId", true);
+      } else {
+        handleErrorMsg("loginId", "이미 사용 중인 아이디입니다.");
+        handleValidation("loginId", false);
+      }
+    } catch (error) {
+      console.error("Error checking loginId availability:", error);
     }
   };
 
   // 비밀번호
   useEffect(() => {
-    if (form.passwordConfirm) {
-      if (form.password === form.passwordConfirm) {
-        handleValidation("password", true);
-      } else {
-        handleErrorMsg("password", "비밀번호가 일치하지 않습니다.");
+    handleErrorMsg("password", "");
+    handleErrorMsg("passwordCheck", "");
+
+    if (form.password.length < 8 && form.password.length > 0) {
+      handleValidation("password", false);
+      handleErrorMsg("password", "8자 이상의 비밀번호를 입력해주세요.");
+    } else {
+      handleErrorMsg("password", "");
+
+      if (form.passwordCheck) {
+        if (form.password === form.passwordCheck) {
+          handleValidation("password", true);
+          handleErrorMsg("passwordCheck", "");
+        } else {
+          handleValidation("password", false);
+          handleErrorMsg("passwordCheck", "비밀번호가 일치하지 않습니다.");
+        }
       }
     }
-  }, [form.password, form.passwordConfirm]);
+  }, [form.password, form.passwordCheck]);
 
   // 핸드폰 번호
   const handlePhoneNumberChange = (e) => {
     if (/[^0-9]/.test(e.target.value)) {
-      handleErrorMsg("phoneNumber", "숫자만 입력해주세요.");
+      handleErrorMsg("contact", "숫자만 입력해주세요.");
     } else {
-      handleErrorMsg("phoneNumber", "");
-      handleValidation("phoneNumber", true);
+      handleErrorMsg("contact", "");
+      handleValidation("contact", true);
     }
   };
 
@@ -164,7 +190,7 @@ export default function SignUp() {
   }, [form]);
 
   // 가입 완료하기 버튼 클릭 : valid 확인
-  const handleSignUpBtnClick = (e) => {
+  const handleSignUpBtnClick = async (e) => {
     e.preventDefault();
 
     // 기본 프로필 설정
@@ -176,8 +202,28 @@ export default function SignUp() {
     // valid에 있는 데이터가 모두 true인지 확인
     const isAllValid = Object.values(valid).every((value) => value);
     if (isAllValid) {
-      // 모두 true이면: form에 있는 데이터 백엔드로 전송
-      console.log("전송!", formWithProfile);
+      try {
+        const formData = new FormData();
+        const jsonData = {
+          nickname: formWithProfile.nickname,
+          loginId: formWithProfile.loginId,
+          password: formWithProfile.password,
+          passwordCheck: formWithProfile.passwordCheck,
+          contact: formWithProfile.contact,
+        };
+
+        formData.append("data", JSON.stringify(jsonData));
+        formData.append("image", formWithProfile.profile);
+
+        const data = await axios.post(`/users/signup`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log(data);
+      } catch (e) {
+        console.log("에러 : " + e);
+      }
     } else {
       // false인 게 존재하면 차례대로 확인
       for (const key in valid) {
@@ -189,19 +235,18 @@ export default function SignUp() {
             case "nickname":
               handleErrorMsg("nickname", "닉네임 중복 확인을 해주세요.");
               break;
-            case "id":
-              handleErrorMsg("id", "아이디 중복 확인을 해주세요.");
+            case "loginId":
+              handleErrorMsg("loginId", "아이디 중복 확인을 해주세요.");
               break;
             case "password":
               setForm((prevForm) => ({
                 ...prevForm,
                 password: "",
-                passwordConfirm: "",
+                passwordCheck: "",
               }));
-              handleErrorMsg("password", "비밀번호가 일치하지 않습니다.");
               break;
-            case "phoneNumber":
-              handleErrorMsg("phoneNumber", "숫자만 입력해주세요.");
+            case "contact":
+              handleErrorMsg("contact", "숫자만 입력해주세요.");
               break;
             default:
               break;
@@ -244,7 +289,7 @@ export default function SignUp() {
             text={{
               type: "text",
               placeholder: "아이디를 입력해주세요",
-              name: "id",
+              name: "loginId",
               onChange: (e) => {
                 handleChange(e);
                 handleIdChange(e);
@@ -256,30 +301,17 @@ export default function SignUp() {
                 disabled={isIdBtnDisabled}
               ></DuplicateCheckButton>
             }
-            errorMsg={errorMsg.id}
-            passMsg={valid.id && "사용 가능한 아이디입니다."}
+            errorMsg={errorMsg.loginId}
+            passMsg={valid.loginId && "사용 가능한 아이디입니다."}
           ></Input>
 
           <Input
             title="비밀번호"
             text={{
               type: "password",
-              placeholder: "비밀번호를 입력해주세요",
+              placeholder: "8자 이상의 비밀번호를 입력해주세요",
               value: form.password,
               name: "password",
-              onChange: (e) => {
-                handleChange(e);
-              },
-            }}
-          ></Input>
-
-          <Input
-            title="비밀번호 확인"
-            text={{
-              type: "password",
-              placeholder: "비밀번호를 한번 더 입력해주세요",
-              value: form.passwordConfirm,
-              name: "passwordConfirm",
               onChange: (e) => {
                 handleChange(e);
               },
@@ -288,17 +320,31 @@ export default function SignUp() {
           ></Input>
 
           <Input
+            title="비밀번호 확인"
+            text={{
+              type: "password",
+              placeholder: "비밀번호를 한번 더 입력해주세요",
+              value: form.passwordCheck,
+              name: "passwordCheck",
+              onChange: (e) => {
+                handleChange(e);
+              },
+            }}
+            errorMsg={errorMsg.passwordCheck}
+          ></Input>
+
+          <Input
             title="핸드폰 번호"
             text={{
               type: "text",
               placeholder: "‘-’ 없이 숫자만",
-              name: "phoneNumber",
+              name: "contact",
               onChange: (e) => {
                 handleChange(e);
                 handlePhoneNumberChange(e);
               },
             }}
-            errorMsg={errorMsg.phoneNumber}
+            errorMsg={errorMsg.contact}
           ></Input>
 
           <SignUpButton
