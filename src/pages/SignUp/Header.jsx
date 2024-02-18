@@ -18,8 +18,8 @@ export default function Header() {
 }
 
 const Wrapper = styled.header`
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: auto 0px;
   padding-bottom: 20px;
   width: 100%;
   text-align: center;
@@ -27,11 +27,12 @@ const Wrapper = styled.header`
 
 const Title = styled.h1`
   font-size: 24px;
-  flex: 1;
+  justify-self: center;
 `;
 
 const CloseBtn = styled.button`
   border: none;
   background-color: white;
   cursor: pointer;
+  justify-self: end;
 `;
