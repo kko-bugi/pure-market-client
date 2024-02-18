@@ -10,8 +10,6 @@ import SignUpButton from "./SignUpButton";
 import DefaultProfileImg from "../../assets/DefaultProfileImg.png";
 import instance from "../../axios_interceptor";
 
-import instance from "../../axios_interceptor";
-
 export default function SignUp() {
   // 넘길 값
   const [form, setForm] = useState({
