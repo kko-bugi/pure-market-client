@@ -10,6 +10,7 @@ import WriteTextArea from "../../components/writeForm/WriteTextArea";
 import SubmitBtn from "../../components/writeForm/SubmitBtn";
 import WriteImgInput from "../../components/writeForm/WriteImgInput";
 import AddContainerIcon from "../../assets/AddContainerIcon.svg";
+import OrderTextArea from '../../components/writeForm/OrderTextArea';
 
 function Write() {
   const [image, setImage] = useState("");
@@ -18,7 +19,7 @@ function Write() {
     content: "",
     ingredientList: [{ name: '', quantity: '' }],
     sauceList: [{ name: '', quantity: '' }],
-    recipeDescriptionList: [{ orderNumber: 1, description: '' }]
+    recipeDescriptionList: [{ orderNumber: 1, description: '' }, { orderNumber: 2, description: '' }]
   });
 
   const navigate = useNavigate();
@@ -286,21 +287,6 @@ const OrderNumber = styled.div`
   height: 50px;
 `;
 
-const OrderTextArea = styled.textarea`
-  color: #000;
-  background-color: #fff;
-  border-radius: 5px;
-  border: 1px solid #ddd3d3;
-  padding: 0 19px;
-  width: 100%;
-  max-width: 732px;
-  height: 50px;
-  outline: none;
-  resize: none;
-  margin-bottom: 10px;
-  line-height: 50px; 
-  margin-right: 14px;
-`;
 
 const OrderWrapper = styled.div`
   display: flex;
