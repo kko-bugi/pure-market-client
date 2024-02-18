@@ -4,7 +4,7 @@ function ContentImg({ src, alt, isSoldOut }) {
   return (
     <StyledImgContainer>
       <StyledImg src={src} alt={alt} isSoldOut={isSoldOut} />
-      {isSoldOut && <SoldOutLabel>거래 완료</SoldOutLabel>}
+      {isSoldOut === true && <SoldOutLabel>거래완료</SoldOutLabel>}
     </StyledImgContainer>
   );
 }
@@ -23,17 +23,19 @@ const StyledImg = styled.img`
   height: 100%;
   max-height: 416px;
   object-fit: cover;
-  ${(props) => props.isSoldOut && `filter: grayscale(40%); opacity:0.5`}
 `;
 
 const SoldOutLabel = styled.div`
-  position: absolute;
-  bottom: 0;
+  font-size: 24px;
+  font-weight: 600;
+  top: 0;
   width: 100%;
-  background-color: rgba(169, 169, 169);
-  padding: 15px 0;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.65);
   color: white;
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
+  border-radius: 15px;
 `;
