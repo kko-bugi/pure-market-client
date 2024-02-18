@@ -2,27 +2,24 @@ import styled from "styled-components";
 import Logo from "../assets/Logo.svg";
 import { Link } from "react-router-dom";
 import NavBarProfile from "./NavBarProfile";
-import { useRecoilValue } from "recoil";
-import { accessTokenState } from "../atoms/accessTokenState";
-
+import { Cookies } from "react-cookie";
 
 function NavBar() {
-  const accessToken = useRecoilValue(accessTokenState);
+  const cookies = new Cookies();
 
   return (
     <Wrapper>
-      <LogoLink to="/"> 
+      <LogoLink to="/">
         <img src={Logo} alt="" />
       </LogoLink>
-
 
       <MainFeature to="/market">농산물 쇼핑</MainFeature>
       <MainFeature to="/share">나눔 장터</MainFeature>
       <MainFeature to="/recipe">레시피 Book</MainFeature>
 
-       <div>
-        {accessToken ? (
-          <NavBarProfile/>
+      <div>
+        {cookies.get("refreshToken") !== undefined ? (
+          <NavBarProfile />
         ) : (
           <>
             <SubFeature to="/signUp">회원가입</SubFeature>
@@ -70,6 +67,6 @@ const VerticalBar = styled.span`
   margin: 0 6px;
 `;
 const LogoLink = styled(Link)`
-  text-decoration: none; 
-  cursor: pointer; 
+  text-decoration: none;
+  cursor: pointer;
 `;
