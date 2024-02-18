@@ -15,7 +15,6 @@ instance.interceptors.request.use(
       config.headers = {
         Authorization: `Bearer ${accessToken}`,
       };
-      axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
     }
     return config;
   },

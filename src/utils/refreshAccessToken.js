@@ -17,7 +17,7 @@ async function refreshAccessToken() {
       },
     });
     if (res.data.isSuccessful === false) {
-      throw Error(res.data.code);
+      return Error(res.data.code);
     } else return res.data.result.accessToken;
   } catch (e) {
     console.log(e);
