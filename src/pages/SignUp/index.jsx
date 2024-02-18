@@ -302,11 +302,11 @@ export default function SignUp() {
               <DuplicateCheckButton
                 onClick={handleNicknameCheck}
                 disabled={isNicknameBtnDisabled}
-              ></DuplicateCheckButton>
+              />
             }
             errorMsg={errorMsg.nickname}
             passMsg={valid.nickname && "사용 가능한 닉네임입니다."}
-          ></Input>
+          />
 
           <Input
             title="아이디"
@@ -323,11 +323,11 @@ export default function SignUp() {
               <DuplicateCheckButton
                 onClick={handleIdCheck}
                 disabled={isIdBtnDisabled}
-              ></DuplicateCheckButton>
+              />
             }
             errorMsg={errorMsg.loginId}
             passMsg={valid.loginId && "사용 가능한 아이디입니다."}
-          ></Input>
+          />
 
           <Input
             title="비밀번호"
@@ -341,7 +341,7 @@ export default function SignUp() {
               },
             }}
             errorMsg={errorMsg.password}
-          ></Input>
+          />
 
           <Input
             title="비밀번호 확인"
@@ -355,7 +355,7 @@ export default function SignUp() {
               },
             }}
             errorMsg={errorMsg.passwordCheck}
-          ></Input>
+          />
 
           <Input
             title="핸드폰 번호"
@@ -369,7 +369,7 @@ export default function SignUp() {
               },
             }}
             errorMsg={errorMsg.contact}
-          ></Input>
+          />
 
           <SignUpButton
             disabled={isSignUpBtnDisabled}
