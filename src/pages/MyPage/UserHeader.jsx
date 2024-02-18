@@ -16,7 +16,7 @@ const UserHeader = ({ data }) => {
           "Content-Type": "application/json",
         },
       });
-      cookies.remove("refreshToken");
+      cookies.remove("refreshToken", { path: "/" });
       navigate("/");
     } catch (e) {
       console.error(e);
