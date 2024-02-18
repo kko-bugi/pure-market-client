@@ -7,11 +7,12 @@ import DuplicateCheckButton from "./DuplicateCheckButton";
 import Input from "./Input";
 import SignUpButton from "./SignUpButton";
 import DefaultProfileImg from "../../assets/DefaultProfileImg.png";
+import instance from "../../axios_interceptor";
 
 export default function SignUp() {
   // 넘길 값
   const [form, setForm] = useState({
-    profile: null,
+    profile: "",
     nickname: "",
     loginId: "",
     password: "",
@@ -197,10 +198,22 @@ export default function SignUp() {
   const handleSignUpBtnClick = async (e) => {
     e.preventDefault();
 
-    // 기본 프로필 설정
+    let profileFile = null;
+    if (!form.profile) {
+      const response = await fetch(DefaultProfileImg);
+      const blob = await response.blob();
+
+      // Blob 객체를 파일 객체로 변환하여 프로필 파일 객체 설정
+      profileFile = new File([blob], "DefaultProfileImg.png", {
+        type: "image/png",
+      });
+    } else {
+      profileFile = form.profile;
+    }
+
     const formWithProfile = {
       ...form,
-      profile: form.profile || DefaultProfileImg,
+      profile: profileFile,
     };
 
     // valid에 있는 데이터가 모두 true인지 확인
@@ -208,18 +221,18 @@ export default function SignUp() {
     if (isAllValid) {
       try {
         const formData = new FormData();
-        const jsonData = {
-          nickname: formWithProfile.nickname,
-          loginId: formWithProfile.loginId,
-          password: formWithProfile.password,
-          passwordCheck: formWithProfile.passwordCheck,
-          contact: formWithProfile.contact,
-        };
+        const { profile, ...formWithoutProfile } = formWithProfile;
 
-        formData.append("data", JSON.stringify(jsonData));
+        formData.append(
+          "signupRequest",
+          new Blob([JSON.stringify(formWithoutProfile)], {
+            type: "application/json",
+          })
+        );
+        console.log(formWithProfile.profile);
         formData.append("image", formWithProfile.profile);
 
-        const data = await axios.post(`/users/signup`, formData, {
+        const data = await instance.post(`/users/signup`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
