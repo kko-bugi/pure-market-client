@@ -224,6 +224,7 @@ export default function SignUp() {
     if (isAllValid) {
       try {
         const formData = new FormData();
+
         const { profile, ...formWithoutProfile } = formWithProfile;
 
         formData.append(
@@ -242,7 +243,7 @@ export default function SignUp() {
         console.log(data);
         navigate("/login");
       } catch (e) {
-        console.log("에러 : " + e);
+        console.error("에러 : " + e);
       }
     } else {
       // false인 게 존재하면 차례대로 확인
