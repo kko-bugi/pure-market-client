@@ -4,9 +4,15 @@ const SoldOutBtn = ({ toggleSoldOut, status }) => {
   const setStatus = () => {
     switch (status) {
       case "판매중":
-        status = "판매재개";
+        status = "판매완료";
         break;
       case "나눔중":
+        status = "나눔완료";
+        break;
+      case "판매완료":
+        status = "판매재개";
+        break;
+      case "나눔완료":
         status = "나눔재개";
         break;
     }
