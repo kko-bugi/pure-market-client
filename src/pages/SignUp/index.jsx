@@ -172,6 +172,10 @@ export default function SignUp() {
   const handlePhoneNumberChange = (e) => {
     if (/[^0-9]/.test(e.target.value)) {
       handleErrorMsg("contact", "숫자만 입력해주세요.");
+      handleValidation("contact", false);
+    } else if (e.target.value.length < 10 && e.target.value.length > 0) {
+      handleErrorMsg("contact", "최소 10자 이상 입력해주세요.");
+      handleValidation("contact", false);
     } else {
       handleErrorMsg("contact", "");
       handleValidation("contact", true);
@@ -246,7 +250,10 @@ export default function SignUp() {
               }));
               break;
             case "contact":
-              handleErrorMsg("contact", "숫자만 입력해주세요.");
+              handleErrorMsg(
+                "contact",
+                "10자 이상의 올바른 전화번호를 입력해주세요."
+              );
               break;
             default:
               break;
