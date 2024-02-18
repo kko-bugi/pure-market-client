@@ -8,4 +8,5 @@ export default ListContent;
 
 const StyledContent = styled.div`
   font-size: 18px;
+  
 `;

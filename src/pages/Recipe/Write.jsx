@@ -78,6 +78,7 @@ function Write() {
 
   const handleWrite = async (e) => {
     e.preventDefault();
+    
   
     const formData = new FormData();
     formData.append("image", image);
@@ -88,13 +89,27 @@ function Write() {
     );
   
     recipeRequest.ingredientList.forEach((ingredient, index) => {
-      formData.append(`ingredientList[${index}][name]`, ingredient.name);
-      formData.append(`ingredientList[${index}][quantity]`, ingredient.quantity);
+      if (ingredient.name && ingredient.quantity) {
+        formData.append(`ingredientList[${index}][name]`, ingredient.name);
+        formData.append(`ingredientList[${index}][quantity]`, ingredient.quantity);
+      } 
+      else if (ingredient.name && !ingredient.quantity) {
+        formData.append(`ingredientList[${index}][name]`, ingredient.name);
+        formData.append(`ingredientList[${index}][quantity]`, null);
+      }
     });
   
     recipeRequest.sauceList.forEach((sauce, index) => {
-      formData.append(`sauceList[${index}][name]`, sauce.name);
-      formData.append(`sauceList[${index}][quantity]`, sauce.quantity);
+      if (sauce.name && sauce.quantity) {
+        formData.append(`sauceList[${index}][name]`, sauce.name);
+        formData.append(`sauceList[${index}][quantity]`, sauce.quantity);
+      }
+      else if (sauce.name && !sauce.quantity) {
+        formData.append(`sauceList[${index}][name]`, sauce.name);
+        formData.append(`sauceList[${index}][quantity]`, null);
+    }
+ 
+      
     });
   
     recipeRequest.recipeDescriptionList.forEach((order, index) => {
@@ -148,12 +163,14 @@ function Write() {
                     placeholder="재료명"
                     style={{ width: "140px", marginRight: "15px" }}
                     onChange={(e) => handleTextInputChange(e, index, 'ingredient')}
+                    required={false}
                   />
                   <WriteInput
                     name="quantity"
                     placeholder="양(ex. 한 숟가락)"
                     style={{ width: "140px", marginRight: "15px" }}
                     onChange={(e) => handleTextInputChange(e, index, 'ingredient')}
+                    required={false}
                   />
                   {index === recipeRequest.ingredientList.length - 1 && (
                     <img src={AddContainerIcon} alt="재료 추가" onClick={handleAddIngredient} />
@@ -168,12 +185,14 @@ function Write() {
                     placeholder="양념명"
                     style={{ width: "140px", marginRight: "15px" }}
                     onChange={(e) => handleTextInputChange(e, index, 'sauce')}
+                    required={false}
                   />
                   <WriteInput
                     name="quantity"
                     placeholder="양(ex. 한 숟가락)"
                     style={{ width: "140px", marginRight: "15px" }}
                     onChange={(e) => handleTextInputChange(e, index, 'sauce')}
+                    required={false}
                   />
                   {index === recipeRequest.sauceList.length - 1 && (
                     <img src={AddContainerIcon} alt="양념 추가" onClick={handleAddSauce} />
