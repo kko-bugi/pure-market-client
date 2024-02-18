@@ -1,6 +1,24 @@
 import styled from "styled-components";
+import instance from "../../axios_interceptor";
+import { Cookies } from "react-cookie";
 
 const UserHeader = ({ data }) => {
+  const handleLogOut = async () => {
+    const cookies = new Cookies();
+    const data = {
+      refreshToken: cookies.get("refreshToken"),
+    };
+    try {
+      const res = await instance.patch("/users/logout", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      cookies.remove("refreshToken");
+    } catch (e) {
+      console.error(e);
+    }
+  };
   return (
     <HeaderWrapper>
       <ProfileImg src={data.profileImage}></ProfileImg>
@@ -13,7 +31,7 @@ const UserHeader = ({ data }) => {
           님!
         </GreetingUserName>
       </GreetingWrapper>
-      <LogOutBtn>로그아웃</LogOutBtn>
+      <LogOutBtn onClick={handleLogOut}>로그아웃</LogOutBtn>
     </HeaderWrapper>
   );
 };
