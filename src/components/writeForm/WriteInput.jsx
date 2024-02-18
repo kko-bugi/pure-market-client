@@ -3,6 +3,7 @@ import styled from "styled-components";
 function WriteInput({
   type = "text",
   required = true,
+
   name,
   placeholder,
   height,
@@ -19,6 +20,7 @@ function WriteInput({
       height={height}
       style={style}
       onChange={onChange}
+      maxLength={32}
     />
   );
 }
