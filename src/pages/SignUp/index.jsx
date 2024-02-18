@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Profile from "./Profile";
 import DuplicateCheckButton from "./DuplicateCheckButton";
@@ -40,6 +41,8 @@ export default function SignUp() {
   const [isIdBtnDisabled, setIsIdBtnDisabled] = useState(false);
   // 가입 완료하기
   const [isSignUpBtnDisabled, setIsSignUpBtnDisabled] = useState(true);
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const newForm = {
@@ -229,7 +232,6 @@ export default function SignUp() {
             type: "application/json",
           })
         );
-        console.log(formWithProfile.profile);
         formData.append("image", formWithProfile.profile);
 
         const data = await instance.post(`/users/signup`, formData, {
@@ -238,6 +240,7 @@ export default function SignUp() {
           },
         });
         console.log(data);
+        navigate("/login");
       } catch (e) {
         console.log("에러 : " + e);
       }
