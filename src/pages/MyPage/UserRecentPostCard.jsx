@@ -3,10 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 const UserRecentPostCard = ({ post, postType, dataName }) => {
   const navigate = useNavigate();
+  const index = post[dataName + "Idx"];
   return (
     <PostWrapper
       onClick={() => {
-        navigate(`/${postType}/${post.title}`);
+        navigate(`/${postType}/${index}`, {
+          state: index,
+        });
       }}
     >
       <PostImg src={post[`${dataName}Image`]} />

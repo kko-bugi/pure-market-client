@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import instance from "../../axios_interceptor";
 
 import Template from "../../components/Template";
 import UserHeader from "./UserHeader";
 import UserSection from "./UserSection";
-import data from "../../data/myPage.json";
 
 const MyPage = () => {
   const [userData, setUserData] = useState(null);
