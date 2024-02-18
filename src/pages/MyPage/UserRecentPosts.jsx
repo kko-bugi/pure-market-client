@@ -30,6 +30,7 @@ const UserRecentPosts = ({ postType, recentPostData }) => {
               post={el}
               postType={postType}
               dataName={DataName[postType]}
+              status={el.status}
             />
           ))}
         </ItemWrapper>
