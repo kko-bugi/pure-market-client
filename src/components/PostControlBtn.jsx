@@ -2,12 +2,12 @@ import styled from "styled-components";
 import DeleteBtn from "./DeleteBtn";
 import SoldOutBtn from "./SoldOutBtn";
 
-const PostControlBtn = ({ isSoldOut, handleDelete, toggleSoldOut }) => {
+const PostControlBtn = ({ status, handleDelete, toggleSoldOut }) => {
   return (
     <Wrapper>
       <DeleteBtn onClick={handleDelete} />
       <VerticalBar>|</VerticalBar>
-      <SoldOutBtn isSoldOut={isSoldOut} toggleSoldOut={toggleSoldOut} />
+      <SoldOutBtn status={status} toggleSoldOut={toggleSoldOut} />
     </Wrapper>
   );
 };

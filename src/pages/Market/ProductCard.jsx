@@ -14,7 +14,7 @@ function ProductCard({ product }) {
       <ThumbnailWrapper>
         <ItemImg src={product.produceImage} alt="" />
         {product.produceStatus === "판매완료" && (
-          <SoldOutLabel>거래완료</SoldOutLabel>
+          <SoldOutLabel>판매완료</SoldOutLabel>
         )}
       </ThumbnailWrapper>
 
