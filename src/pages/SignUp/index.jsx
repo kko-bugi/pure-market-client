@@ -8,6 +8,8 @@ import Input from "./Input";
 import SignUpButton from "./SignUpButton";
 import DefaultProfileImg from "../../assets/DefaultProfileImg.png";
 
+import instance from "../../axios_interceptor";
+
 export default function SignUp() {
   // 넘길 값
   const [form, setForm] = useState({
@@ -212,17 +214,21 @@ export default function SignUp() {
           contact: formWithProfile.contact,
         };
 
-        formData.append("data", JSON.stringify(jsonData));
+        formData.append(
+          "data",
+          new Blob([JSON.stringify(jsonData)], {
+            type: "application/json",
+          })
+        );
         formData.append("image", formWithProfile.profile);
-
-        const data = await axios.post(`/users/signup`, formData, {
+        const res = await axios.post(`/users/signup`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
-        console.log(data);
+        console.log(res);
       } catch (e) {
-        console.log("에러 : " + e);
+        console.error("에러 : " + e);
       }
     } else {
       // false인 게 존재하면 차례대로 확인
