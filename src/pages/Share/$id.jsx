@@ -75,9 +75,7 @@ function Detailed() {
               <ContentImg
                 src={productInfo.giveawayImage}
                 alt=""
-                isSoldOut={
-                  productInfo.giveawayStatus === "나눔완료" ? true : false
-                }
+                status={productInfo.giveawayStatus}
               />
             </LeftWrapper>
             <RightWrapper>
@@ -89,9 +87,7 @@ function Detailed() {
                 />
                 {productInfo.isWriter && (
                   <PostControlBtn
-                    isSoldOut={
-                      productInfo.produceStatus === "나눔완료" ? true : false
-                    }
+                    status={productInfo.giveawayStatus}
                     handleDelete={handleDelete}
                     toggleSoldOut={handleStatusChange}
                   />

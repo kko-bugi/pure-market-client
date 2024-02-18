@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-function ContentImg({ src, alt, isSoldOut }) {
+function ContentImg({ src, alt, status }) {
   return (
     <StyledImgContainer>
-      <StyledImg src={src} alt={alt} isSoldOut={isSoldOut} />
-      {isSoldOut === true && <SoldOutLabel>거래완료</SoldOutLabel>}
+      <StyledImg src={src} alt={alt} status={status} />
+      {status.endsWith("완료") && <SoldOutLabel>{status}</SoldOutLabel>}
     </StyledImgContainer>
   );
 }
