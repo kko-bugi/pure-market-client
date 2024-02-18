@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import instance from "../../axios_interceptor";
 import { Cookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 const UserHeader = ({ data }) => {
+  const cookies = new Cookies();
+  const navigate = useNavigate();
   const handleLogOut = async () => {
-    const cookies = new Cookies();
     const data = {
       refreshToken: cookies.get("refreshToken"),
     };
@@ -15,6 +17,7 @@ const UserHeader = ({ data }) => {
         },
       });
       cookies.remove("refreshToken");
+      navigate("/");
     } catch (e) {
       console.error(e);
     }
