@@ -13,7 +13,6 @@
 - React 18
 - JavaScript
 - Recoil
-- OAuth 2.0 for Access-Token handling
 - React Router
 
 ### Data Fetching
