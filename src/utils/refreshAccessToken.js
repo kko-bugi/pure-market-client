@@ -20,6 +20,7 @@ async function refreshAccessToken() {
       return Error(res.data.code);
     } else return res.data.result.accessToken;
   } catch (e) {
+    cookies.remove("refreshToken", { path: "/" });
     console.log(e);
   }
 }
