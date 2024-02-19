@@ -82,24 +82,35 @@ function Detailed() {
 
               <SubtitleWrapper>
                 <Subtitle>[재료]&nbsp;</Subtitle>
-                {recipeInfo.ingredientList.map((ingredient, index) => (
-                <React.Fragment key={index}>
-                    <ListContent txt={`${ingredient.name}${ingredient.quantity ? `: ${ingredient.quantity}` : ''}`}  />
-                    {index !== recipeInfo.ingredientList.length - 1 && <>,&nbsp;&nbsp;</>}
-                </React.Fragment>
-                ))}
+                <ListWrapper>
+                  {recipeInfo.ingredientList.filter(ingredient => ingredient.name).map((ingredient, index, validIngredient) => (
+                     ingredient.name && (
+                      <ListItem key={index}>
+                        {ingredient.name}
+                        {ingredient.quantity && `: ${ingredient.quantity}`}
+                        {index !== validIngredient.length - 1 && ', '}
+                     </ListItem>
+                     )
+                  ))}
+                </ListWrapper>
               </SubtitleWrapper>
 
               <SubtitleWrapper>
                 <Subtitle>[양념]&nbsp;</Subtitle>
-                {recipeInfo.sauceList.map((sauce, index) => (
-                  <React.Fragment key={index}>
-                    <ListContent txt={`${sauce.name}${sauce.quantity ? `: ${sauce.quantity}` : ''}`}  />
-                    {index !== recipeInfo.sauceList.length - 1 && <>,&nbsp;&nbsp;</>}
-                </React.Fragment>
-                ))}
-              </SubtitleWrapper>
+                <ListWrapper>
+                  {recipeInfo.sauceList.filter(sauce => sauce.name).map((sauce, index, validSauce) => (
+                     sauce.name && (
+                      <ListItem key={index}>
+                        {sauce.name}
+                        {sauce.quantity && `: ${sauce.quantity}`}
+                        {index !== validSauce.length - 1 && ', '}
+                      </ListItem>
+                     )
+                  ))}
+                </ListWrapper>
 
+                
+              </SubtitleWrapper>
             </RightWrapper>
           </ContentWrapper>
         ) : (
@@ -163,6 +174,7 @@ const RightWrapper = styled.div`
 const Subtitle = styled.div`
  font-size: 18px;
  font-weight: bold;
+ white-space: nowrap
 `;
 
 const SubtitleWrapper = styled.div`
@@ -199,4 +211,13 @@ const UserWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+`;
+const ListWrapper = styled.div`
+  padding-left: 0;
+`;
+
+const ListItem = styled.div`
+  display: inline;
+  font-size: 18px;
+  margin-right: 3px;
 `;

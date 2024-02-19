@@ -3,8 +3,8 @@ import styled from "styled-components";
 function ContentImg({ src, alt, status }) {
   return (
     <StyledImgContainer>
-      <StyledImg src={src} alt={alt} status={status} />
-      {status.endsWith("완료") && <SoldOutLabel>{status}</SoldOutLabel>}
+      <StyledImg src={src} alt={alt} />
+      {status && status.endsWith("완료") && <SoldOutLabel>{status}</SoldOutLabel>}
     </StyledImgContainer>
   );
 }
