@@ -27,6 +27,11 @@ function Login() {
         },
       });
 
+      if (res.data.isSuccess === false) {
+        alert(res.data.message);
+        return;
+      }
+
       const { accessToken, refreshToken } = res.data.result;
       removeCookie("refreshToken");
       setCookie("refreshToken", refreshToken, { path: "/" });
