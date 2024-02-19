@@ -89,28 +89,15 @@ function Write() {
     );
   
     recipeRequest.ingredientList.forEach((ingredient, index) => {
-      if (ingredient.name && ingredient.quantity) {
-        formData.append(`ingredientList[${index}][name]`, ingredient.name);
-        formData.append(`ingredientList[${index}][quantity]`, ingredient.quantity);
-      } 
-      else if (ingredient.name && !ingredient.quantity) {
-        formData.append(`ingredientList[${index}][name]`, ingredient.name);
-        formData.append(`ingredientList[${index}][quantity]`, null);
-      }
+      formData.append(`ingredientList[${index}][name]`, ingredient.name);
+      formData.append(`ingredientList[${index}][quantity]`, ingredient.quantity);
     });
   
     recipeRequest.sauceList.forEach((sauce, index) => {
-      if (sauce.name && sauce.quantity) {
-        formData.append(`sauceList[${index}][name]`, sauce.name);
-        formData.append(`sauceList[${index}][quantity]`, sauce.quantity);
-      }
-      else if (sauce.name && !sauce.quantity) {
-        formData.append(`sauceList[${index}][name]`, sauce.name);
-        formData.append(`sauceList[${index}][quantity]`, null);
-    }
- 
-      
+      formData.append(`sauceList[${index}][name]`, sauce.name);
+      formData.append(`sauceList[${index}][quantity]`, sauce.quantity);
     });
+  
   
     recipeRequest.recipeDescriptionList.forEach((order, index) => {
       formData.append(`recipeDescriptionList[${index}][orderNumber]`, order.orderNumber);
@@ -163,7 +150,7 @@ function Write() {
                     placeholder="재료명"
                     style={{ width: "140px", marginRight: "15px" }}
                     onChange={(e) => handleTextInputChange(e, index, 'ingredient')}
-                    required={false}
+                   
                   />
                   <WriteInput
                     name="quantity"
@@ -185,7 +172,7 @@ function Write() {
                     placeholder="양념명"
                     style={{ width: "140px", marginRight: "15px" }}
                     onChange={(e) => handleTextInputChange(e, index, 'sauce')}
-                    required={false}
+                  
                   />
                   <WriteInput
                     name="quantity"
