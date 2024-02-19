@@ -40,6 +40,8 @@ const Text = styled.input`
   border-bottom: 1px solid #bababa;
   padding: 3px 0px;
   flex: 1;
+  background-color: white;
+  color: black;
   &::placeholder {
     color: #bababa;
   }
