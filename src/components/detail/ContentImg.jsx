@@ -4,7 +4,9 @@ function ContentImg({ src, alt, status }) {
   return (
     <StyledImgContainer>
       <StyledImg src={src} alt={alt} />
-      {status && status.endsWith("완료") && <SoldOutLabel>{status}</SoldOutLabel>}
+      {status && status.endsWith("완료") && (
+        <SoldOutLabel>{status}</SoldOutLabel>
+      )}
     </StyledImgContainer>
   );
 }
@@ -37,5 +39,4 @@ const SoldOutLabel = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.65);
   color: white;
-  border-radius: 15px;
 `;
