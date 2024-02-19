@@ -27,9 +27,14 @@ function Login() {
         },
       });
 
+      if (res.data.isSuccess === false) {
+        alert(res.data.message);
+        return;
+      }
+
       const { accessToken, refreshToken } = res.data.result;
       removeCookie("refreshToken");
-      setCookie("refreshToken", refreshToken);
+      setCookie("refreshToken", refreshToken, { path: "/" });
       axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
       setAccessToken(accessToken);

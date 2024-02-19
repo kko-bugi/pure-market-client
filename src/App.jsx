@@ -49,6 +49,7 @@ function App() {
     {
       path: "/myPage",
       element: <MyPage />,
+      loader: loginLoader,
     },
     {
       path: "/market",

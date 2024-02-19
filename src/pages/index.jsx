@@ -29,36 +29,43 @@ function Home() {
 
   return (
     <Template banner={<HomeBanner />}>
-      <TitleWrapper>
-        <Title>오늘의 농산물</Title>
-        <ButtonIcon src={Icon} href="/market" />
-      </TitleWrapper>
-      <ItemWrapper4Grid>
-        {produceList.map(item => (
-          <HomeProductCard key={item.produceIdx} product={item} />
-        ))}
-      </ItemWrapper4Grid>
+      <Wrapper>
+        <TitleWrapper>
+          <Title>오늘의 농산물</Title>
+          <ButtonIcon src={Icon} href="/market" />
+        </TitleWrapper>
+        <ItemWrapper4Grid>
+          {produceList.map(item => (
+            <HomeProductCard key={item.produceIdx} product={item} />
+          ))}
+        </ItemWrapper4Grid>
+      </Wrapper>
 
-      <TitleWrapper>
-        <Title>이 레시피는 어떠세요?</Title>
-        <ButtonIcon src={Icon} href="/recipe" />
-      </TitleWrapper>
-      <ItemWrapper3Grid>
-        {recipeList.map(item => (
-          <HomeRecipeCard key={item.recipeIdx} recipe={item} />
-        ))}
-      </ItemWrapper3Grid>
+      <Wrapper>
+        <TitleWrapper>
+          <Title>이 레시피는 어떠세요?</Title>
+          <ButtonIcon src={Icon} href="/recipe" />
+        </TitleWrapper>
+        <ItemWrapper3Grid>
+          {recipeList.map(item => (
+            <HomeRecipeCard key={item.recipeIdx} recipe={item} />
+          ))}
+        </ItemWrapper3Grid>
+      </Wrapper>
 
-      <TitleWrapper>
-        <Title>오늘의 나눔글</Title>
-        <ButtonIcon src={Icon} href="/share" />
-      </TitleWrapper>
-      <ItemWrapper4Grid>
-        {giveawayList.map(item => (
-          <HomeShareCard key={item.giveawayIdx} product={item} />
-        ))}
-      </ItemWrapper4Grid>
+      <Wrapper>
+        <TitleWrapper>
+          <Title>오늘의 나눔글</Title>
+          <ButtonIcon src={Icon} href="/share" />
+        </TitleWrapper>
+        <ItemWrapper4Grid>
+          {giveawayList.map(item => (
+            <HomeShareCard key={item.giveawayIdx} product={item} />
+          ))}
+        </ItemWrapper4Grid>
+        </Wrapper>
     </Template>
+    
   );
 }
 
@@ -79,7 +86,6 @@ const ItemWrapper3Grid = styled.div`
 const TitleWrapper = styled.div`
 display: flex;
 align-items: center;
-justify-content: flex-start; 
 width: 65%;
 `;
 
@@ -89,5 +95,8 @@ const Title = styled.h2`
   font-weight: 300;
   color: #000;
   margin-bottom: 20px;
-  text-align: left;
+`;
+
+const Wrapper = styled.h2`
+align-items: center;
 `;

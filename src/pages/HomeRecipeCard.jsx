@@ -43,11 +43,11 @@ const  RecipeItemName = styled.div`
   min-height: 39px;
   position: absolute;
   bottom: 0;
-  width: 100%; /* 텍스트가 이미지의 너비를 따라가도록 설정 */
-  text-align: center; /* 텍스트를 가운데로 정렬 */
+  width: 100%;
+  text-align: center;
   white-space: nowrap;
   overflow: hidden; 
   text-overflow: ellipsis;   
-  margin-left: 6px; /* 텍스트 앞에 여백을 추가합니다. */
+  margin-left: 6px; 
   margin-right: 1px;
 `;

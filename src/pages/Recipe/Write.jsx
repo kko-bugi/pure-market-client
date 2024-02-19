@@ -10,6 +10,7 @@ import WriteTextArea from "../../components/writeForm/WriteTextArea";
 import SubmitBtn from "../../components/writeForm/SubmitBtn";
 import WriteImgInput from "../../components/writeForm/WriteImgInput";
 import AddContainerIcon from "../../assets/AddContainerIcon.svg";
+import OrderTextArea from '../../components/writeForm/OrderTextArea';
 
 function Write() {
   const [image, setImage] = useState("");
@@ -18,7 +19,7 @@ function Write() {
     content: "",
     ingredientList: [{ name: '', quantity: '' }],
     sauceList: [{ name: '', quantity: '' }],
-    recipeDescriptionList: [{ orderNumber: 1, description: '' }]
+    recipeDescriptionList: [{ orderNumber: 1, description: '' }, { orderNumber: 2, description: '' }]
   });
 
   const navigate = useNavigate();
@@ -77,6 +78,7 @@ function Write() {
 
   const handleWrite = async (e) => {
     e.preventDefault();
+    
   
     const formData = new FormData();
     formData.append("image", image);
@@ -95,6 +97,7 @@ function Write() {
       formData.append(`sauceList[${index}][name]`, sauce.name);
       formData.append(`sauceList[${index}][quantity]`, sauce.quantity);
     });
+  
   
     recipeRequest.recipeDescriptionList.forEach((order, index) => {
       formData.append(`recipeDescriptionList[${index}][orderNumber]`, order.orderNumber);
@@ -147,12 +150,14 @@ function Write() {
                     placeholder="재료명"
                     style={{ width: "140px", marginRight: "15px" }}
                     onChange={(e) => handleTextInputChange(e, index, 'ingredient')}
+                   
                   />
                   <WriteInput
                     name="quantity"
                     placeholder="양(ex. 한 숟가락)"
                     style={{ width: "140px", marginRight: "15px" }}
                     onChange={(e) => handleTextInputChange(e, index, 'ingredient')}
+                    required={false}
                   />
                   {index === recipeRequest.ingredientList.length - 1 && (
                     <img src={AddContainerIcon} alt="재료 추가" onClick={handleAddIngredient} />
@@ -167,12 +172,14 @@ function Write() {
                     placeholder="양념명"
                     style={{ width: "140px", marginRight: "15px" }}
                     onChange={(e) => handleTextInputChange(e, index, 'sauce')}
+                  
                   />
                   <WriteInput
                     name="quantity"
                     placeholder="양(ex. 한 숟가락)"
                     style={{ width: "140px", marginRight: "15px" }}
                     onChange={(e) => handleTextInputChange(e, index, 'sauce')}
+                    required={false}
                   />
                   {index === recipeRequest.sauceList.length - 1 && (
                     <img src={AddContainerIcon} alt="양념 추가" onClick={handleAddSauce} />
@@ -286,21 +293,6 @@ const OrderNumber = styled.div`
   height: 50px;
 `;
 
-const OrderTextArea = styled.textarea`
-  color: #000;
-  background-color: #fff;
-  border-radius: 5px;
-  border: 1px solid #ddd3d3;
-  padding: 0 19px;
-  width: 100%;
-  max-width: 732px;
-  height: 50px;
-  outline: none;
-  resize: none;
-  margin-bottom: 10px;
-  line-height: 50px; 
-  margin-right: 14px;
-`;
 
 const OrderWrapper = styled.div`
   display: flex;
