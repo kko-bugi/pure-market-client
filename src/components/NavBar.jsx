@@ -39,6 +39,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 781px;
+  z-index: 1;
 `;
 
 const MainFeature = styled(Link)`

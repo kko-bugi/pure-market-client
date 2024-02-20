@@ -21,7 +21,6 @@ const BannerWrapper = styled.div`
   background-color: ${(props) => props.bgColor};
   height: 252px;
   width: 100%;
-  margin-bottom: 54px;
 `;
 const BannerContentWrapper = styled.div`
   display: flex;

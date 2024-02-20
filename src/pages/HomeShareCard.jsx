@@ -23,7 +23,6 @@ export default HomeShareCard;
 const CardWrapper = styled.a`
   max-width: 180px;
   display: inline-block;
-  margin-bottom: 40px;
   margin-left: 5px;
   margin-right: 5px;
   vertical-align: top;

@@ -20,7 +20,7 @@ export default HomeRecipeCard;
 const CardWrapper = styled.div`
   max-width: 783px;
   display: inline-block;
-  margin-bottom: 40px;
+  margin-bottom: 5px;
   margin-left: 7px;
   margin-right: 7px;
   vertical-align: top;

@@ -24,12 +24,14 @@ function Recipe() {
 
   return (
     <Template banner={<RecipeBanner />}>
-      <ItemWrapper>
-        {recipeList.map((el, i) => (
-          <RecipeCard key={el.recipeIdx} recipe={el} />
-        ))}
-      </ItemWrapper>
-      <AddIcon src={Icon} href="/recipe/write" />
+      <ContentWrapper>
+        <ItemWrapper>
+          {recipeList.map((el, i) => (
+            <RecipeCard key={el.recipeIdx} recipe={el} />
+          ))}
+        </ItemWrapper>
+        <AddIcon src={Icon} href="/recipe/write" />
+      </ContentWrapper>
     </Template>
   );
 }
@@ -40,4 +42,8 @@ const ItemWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 23px;
+`;
+const ContentWrapper = styled.div`
+  height: 100%;
+  margin-top: 54px;
 `;

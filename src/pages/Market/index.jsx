@@ -40,6 +40,7 @@ export default Market;
 
 const ContentWrapper = styled.div`
   height: 100%;
+  margin-top: 54px;
 `;
 
 const ItemWrapper = styled.div`
