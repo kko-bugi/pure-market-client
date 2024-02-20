@@ -19,7 +19,7 @@ function RecipeCard({ recipe }) {
 
 export default RecipeCard;
 
-const CardWrapper = styled.a`
+const CardWrapper = styled.div`
   max-width: 783px;
   cursor: pointer;
 `;

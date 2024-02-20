@@ -30,6 +30,5 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   flex: 1;
-  justify-content: center;
   align-items: center;
 `;

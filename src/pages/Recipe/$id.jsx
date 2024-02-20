@@ -80,37 +80,39 @@ function Detailed() {
               <ContentTitle txt={recipeInfo.title} />
               <ContentContent txt={recipeInfo.content} />
 
-              <SubtitleWrapper>
-                <Subtitle>[재료]&nbsp;</Subtitle>
-                <ListWrapper>
-                  {recipeInfo.ingredientList.filter(ingredient => ingredient.name).map((ingredient, index, validIngredient) => (
-                     ingredient.name && (
-                      <ListItem key={index}>
-                        {ingredient.name}
-                        {ingredient.quantity && `: ${ingredient.quantity}`}
-                        {index !== validIngredient.length - 1 && ', '}
-                     </ListItem>
-                     )
-                  ))}
-                </ListWrapper>
-              </SubtitleWrapper>
-
-              <SubtitleWrapper>
-                <Subtitle>[양념]&nbsp;</Subtitle>
-                <ListWrapper>
-                  {recipeInfo.sauceList.filter(sauce => sauce.name).map((sauce, index, validSauce) => (
-                     sauce.name && (
-                      <ListItem key={index}>
-                        {sauce.name}
-                        {sauce.quantity && `: ${sauce.quantity}`}
-                        {index !== validSauce.length - 1 && ', '}
+              <ContentIngredient>
+                <SubtitleWrapper>
+                  <Subtitle>[재료]&nbsp;</Subtitle>
+                  <ListWrapper>
+                    {recipeInfo.ingredientList.filter(ingredient => ingredient.name).map((ingredient, index, validIngredient) => (
+                      ingredient.name && (
+                        <ListItem key={index}>
+                          {ingredient.name}
+                          {ingredient.quantity && `: ${ingredient.quantity}`}
+                          {index !== validIngredient.length - 1 && ', '}
                       </ListItem>
-                     )
-                  ))}
-                </ListWrapper>
+                      )
+                    ))}
+                  </ListWrapper>
+                </SubtitleWrapper>
 
-                
-              </SubtitleWrapper>
+                <SubtitleWrapper>
+                  <Subtitle>[양념]&nbsp;</Subtitle>
+                  <ListWrapper>
+                    {recipeInfo.sauceList.filter(sauce => sauce.name).map((sauce, index, validSauce) => (
+                      sauce.name && (
+                        <ListItem key={index}>
+                          {sauce.name}
+                          {sauce.quantity && `: ${sauce.quantity}`}
+                          {index !== validSauce.length - 1 && ', '}
+                        </ListItem>
+                      )
+                    ))}
+                  </ListWrapper>
+
+                  
+                </SubtitleWrapper>
+              </ContentIngredient>
             </RightWrapper>
           </ContentWrapper>
         ) : (
@@ -169,6 +171,8 @@ const LeftWrapper = styled.div`
 
 const RightWrapper = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Subtitle = styled.div`
@@ -191,14 +195,14 @@ const OrderBox = styled.div`
  background-color: #ffe9c8;
  width: 100%;
  height: 531px; 
- padding: 20px; 
+ padding: 40px; 
  box-sizing: border-box; 
  margin-top: 10px;
 `;
 
 const OrderWrapper = styled.div`
  display: flex;
- align-items: center; 
+ align-items: flex-start;
  justify-content: center; 
  margin-top: 10px;
 `;
@@ -220,4 +224,8 @@ const ListItem = styled.div`
   display: inline;
   font-size: 18px;
   margin-right: 3px;
+`;
+
+const ContentIngredient = styled.div`
+margin-top: auto;
 `;
